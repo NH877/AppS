@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { IProduct } from 'src/app/core/entities';
 import { ProductService } from 'src/app/shared/services/product/product.service';
@@ -19,6 +20,7 @@ export class ProductModifyComponent implements OnInit {
 	constructor(
 		private productService: ProductService,
 		private router: Router,
+		private snackBar: MatSnackBar
 	) { }
 
 	ngOnInit(): void {
@@ -52,9 +54,22 @@ export class ProductModifyComponent implements OnInit {
 				firebaseId: element.docs[0].id,
 			}
 
-			this.productService.modify(product);
+			this.productService.modify(product)
+				.then(() => {
+					this.snackBar.open("Producto modificado", "Cerrar", {
+						duration: 3000,
+						panelClass: ['blue-snackbar']
+					});
+					this.modifiedProduct.emit(product);
+				})
+				.catch( error => {
+					console.log("line 66 - product-modify", error);
+					this.snackBar.open("Error al intentar modificar el producto", "Cerrar", {
+						duration: 3000,
+						panelClass: ['red-snackbar']
+					});
+				});
 
-			this.modifiedProduct.emit(product);
 		})
 		
 	}
