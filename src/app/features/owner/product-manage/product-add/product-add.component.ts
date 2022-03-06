@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { IProduct } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
@@ -17,6 +18,7 @@ export class ProductAddComponent implements OnInit {
 	constructor(
 		private productService: ProductService,
 		private router: Router,
+		private snackBar: MatSnackBar
 	) { }
 
 	ngOnInit(): void {
@@ -46,7 +48,21 @@ export class ProductAddComponent implements OnInit {
 			firebaseTimestamp: Date.now(),
 		}
 
-		this.productService.add(product);
+		this.productService.add(product)
+			.then(() => {
+				this.snackBar.open("Producto agregado", "Cerrar", {
+					duration: 3000,
+					panelClass: ['green-snackbar']
+				});
+				this.router.navigate(['/list-product']);
+			})
+			.catch( error => {
+				console.log("line 60 - product-add", error);
+				this.snackBar.open("Error al intentar agregar el producto", "Cerrar", {
+					duration: 3000,
+					panelClass: ['red-snackbar']
+				});
+			});
 	}
 
 	public home(): void {

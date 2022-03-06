@@ -22,6 +22,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 // FlexLayout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -60,7 +61,8 @@ import { ProductDeleteComponent } from './features/owner/product-manage/product-
 		MatTableModule,
 		MatProgressSpinnerModule,
 		MatDialogModule,
-		MatTooltipModule
+		MatTooltipModule,
+		MatSnackBarModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
