@@ -20,6 +20,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // FlexLayout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -27,7 +28,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 // Components
 import { ProductAddComponent } from './features/owner/product-manage/product-add/product-add.component';
 import { HomeComponent } from './features/owner/home/home.component';
-import { ProductListComponent } from './features/owner/product-manage/product-list/product-list/product-list.component';
+import { ProductListComponent } from './features/owner/product-manage/product-list/product-list.component';
+import { ProductModifyComponent } from './features/owner/product-manage/product-modify/product-modify.component';
 
 
 @NgModule({
@@ -35,7 +37,8 @@ import { ProductListComponent } from './features/owner/product-manage/product-li
     AppComponent,
     ProductAddComponent,
     HomeComponent,
-    ProductListComponent
+    ProductListComponent,
+    ProductModifyComponent
   ],
   imports: [
     BrowserModule,
@@ -52,7 +55,8 @@ import { ProductListComponent } from './features/owner/product-manage/product-li
     MatDividerModule,
     ReactiveFormsModule,
     MatTableModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

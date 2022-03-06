@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutAlign="space-around center" >
-    <mat-card fxLayout="column" fxLayoutAlign="space-around center" style="width: 60%; margin-top: 5rem; background-color: aliceblue;">
+    <mat-card fxLayout="column" fxLayoutAlign="space-around center" style="width: 60%; margin-top: 5rem; background-color: aliceblue;" *ngIf="!modifyProduct">
 
         <h3>Lista de Productos</h3>
 
@@ -39,11 +39,11 @@
                     <th mat-header-cell *matHeaderCellDef> Acciones </th>
                     <td mat-cell *matCellDef="let product">
 
-                        <button mat-icon-button color="accent" style="margin-left: -10px;">
+                        <button mat-icon-button color="accent" style="margin-left: -10px;" (click)="modify(product)">
                             <mat-icon>edit</mat-icon>
                         </button>
 
-                        <button mat-icon-button color="warn">
+                        <button mat-icon-button color="warn" (click)="delete()">
                             <mat-icon>delete_forever</mat-icon>
                         </button>
 
@@ -62,5 +62,8 @@
         </button>
 
     </mat-card>
+
+    <app-product-modify style="width: 100%;" *ngIf="modifyProduct" [productForModify]="productForModify" (modifiedProduct)="modifiedProduct($event)"></app-product-modify>
+
 </div>
 
