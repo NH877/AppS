@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { IProduct } from 'src/app/core/entities';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 
@@ -12,7 +13,10 @@ export class ProductAddComponent implements OnInit {
 
 	public productForm: FormGroup;
 
-	constructor(private productService: ProductService) { }
+	constructor(
+		private productService: ProductService,
+		private router: Router,
+	) { }
 
 	ngOnInit(): void {
 		this.productForm = new FormGroup({
@@ -25,7 +29,6 @@ export class ProductAddComponent implements OnInit {
 		})
 	}
 
-	
 	public addProduct(): void {
 		let product: IProduct = {
 			id: 0,
@@ -35,8 +38,13 @@ export class ProductAddComponent implements OnInit {
 			priceList: this.productForm.get('priceList')?.value,
 			size: this.productForm.get('size')?.value,
 			category: this.productForm.get('category')?.value,
+			firebaseTimestamp: Date.now(),
 		}
 
 		this.productService.add(product);
+	}
+
+	public home(): void {
+		this.router.navigate(['']);
 	}
 }

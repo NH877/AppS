@@ -18,6 +18,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
+import { MatTableModule } from '@angular/material/table';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 // FlexLayout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -25,13 +27,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 // Components
 import { ProductAddComponent } from './features/owner/product-manage/product-add/product-add.component';
 import { HomeComponent } from './features/owner/home/home.component';
+import { ProductListComponent } from './features/owner/product-manage/product-list/product-list/product-list.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     ProductAddComponent,
-    HomeComponent
+    HomeComponent,
+    ProductListComponent
   ],
   imports: [
     BrowserModule,
@@ -46,7 +50,9 @@ import { HomeComponent } from './features/owner/home/home.component';
     MatIconModule,
     FlexLayoutModule,
     MatDividerModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatTableModule,
+    MatProgressSpinnerModule
   ],
   providers: [],
   bootstrap: [AppComponent]

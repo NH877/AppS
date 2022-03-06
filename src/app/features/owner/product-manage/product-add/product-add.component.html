@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutAlign="space-around center" >
     <mat-card fxLayout="column" fxLayoutAlign="space-around center" style="width: 60%; margin-top: 5rem; background-color: aliceblue;" [formGroup]="productForm">
 
-        <h3>Productos</h3>
+        <h3>Alta de Productos</h3>
 
         <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;" style="width: 100%;">
             
@@ -56,6 +56,10 @@
 
         </div>
         
+        <button mat-icon-button color="warn" (click)="home()" style="margin-top: 30px;">
+            <mat-icon>keyboard_return</mat-icon>
+        </button>
+
     </mat-card>
 </div>
 

@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
 	}
 
 	public listProduct(): void {
-		
+		this.router.navigate(['/list-product']);
 	}
 
 }
