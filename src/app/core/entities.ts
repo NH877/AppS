@@ -13,12 +13,18 @@ export interface IProduct extends IFirebaseObject {
     price: number;
     priceList: number;
     size: Size;
-    category: Category;
+    category: ICategory;
 }
 
-export interface Category {
+export interface ICategory {
     id: number;
-    type: Type;
+    type: string;
+}
+
+export interface IClothingStore {
+    id: number;
+    name: string;
+    address: string;
 }
 
 
@@ -27,14 +33,6 @@ export interface Category {
 export enum Gender {
     FEMENINO,
     MASCULINO,
-}
-
-export enum Type {
-    REMERA,
-    PANTALON,
-    TOP,
-    ROPA_INTERIOR,
-    ZAPATILLAS,
 }
 
 export enum Size {
