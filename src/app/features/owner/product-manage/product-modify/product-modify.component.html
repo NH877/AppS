@@ -1,0 +1,72 @@
+<div fxLayout="column" fxLayoutAlign="space-around center" >
+    <mat-card fxLayout="column" fxLayoutAlign="space-around center" style="width: 60%; margin-top: 5rem; background-color: aliceblue;" [formGroup]="productForm">
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
+
+            <button mat-icon-button color="accent" (click)="list()" style="margin-top: -15px;">
+                <mat-icon>list</mat-icon>
+            </button>
+
+            <h3>Modificación de Producto</h3>
+            
+            <button mat-icon-button color="accent" (click)="home()" style="margin-top: -15px;">
+                <mat-icon>home</mat-icon>
+            </button>
+
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;" style="width: 100%;">
+            
+            <mat-divider></mat-divider>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;" style="width: 100%; margin-top: 40px;">
+            
+            <mat-form-field fxFlex="60">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Nombre" formControlName="name">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="15">
+                <mat-label>Precio</mat-label>
+                <input matInput type="number" placeholder="Precio" formControlName="price">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="15">
+                <mat-label>Precio de Lista</mat-label>
+                <input matInput type="number" placeholder="Precio de Lista" formControlName="priceList">
+            </mat-form-field>
+
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 40px;">
+
+            <mat-form-field fxFlex="15">
+                <mat-label>Genero</mat-label>
+                <input matInput placeholder="Genero" formControlName="gender">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="15">
+                <mat-label>Talle</mat-label>
+                <input matInput placeholder="Talle" formControlName="size">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="60">
+                <mat-label>Categoria</mat-label>
+                <input matInput placeholder="Categoria" formControlName="category">
+            </mat-form-field>
+            
+        </div>
+
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 60px;">
+
+            <button mat-button color="accent" (click)="modifyProduct()" [disabled]="!productForm.valid">
+                <mat-icon>edit</mat-icon>
+                <span>Modificar</span>
+            </button>
+
+        </div>
+        
+
+    </mat-card>
+</div>
+
