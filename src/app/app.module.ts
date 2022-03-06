@@ -20,6 +20,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatTableModule } from '@angular/material/table';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 // FlexLayout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -27,34 +29,40 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 // Components
 import { ProductAddComponent } from './features/owner/product-manage/product-add/product-add.component';
 import { HomeComponent } from './features/owner/home/home.component';
-import { ProductListComponent } from './features/owner/product-manage/product-list/product-list/product-list.component';
+import { ProductListComponent } from './features/owner/product-manage/product-list/product-list.component';
+import { ProductModifyComponent } from './features/owner/product-manage/product-modify/product-modify.component';
+import { ProductDeleteComponent } from './features/owner/product-manage/product-delete/product-delete.component';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ProductAddComponent,
-    HomeComponent,
-    ProductListComponent
-  ],
-  imports: [
-    BrowserModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireFunctionsModule,
-    AngularFirestoreModule,
-    AppRoutingModule,
-    BrowserAnimationsModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatIconModule,
-    FlexLayoutModule,
-    MatDividerModule,
-    ReactiveFormsModule,
-    MatTableModule,
-    MatProgressSpinnerModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		ProductAddComponent,
+		HomeComponent,
+		ProductListComponent,
+		ProductModifyComponent,
+		ProductDeleteComponent
+	],
+	imports: [
+		BrowserModule,
+		AngularFireModule.initializeApp(environment.firebaseConfig),
+		AngularFireFunctionsModule,
+		AngularFirestoreModule,
+		AppRoutingModule,
+		BrowserAnimationsModule,
+		MatInputModule,
+		MatCardModule,
+		MatButtonModule,
+		MatIconModule,
+		FlexLayoutModule,
+		MatDividerModule,
+		ReactiveFormsModule,
+		MatTableModule,
+		MatProgressSpinnerModule,
+		MatDialogModule,
+		MatTooltipModule
+	],
+	providers: [],
+	bootstrap: [AppComponent]
 })
 export class AppModule { }

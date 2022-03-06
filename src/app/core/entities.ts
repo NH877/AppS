@@ -7,7 +7,7 @@ export interface IFirebaseObject {
 
 
 export interface IProduct extends IFirebaseObject {
-    id: number;
+    id: string;
     name: string;
     gender: Gender;
     price: number;

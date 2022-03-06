@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { IProduct } from 'src/app/core/entities';
+import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 
 @Component({
@@ -19,6 +20,10 @@ export class ProductAddComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		this.initForm();
+	}
+
+	public initForm(): void {
 		this.productForm = new FormGroup({
 			'name': new FormControl('', [Validators.required, Validators.maxLength(25), Validators.minLength(4)]),
 			'gender': new FormControl('', [Validators.required]),
@@ -31,7 +36,7 @@ export class ProductAddComponent implements OnInit {
 
 	public addProduct(): void {
 		let product: IProduct = {
-			id: 0,
+			id: CoreHelper.generateIdDate(),
 			name: this.productForm.get('name')?.value,
 			gender: this.productForm.get('gender')?.value,
 			price: this.productForm.get('price')?.value,

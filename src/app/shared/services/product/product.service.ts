@@ -14,6 +14,10 @@ export class ProductService {
         return this.db.collection('product', ref => ref.orderBy('firebaseTimestamp','asc'));
     }
 
+    public getById(id: string): AngularFirestoreCollection<unknown> {
+        return this.db.collection('product', ref => ref.where('id','==',id))
+	}
+
 	public add(product: IProduct): Promise<unknown> {
 		return this.db.collection('product').add(CoreHelper.convertToObject(product));
 	}
