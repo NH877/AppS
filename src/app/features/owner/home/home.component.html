@@ -1,0 +1,27 @@
+<div fxLayout="column" fxLayoutAlign="space-around center" >
+    <mat-card fxLayout="column" fxLayoutAlign="space-around center" style="width: 700px; margin-top: 5rem; background-color: aliceblue;">
+
+        <h3>Productos</h3>
+        
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;" style="width: 100%;">
+            <mat-divider></mat-divider>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 40px;">
+
+            <button mat-button color="primary" (click)="addProduct()">
+                <mat-icon>add</mat-icon>
+                <span>Agregar</span>
+            </button>
+
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 20px;">
+
+            <button mat-button color="primary" (click)="listProduct()">
+                <mat-icon>list</mat-icon>
+                <span>Lista</span>
+            </button>
+
+        </div>
+
+    </mat-card>
+</div>
