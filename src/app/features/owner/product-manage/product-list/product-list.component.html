@@ -1,7 +1,11 @@
 <div fxLayout="column" fxLayoutAlign="space-around center" >
     <mat-card fxLayout="column" fxLayoutAlign="space-around center" style="width: 60%; margin-top: 5rem; background-color: aliceblue;" *ngIf="!modifyProduct">
 
-        <h3>Lista de Productos</h3>
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
+
+            <h3>Lista de Productos</h3>
+
+        </div>
 
         <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;" style="width: 100%;">
             
@@ -13,7 +17,7 @@
 
             <mat-spinner *ngIf="loading" diameter="60" style="margin-bottom: 20px;" color="accent"></mat-spinner>
 
-            <table mat-table [dataSource]="productDataSource" class="mat-elevation-z8" *ngIf="!loading" style="width: 100%; margin-bottom: 20px;">
+            <table mat-table [dataSource]="productDataSource" class="mat-elevation-z8" *ngIf="areThereItemsInTheList()" style="width: 100%; margin-bottom: 20px;">
 
                 <ng-container matColumnDef="name">
                   <th mat-header-cell *matHeaderCellDef> Nombre </th>
@@ -43,7 +47,7 @@
                             <mat-icon>edit</mat-icon>
                         </button>
 
-                        <button mat-icon-button color="warn" (click)="delete()">
+                        <button mat-icon-button color="warn" (click)="delete(product)">
                             <mat-icon>delete_forever</mat-icon>
                         </button>
 
@@ -55,6 +59,13 @@
             
             </table>
 
+            <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; margin-bottom: 40px;" *ngIf="emptyList && !loading">
+
+                <button mat-icon-button color="accent" matTooltip="La lista esta vacia">
+                    <mat-icon>sentiment_dissatisfied</mat-icon>
+                </button>
+                
+            </div>
         </div>
 
         <button mat-icon-button color="warn" (click)="home()">

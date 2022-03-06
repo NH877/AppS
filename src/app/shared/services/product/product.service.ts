@@ -14,7 +14,7 @@ export class ProductService {
         return this.db.collection('product', ref => ref.orderBy('firebaseTimestamp','asc'));
     }
 
-    public getById(id: number): AngularFirestoreCollection<unknown> {
+    public getById(id: string): AngularFirestoreCollection<unknown> {
         return this.db.collection('product', ref => ref.where('id','==',id))
 	}
 

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { IProduct } from 'src/app/core/entities';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 import { ProductAddComponent } from '../product-add/product-add.component';
+import { ProductDeleteComponent } from '../product-delete/product-delete.component';
 
 @Component({
 	selector: 'app-product-list',
@@ -20,6 +21,7 @@ export class ProductListComponent implements OnInit {
 	
 	public modifyProduct: boolean = false;
 
+	public emptyList: boolean = true;
 	public loading: boolean = true;
 
 	constructor(
@@ -39,13 +41,31 @@ export class ProductListComponent implements OnInit {
 		})
 	}
 
+	public areThereItemsInTheList(): boolean {
+		if(this.loading)
+			return false;
+		else if(this.productDataSource.data.length == 0){
+			this.emptyList = true;
+			return false;
+		}
+		else{
+			this.emptyList = false;
+			return true;
+		}
+
+	}
+
 	public modify(product: any): void {
 		this.productForModify = (product as IProduct);
 		this.modifyProduct = true;
 	}
 
-	public delete(): void {
-		this.router.navigate(['/modify-product']);
+	public delete(product: any): void {
+		const dialogRef = this.dialog.open(ProductDeleteComponent, {
+			width: '700px',
+			data: product as IProduct,
+			autoFocus: false,
+		  });
 	}
 
 	public home(): void {

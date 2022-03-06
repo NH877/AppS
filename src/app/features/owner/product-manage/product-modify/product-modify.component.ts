@@ -22,6 +22,10 @@ export class ProductModifyComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		this.initForm();
+	}
+
+	public initForm(): void {
 		this.productForm = new FormGroup({
 			'name': new FormControl(this.productForModify.name, [Validators.required, Validators.maxLength(25), Validators.minLength(4)]),
 			'gender': new FormControl(this.productForModify.gender, [Validators.required]),
@@ -37,7 +41,7 @@ export class ProductModifyComponent implements OnInit {
 		this.productService.getById(this.productForModify.id).get().subscribe(element => {
 
 			let product: IProduct = {
-				id: 0,
+				id: this.productForModify.id,
 				name: this.productForm.get('name')?.value,
 				gender: this.productForm.get('gender')?.value,
 				price: this.productForm.get('price')?.value,
