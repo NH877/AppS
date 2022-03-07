@@ -23,6 +23,8 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatSortModule } from '@angular/material/sort';
+import {MatPaginatorModule} from '@angular/material/paginator';
 
 // FlexLayout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -62,7 +64,9 @@ import { ProductDeleteComponent } from './features/owner/product-manage/product-
 		MatProgressSpinnerModule,
 		MatDialogModule,
 		MatTooltipModule,
-		MatSnackBarModule
+		MatSortModule,
+		MatSnackBarModule,
+		MatPaginatorModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

@@ -37,7 +37,7 @@ export class ProductAddComponent implements OnInit {
 	}
 
 	public addProduct(): void {
-		let product: IProduct = {
+	/*	let product: IProduct = {
 			id: CoreHelper.generateIdDate(),
 			name: this.productForm.get('name')?.value,
 			gender: this.productForm.get('gender')?.value,
@@ -62,7 +62,7 @@ export class ProductAddComponent implements OnInit {
 					duration: 3000,
 					panelClass: ['red-snackbar']
 				});
-			});
+			});*/
 	}
 
 	public home(): void {
