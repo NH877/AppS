@@ -26,18 +26,18 @@ export class ProductDeleteComponent implements OnInit {
 	}
 
 	public initForm(): void {
-		this.productForm = new FormGroup({
+	/*	this.productForm = new FormGroup({
 			'name': new FormControl({value: this.data.name, disabled: true}),
 			'gender': new FormControl({value: this.data.gender, disabled: true}),
             'price': new FormControl({value: this.data.price, disabled: true}),
             'priceList': new FormControl({value: this.data.priceList, disabled: true}),
             'size': new FormControl({value: this.data.size, disabled: true}),
             'category': new FormControl({value: this.data.category, disabled: true}),
-		})
+		})*/
 	}
 
 	public delete(): void {
-		this.productService.getById(this.data.id).get().subscribe(element => {
+		/*this.productService.getById(this.data.id).get().subscribe(element => {
 
 			let product: IProduct = {
 				id: this.data.id,
@@ -69,7 +69,7 @@ export class ProductDeleteComponent implements OnInit {
 					this.dialogRef.close();
 				})
 
-		})
+		})*/
 
 	}
 

@@ -28,19 +28,19 @@ export class ProductModifyComponent implements OnInit {
 	}
 
 	public initForm(): void {
-		this.productForm = new FormGroup({
+		/**this.productForm = new FormGroup({
 			'name': new FormControl(this.productForModify.name, [Validators.required, Validators.maxLength(25), Validators.minLength(4)]),
 			'gender': new FormControl(this.productForModify.gender, [Validators.required]),
 			'price': new FormControl(this.productForModify.price, [Validators.required]),
 			'priceList': new FormControl(this.productForModify.priceList, [Validators.required]),
 			'size': new FormControl(this.productForModify.size, [Validators.required]),
 			'category': new FormControl(this.productForModify.category, [Validators.required]),
-		})
+		})*/
 	}
 
 	public modifyProduct(): void {
 
-		this.productService.getById(this.productForModify.id).get().subscribe(element => {
+		/*this.productService.getById(this.productForModify.id).get().subscribe(element => {
 
 			let product: IProduct = {
 				id: this.productForModify.id,
@@ -71,7 +71,7 @@ export class ProductModifyComponent implements OnInit {
 				});
 
 		})
-		
+		*/
 	}
 
 	public home(): void {

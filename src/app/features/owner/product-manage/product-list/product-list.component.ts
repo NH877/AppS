@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { IProduct } from 'src/app/core/entities';
@@ -13,16 +15,19 @@ import { ProductDeleteComponent } from '../product-delete/product-delete.compone
 	styleUrls: ['./product-list.component.scss']
 })
 export class ProductListComponent implements OnInit {
- 
+
 	public productDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-	public displayedColumns: string[] = ['name', 'price', 'priceList', 'gender', 'action'];
+	public displayedColumns: string[] = ['name', 'cost', 'listPrice', 'salePrice', 'action'];
 
 	public productForModify: IProduct;
-	
+
 	public modifyProduct: boolean = false;
 
 	public emptyList: boolean = true;
 	public loading: boolean = true;
+	@ViewChild(MatPaginator) paginator: MatPaginator;
+	@ViewChild(MatSort) sort: MatSort;
+
 
 	constructor(
 		private productService: ProductService,
@@ -37,18 +42,20 @@ export class ProductListComponent implements OnInit {
 	private getListProduct(): void {
 		this.productService.getAll().valueChanges().subscribe(products => {
 			this.productDataSource.data = products;
+			this.productDataSource.paginator = this.paginator;
+			this.productDataSource.sort = this.sort;
 			this.loading = false;
 		})
 	}
 
 	public areThereItemsInTheList(): boolean {
-		if(this.loading)
+		if (this.loading)
 			return false;
-		else if(this.productDataSource.data.length == 0){
+		else if (this.productDataSource.data.length == 0) {
 			this.emptyList = true;
 			return false;
 		}
-		else{
+		else {
 			this.emptyList = false;
 			return true;
 		}
@@ -65,7 +72,7 @@ export class ProductListComponent implements OnInit {
 			width: '700px',
 			data: product as IProduct,
 			autoFocus: false,
-		  });
+		});
 	}
 
 	public home(): void {
@@ -73,8 +80,16 @@ export class ProductListComponent implements OnInit {
 	}
 
 	public modifiedProduct(event: IProduct): void {
-		this.productDataSource.data.find(product => product.id == event.id ? product = event: null);
+		this.productDataSource.data.find(product => product.id == event.id ? product = event : null);
 		this.modifyProduct = false;
+	}
+
+	applyFilter(event: Event) {
+		const filterValue = (event.target as HTMLInputElement).value;
+		this.productDataSource.filter = filterValue.trim().toLowerCase();
+		if (this.productDataSource.paginator) {
+			this.productDataSource.paginator.firstPage();
+		}
 	}
 
 }
