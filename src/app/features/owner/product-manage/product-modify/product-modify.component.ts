@@ -28,32 +28,30 @@ export class ProductModifyComponent implements OnInit {
 	}
 
 	public initForm(): void {
-		/**this.productForm = new FormGroup({
+		this.productForm = new FormGroup({
 			'name': new FormControl(this.productForModify.name, [Validators.required, Validators.maxLength(25), Validators.minLength(4)]),
-			'gender': new FormControl(this.productForModify.gender, [Validators.required]),
-			'price': new FormControl(this.productForModify.price, [Validators.required]),
-			'priceList': new FormControl(this.productForModify.priceList, [Validators.required]),
-			'size': new FormControl(this.productForModify.size, [Validators.required]),
-			'category': new FormControl(this.productForModify.category, [Validators.required]),
-		})*/
+			'cost': new FormControl(this.productForModify.cost, [Validators.required]),
+			'salePrice': new FormControl(this.productForModify.salePrice),
+			'listPrice': new FormControl(this.productForModify.listPrice, [Validators.required]),
+			'stockSize': new FormControl(this.productForModify.stockSize, [Validators.required]),
+		})
 	}
-
+			
 	public modifyProduct(): void {
-
-		/*this.productService.getById(this.productForModify.id).get().subscribe(element => {
+		this.productService.getById(this.productForModify.id).get().subscribe(element => {
 
 			let product: IProduct = {
 				id: this.productForModify.id,
 				name: this.productForm.get('name')?.value,
-				gender: this.productForm.get('gender')?.value,
-				price: this.productForm.get('price')?.value,
-				priceList: this.productForm.get('priceList')?.value,
-				size: this.productForm.get('size')?.value,
-				category: this.productForm.get('category')?.value,
+				cost: this.productForm.get('cost')?.value,
+				salePrice: this.productForm.get('salePrice')?.value,
+				listPrice: this.productForm.get('listPrice')?.value,
+				stockSize: this.productForm.get('stockSize')?.value,
+				img: this.productForm.get('img')?.value,
 				firebaseTimestamp: Date.now(),
 				firebaseId: element.docs[0].id,
 			}
-
+			
 			this.productService.modify(product)
 				.then(() => {
 					this.snackBar.open("Producto modificado", "Cerrar", {
@@ -63,7 +61,7 @@ export class ProductModifyComponent implements OnInit {
 					this.modifiedProduct.emit(product);
 				})
 				.catch( error => {
-					console.log("line 66 - product-modify", error);
+					console.log("line 63 - product-modify", error);
 					this.snackBar.open("Error al intentar modificar el producto", "Cerrar", {
 						duration: 3000,
 						panelClass: ['red-snackbar']
@@ -71,7 +69,7 @@ export class ProductModifyComponent implements OnInit {
 				});
 
 		})
-		*/
+		
 	}
 
 	public home(): void {

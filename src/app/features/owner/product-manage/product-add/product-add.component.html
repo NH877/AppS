@@ -3,63 +3,60 @@
 
         <h3>Alta de Productos</h3>
 
-        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;" style="width: 100%;">
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
             
             <mat-divider></mat-divider>
 
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="space-around center"  style="width: 100%; margin-top: 40px;">
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 40px;">
             
-            <mat-form-field fxFlex="60">
+            <mat-form-field fxFlex="90">
                 <mat-label>Nombre</mat-label>
                 <input matInput placeholder="Nombre" formControlName="name">
             </mat-form-field>
+        </div>    
 
-            <mat-form-field fxFlex="15">
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 40px;">
+            <mat-form-field fxFlex="20">
                 <mat-label>Precio</mat-label>
-                <input matInput type="number" placeholder="Precio" formControlName="price">
+                <input matInput type="number" placeholder="Precio" formControlName="cost">
             </mat-form-field>
 
-            <mat-form-field fxFlex="15">
+            <mat-form-field fxFlex="20">
                 <mat-label>Precio de Lista</mat-label>
-                <input matInput type="number" placeholder="Precio de Lista" formControlName="priceList">
+                <input matInput type="number" placeholder="Precio de Lista" formControlName="listPrice">
+            </mat-form-field>
+
+            <mat-form-field fxFlex="20">
+                <mat-label>Precio de venta</mat-label>
+                <input matInput type="number" placeholder="Precio de venta" formControlName="salePrice">
             </mat-form-field>
 
         </div>
 
         <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 40px;">
 
-            <mat-form-field fxFlex="15">
-                <mat-label>Genero</mat-label>
-                <input matInput placeholder="Genero" formControlName="gender">
-            </mat-form-field>
-
-            <mat-form-field fxFlex="15">
+            <mat-form-field fxFlex="40">
                 <mat-label>Talle</mat-label>
-                <input matInput placeholder="Talle" formControlName="size">
-            </mat-form-field>
-
-            <mat-form-field fxFlex="60">
-                <mat-label>Categoria</mat-label>
-                <input matInput placeholder="Categoria" formControlName="category">
+                <input matInput placeholder="Talle" formControlName="stockSize">
             </mat-form-field>
             
         </div>
-
+            
         <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 60px;">
 
             <button mat-button color="accent" (click)="addProduct()" [disabled]="!productForm.valid">
                 <mat-icon>add</mat-icon>
                 <span>Agregar</span>
             </button>
-
+            
         </div>
-        
+          
         <button mat-icon-button color="warn" (click)="home()" style="margin-top: 30px;">
             <mat-icon>keyboard_return</mat-icon>
         </button>
 
     </mat-card>
-</div>
 
+</div>
