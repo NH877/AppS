@@ -28,11 +28,11 @@ export class ProductDeleteComponent implements OnInit {
 	public initForm(): void {
 		this.productForm = new FormGroup({
 			'name': new FormControl({value: this.data.name, disabled: true}),
-			'gender': new FormControl({value: this.data.gender, disabled: true}),
-            'price': new FormControl({value: this.data.price, disabled: true}),
-            'priceList': new FormControl({value: this.data.priceList, disabled: true}),
-            'size': new FormControl({value: this.data.size, disabled: true}),
-            'category': new FormControl({value: this.data.category, disabled: true}),
+			'cost': new FormControl({value: this.data.cost, disabled: true}),
+            'salePrice': new FormControl({value: this.data.salePrice, disabled: true}),
+            'listPrice': new FormControl({value: this.data.listPrice, disabled: true}),
+            'stockSize': new FormControl({value: this.data.stockSize, disabled: true}),
+            
 		})
 	}
 
@@ -42,11 +42,11 @@ export class ProductDeleteComponent implements OnInit {
 			let product: IProduct = {
 				id: this.data.id,
 				name: this.productForm.get('name')?.value,
-				gender: this.productForm.get('gender')?.value,
-				price: this.productForm.get('price')?.value,
-				priceList: this.productForm.get('priceList')?.value,
-				size: this.productForm.get('size')?.value,
-				category: this.productForm.get('category')?.value,
+				cost: this.productForm.get('cost')?.value,
+				salePrice: this.productForm.get('salePrice')?.value,
+				listPrice: this.productForm.get('listPrice')?.value,
+				stockSize: this.productForm.get('stockSize')?.value,
+				img: this.productForm.get('img')?.value,
 				firebaseTimestamp: Date.now(),
 				firebaseId: element.docs[0].id,
 			}

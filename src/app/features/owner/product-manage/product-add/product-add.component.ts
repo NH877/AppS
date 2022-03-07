@@ -28,44 +28,47 @@ export class ProductAddComponent implements OnInit {
 	public initForm(): void {
 		this.productForm = new FormGroup({
 			'name': new FormControl('', [Validators.required, Validators.maxLength(25), Validators.minLength(4)]),
-			'gender': new FormControl('', [Validators.required]),
-            'price': new FormControl(null, [Validators.required]),
-            'priceList': new FormControl(null, [Validators.required]),
-            'size': new FormControl(null, [Validators.required]),
-            'category': new FormControl(null, [Validators.required]),
+            'cost': new FormControl(null, [Validators.required]),
+            'salePrice': new FormControl(null, [Validators.required]),
+            'listPrice': new FormControl(null, [Validators.required]),
+			'stockSize': new FormControl(null, [Validators.required]),
 		})
 	}
-
+            
 	public addProduct(): void {
 		let product: IProduct = {
 			id: CoreHelper.generateIdDate(),
 			name: this.productForm.get('name')?.value,
-			gender: this.productForm.get('gender')?.value,
-			price: this.productForm.get('price')?.value,
-			priceList: this.productForm.get('priceList')?.value,
-			size: this.productForm.get('size')?.value,
-			category: this.productForm.get('category')?.value,
+			cost: this.productForm.get('cost')?.value,
+			salePrice: this.productForm.get('salePrice')?.value,
+			listPrice: this.productForm.get('listPrice')?.value,
+			stockSize: this.productForm.get('stockSize')?.value,
+			img: this.productForm.get('img')?.value,
 			firebaseTimestamp: Date.now(),
 		}
-
+	
 		this.productService.add(product)
 			.then(() => {
 				this.snackBar.open("Producto agregado", "Cerrar", {
 					duration: 3000,
 					panelClass: ['green-snackbar']
 				});
+			
 				this.router.navigate(['/list-product']);
 			})
+			
 			.catch( error => {
-				console.log("line 60 - product-add", error);
+				console.log("line 61 - product-add", error);
 				this.snackBar.open("Error al intentar agregar el producto", "Cerrar", {
 					duration: 3000,
 					panelClass: ['red-snackbar']
 				});
 			});
+			
 	}
 
 	public home(): void {
 		this.router.navigate(['']);
 	}
+
 }
