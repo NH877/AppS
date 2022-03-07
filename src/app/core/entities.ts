@@ -9,30 +9,24 @@ export interface IFirebaseObject {
 export interface IProduct extends IFirebaseObject {
     id: string;
     name: string;
-    gender: Gender;
-    price: number;
-    priceList: number;
+    cost: number;
+    salePrice: number;
+    listPrice: number;
+    stockSize: StockSize[];
+    img: string[];
+    local: Store;
+}
+export interface StockSize {
     size: Size;
-    category: ICategory;
+    stock: number;
 }
-
-export interface ICategory {
-    id: number;
-    type: string;
-}
-
-export interface IClothingStore {
-    id: number;
-    name: string;
-    address: string;
-}
-
 
 /*----------------------------------------------- enums ----------------------------------------------------*/
 
-export enum Gender {
-    FEMENINO,
-    MASCULINO,
+export enum Store {
+    STORE_A,
+    STORE_B,
+    STORE_C
 }
 
 export enum Size {
@@ -41,4 +35,5 @@ export enum Size {
     M,
     L,
     XL,
+    XXL
 }
