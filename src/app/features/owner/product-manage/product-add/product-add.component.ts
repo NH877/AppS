@@ -64,7 +64,6 @@ export class ProductAddComponent implements OnInit {
 					panelClass: ['red-snackbar']
 				});
 			});
-			
 	}
 
 	public home(): void {

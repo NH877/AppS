@@ -39,6 +39,7 @@ export class ProductModifyComponent implements OnInit {
 			
 	public modifyProduct(): void {
 		this.productService.getById(this.productForModify.id).get().subscribe(element => {
+
 			let product: IProduct = {
 				id: this.productForModify.id,
 				name: this.productForm.get('name')?.value,
