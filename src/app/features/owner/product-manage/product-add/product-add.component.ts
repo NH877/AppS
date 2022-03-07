@@ -70,4 +70,8 @@ export class ProductAddComponent implements OnInit {
 		this.router.navigate(['']);
 	}
 
+	public list(): void {
+		this.router.navigate(['/list-product']);
+	}
+
 }
