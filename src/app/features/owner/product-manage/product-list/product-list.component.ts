@@ -20,14 +20,13 @@ export class ProductListComponent implements OnInit {
 	public displayedColumns: string[] = ['name', 'cost', 'listPrice', 'salePrice', 'action'];
 
 	public productForModify: IProduct;
-
 	public modifyProduct: boolean = false;
 
 	public emptyList: boolean = true;
 	public loading: boolean = true;
+
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
-
 
 	constructor(
 		private productService: ProductService,
@@ -48,19 +47,19 @@ export class ProductListComponent implements OnInit {
 		})
 	}
 
-	public areThereItemsInTheList(): boolean {
-		if (this.loading)
-			return false;
-		else if (this.productDataSource.data.length == 0) {
-			this.emptyList = true;
-			return false;
-		}
-		else {
-			this.emptyList = false;
-			return true;
-		}
+	// public areThereItemsInTheList(): boolean {
+	// 	if (this.loading)
+	// 		return false;
+	// 	else if (this.productDataSource.data.length == 0) {
+	// 		this.emptyList = true;
+	// 		return false;
+	// 	}
+	// 	else {
+	// 		this.emptyList = false;
+	// 		return true;
+	// 	}
 
-	}
+	// }
 
 	public modify(product: any): void {
 		this.productForModify = (product as IProduct);
@@ -79,17 +78,23 @@ export class ProductListComponent implements OnInit {
 		this.router.navigate(['']);
 	}
 
+	public add(): void {
+		this.router.navigate(['/add-product']);
+	}
+
 	public modifiedProduct(event: IProduct): void {
 		this.productDataSource.data.find(product => product.id == event.id ? product = event : null);
 		this.modifyProduct = false;
 	}
 
-	applyFilter(event: Event) {
+	public applyFilter(event: Event): void {
+		
 		const filterValue = (event.target as HTMLInputElement).value;
 		this.productDataSource.filter = filterValue.trim().toLowerCase();
-		if (this.productDataSource.paginator) {
+
+		if (this.productDataSource.paginator) 
 			this.productDataSource.paginator.firstPage();
-		}
+		
 	}
 
 }
