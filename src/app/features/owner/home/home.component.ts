@@ -21,4 +21,7 @@ export class HomeComponent implements OnInit {
 		this.router.navigate(['/list-product']);
 	}
 
+	public listSales(): void {
+		this.router.navigate(['/sale-history'])
+	}
 }
