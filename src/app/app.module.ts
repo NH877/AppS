@@ -24,7 +24,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
-import {MatPaginatorModule} from '@angular/material/paginator';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 // FlexLayout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -35,6 +35,7 @@ import { HomeComponent } from './features/owner/home/home.component';
 import { ProductListComponent } from './features/owner/product-manage/product-list/product-list.component';
 import { ProductModifyComponent } from './features/owner/product-manage/product-modify/product-modify.component';
 import { ProductDeleteComponent } from './features/owner/product-manage/product-delete/product-delete.component';
+import { SaleHistoryComponent } from './features/owner/sale-manage/sale-history/sale-history.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { ProductDeleteComponent } from './features/owner/product-manage/product-
 		HomeComponent,
 		ProductListComponent,
 		ProductModifyComponent,
-		ProductDeleteComponent
+		ProductDeleteComponent,
+		SaleHistoryComponent
 	],
 	imports: [
 		BrowserModule,
