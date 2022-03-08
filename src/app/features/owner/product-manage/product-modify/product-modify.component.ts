@@ -50,6 +50,7 @@ export class ProductModifyComponent implements OnInit {
 				img: this.productForm.get('img')?.value,
 				firebaseTimestamp: Date.now(),
 				firebaseId: element.docs[0].id,
+				disabled: false,
 			}
 			
 			this.productService.modify(product)

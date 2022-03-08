@@ -45,6 +45,7 @@ export class ProductAddComponent implements OnInit {
 			stockSize: this.productForm.get('stockSize')?.value,
 			img: this.productForm.get('img')?.value,
 			firebaseTimestamp: Date.now(),
+			disabled: false,
 		}
 	
 		this.productService.add(product)
