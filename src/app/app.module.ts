@@ -46,7 +46,7 @@ import { SaleHistoryComponent } from './features/owner/sale-manage/sale-history/
 		ProductListComponent,
 		ProductModifyComponent,
 		ProductDeleteComponent,
-		SaleHistoryComponent
+		SaleHistoryComponent,
 	],
 	imports: [
 		BrowserModule,
