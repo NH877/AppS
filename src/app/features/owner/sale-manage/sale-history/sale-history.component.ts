@@ -4,8 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { IProduct, ISale } from 'src/app/core/entities';
-import { ProductService } from 'src/app/shared/services/product/product.service';
+import { ISale } from 'src/app/core/entities';
 import { SaleHistoryService } from 'src/app/shared/services/sale-history/sale-history.service';
 
 @Component({
