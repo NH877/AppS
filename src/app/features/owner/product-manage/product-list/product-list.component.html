@@ -82,7 +82,7 @@
 
                     <ng-container matColumnDef="expandedDetail">
                         <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-                            <div class="example-element-detail"[@detailExpand]="test(element)">
+                            <div class="example-element-detail"[@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                                 <div fxLayout="row" fxLayoutAlign="space-around center" >
                                 <img src='assets/buzo.jpg' class='imgRedonda'/>   
                                 <img src='assets/size-xs.png'class='img-sizes'/>
