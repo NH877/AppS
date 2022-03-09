@@ -43,7 +43,7 @@
             
             <div class="w-100 mat-elevation-z8">
                 
-                <table mat-table [dataSource]="productDataSource" class="w-100" matSort>
+                <table mat-table [dataSource]="productDataSource" class="w-100" matSort multiTemplateDataRows>
 
                     <ng-container matColumnDef="name">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
@@ -80,8 +80,36 @@
                         </td>
                     </ng-container>
 
+                    <ng-container matColumnDef="expandedDetail">
+                        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+                            <div class="example-element-detail"[@detailExpand]="test(element)">
+                                <div fxLayout="row" fxLayoutAlign="space-around center" >
+                                <img src='assets/buzo.jpg' class='imgRedonda'/>   
+                                <img src='assets/size-xs.png'class='img-sizes'/>
+                                <img src='assets/size-s.png' class='img-sizes'/>
+                                <img src='assets/size-m.png' class='img-sizes'/>
+                                <img src='assets/size-l.png' class='img-sizes'/>
+                                <img src='assets/size-xl.png' class='img-sizes'/>
+                                <img src='assets/size-xxl.png' class='img-sizes'/>
+                                <mat-form-field appearance="outline" fxFlex="20" style="margin-top: 18px; pointer-events: none;">
+                                    <mat-label>Stock</mat-label> 
+                                    <input matInput  placeholder="Stock segun talle" value="{{element.stockSize.stock}}" readonly #input> 
+                                    <mat-icon matSuffix>inventory</mat-icon>
+                                </mat-form-field>
+                                
+                                </div>
+
+                          </div>
+                        </td>
+                    </ng-container>
+                    
+
                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+                    [class.example-expanded-row]="expandedElement === element"
+                    (click)="expandedElement = expandedElement === element ? null : element"
+                    class="example-element-row"></tr>
+                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
                 
                 </table>
 
