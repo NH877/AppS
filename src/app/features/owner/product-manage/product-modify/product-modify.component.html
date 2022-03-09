@@ -20,42 +20,41 @@
 
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 40px;">
+        <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100 m-top-40">
             
-            <mat-form-field fxFlex="90">
+            <mat-form-field fxFlex="80">
                 <mat-label>Nombre</mat-label>
                 <input matInput placeholder="Nombre" formControlName="name">
             </mat-form-field>
+
+            <mat-form-field fxFlex="13">
+                <mat-label>Talle</mat-label>
+                <input matInput placeholder="Talle" formControlName="stockSize">
+            </mat-form-field>
+
         </div>
         
-        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 40px;">
+        <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
             
-            <mat-form-field fxFlex="20">
+            <mat-form-field fxFlex="30">
                 <mat-label>Precio</mat-label>
                 <input matInput type="number" placeholder="Precio" formControlName="cost">
             </mat-form-field>
 
-            <mat-form-field fxFlex="20">
+            <mat-form-field fxFlex="30">
                 <mat-label>Precio de Lista</mat-label>
                 <input matInput type="number" placeholder="Precio de Lista" formControlName="listPrice">
             </mat-form-field>
 
-            <mat-form-field fxFlex="20">
+            <mat-form-field fxFlex="30">
                 <mat-label>Precio de venta</mat-label>
                 <input matInput type="number" placeholder="Precio de venta" formControlName="salePrice">
             </mat-form-field>
 
+
         </div>
 
-        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 40px;">
-
-            <mat-form-field fxFlex="15">
-                <mat-label>Talle</mat-label>
-                <input matInput placeholder="Talle" formControlName="stockSize">
-            </mat-form-field>
-            
-        </div>
-
+        
         <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 60px;">
 
             <button mat-button color="accent" (click)="modifyProduct()" [disabled]="!productForm.valid">
