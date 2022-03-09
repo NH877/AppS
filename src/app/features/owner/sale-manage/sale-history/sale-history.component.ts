@@ -15,7 +15,7 @@ import { SaleHistoryService } from 'src/app/shared/services/sale-history/sale-hi
 export class SaleHistoryComponent implements OnInit {
 
 	public saleDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-	public displayedColumns: string[] = ['name', 'cost', 'listPrice', 'salePrice', 'local'];
+	public displayedColumns: string[] = ['name', 'cost', 'listPrice', 'salePrice', 'size', 'local'];
 
 	public productSale: ISale;
 

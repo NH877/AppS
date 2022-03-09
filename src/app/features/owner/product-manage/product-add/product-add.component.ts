@@ -59,7 +59,7 @@ export class ProductAddComponent implements OnInit {
 			})
 			
 			.catch( error => {
-				console.log("line 61 - product-add", error);
+				console.log("line 62 - product-add", error);
 				this.snackBar.open("Error al intentar agregar el producto", "Cerrar", {
 					duration: 3000,
 					panelClass: ['red-snackbar']

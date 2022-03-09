@@ -60,7 +60,7 @@ export class ProductDeleteComponent implements OnInit {
 					});
 				})
 				.catch( error => {
-					console.log("line 62 - product-add", error);
+					console.log("line 63 - product-add", error);
 					this.snackBar.open("Error al intentar eliminar el producto", "Cerrar", {
 						duration: 3000,
 						panelClass: ['red-snackbar']

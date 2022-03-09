@@ -62,7 +62,7 @@ export class ProductModifyComponent implements OnInit {
 					this.modifiedProduct.emit(product);
 				})
 				.catch( error => {
-					console.log("line 63 - product-modify", error);
+					console.log("line 65 - product-modify", error);
 					this.snackBar.open("Error al intentar modificar el producto", "Cerrar", {
 						duration: 3000,
 						panelClass: ['red-snackbar']
