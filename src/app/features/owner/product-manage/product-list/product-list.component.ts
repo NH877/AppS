@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { IProduct } from 'src/app/core/entities';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 import { ProductDeleteComponent } from '../product-delete/product-delete.component';
-import {animate, state, style, transition, trigger} from '@angular/animations';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
