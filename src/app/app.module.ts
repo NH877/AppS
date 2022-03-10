@@ -25,6 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSelectModule } from '@angular/material/select';
 
 // FlexLayout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -68,7 +69,8 @@ import { SaleHistoryComponent } from './features/owner/sale-manage/sale-history/
 		MatTooltipModule,
 		MatSortModule,
 		MatSnackBarModule,
-		MatPaginatorModule
+		MatPaginatorModule,
+		MatSelectModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

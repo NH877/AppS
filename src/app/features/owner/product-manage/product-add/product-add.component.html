@@ -9,7 +9,7 @@
             </button>
 
             <h3>Alta de Productos</h3>
-            
+
             <button mat-icon-button color="accent" (click)="home()" style="margin-top: -15px;">
                 <mat-icon>home</mat-icon>
             </button>
@@ -17,27 +17,32 @@
         </div>
 
         <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
-            
+
             <mat-divider></mat-divider>
 
         </div>
 
         <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100 m-top-40">
-            
+
             <mat-form-field fxFlex="80">
                 <mat-label>Nombre</mat-label>
                 <input matInput placeholder="Nombre" formControlName="name">
             </mat-form-field>
 
-            <mat-form-field fxFlex="13">
-                <mat-label>Talle</mat-label>
-                <input matInput placeholder="Talle" formControlName="stockSize">
-            </mat-form-field>
 
-        </div>    
+            <button mat-raised-button color="accent" class="btn-submit w-100" (click)="fileInput.click()">
+                <mat-icon>file_upload</mat-icon> ADJUNTAR ARCHIVOS
+            </button>
+
+            <input accept=".png,.jpg,.jpeg,.gif,.mp4,.mov,.wmv,.heic" multiple type="file" id="inputFile" #fileInput
+                style="display: none;" (change)="onFileSelected($event)">
+
+
+
+        </div>
 
         <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
-            
+
             <mat-form-field fxFlex="30">
                 <mat-label>Precio</mat-label>
                 <input matInput type="number" placeholder="Precio" formControlName="cost">
@@ -54,14 +59,65 @@
             </mat-form-field>
 
         </div>
+
+        <mat-card fxLayout="column" fxLayoutAlign="space-around center" class="w-100">
+
+            <h3>Talles y Stock</h3>
+
+            <div fxLayout="row" fxLayoutAlign="space-around center" >
+               
+                <img src='assets/size-xs.png' class='img-sizes' width="114" height="114" />
+                <img src='assets/size-s.png' class='img-sizes' width="114" height="114" />
+                <img src='assets/size-m.png' class='img-sizes' width="114" height="114" />
+                <img src='assets/size-l.png' class='img-sizes' width="114" height="114" />
+                <img src='assets/size-xl.png' class='img-sizes' width="114" height="114" />
+                <img src='assets/size-xxl.png' class='img-sizes' width="114" height="114" />
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="center center" >
+                <mat-form-field fxFlex="10" >
+                    <mat-label>Stock</mat-label>
+                    <input matInput placeholder="Stock" formControlName="stockSize">
+                </mat-form-field>  
+                
+                <mat-form-field fxFlex="10" >
+                    <mat-label>Stock</mat-label>
+                    <input matInput placeholder="Stock" formControlName="stockSize">
+                </mat-form-field>    
+
+                <mat-form-field fxFlex="10" >
+                    <mat-label>Stock</mat-label>
+                    <input matInput placeholder="Stock" formControlName="stockSize">
+                </mat-form-field>    
+
+                <mat-form-field fxFlex="10" >
+                    <mat-label>Stock</mat-label>
+                    <input matInput placeholder="Stock" formControlName="stockSize">
+                </mat-form-field>    
+
+                <mat-form-field fxFlex="10" >
+                    <mat-label>Stock</mat-label>
+                    <input matInput placeholder="Stock" formControlName="stockSize">
+                </mat-form-field>    
+
+                <mat-form-field fxFlex="10" >
+                    <mat-label>Stock</mat-label>
+                    <input matInput placeholder="Stock" formControlName="stockSize">
+                </mat-form-field>    
+            </div>
             
+                
+
+
+        </mat-card>
+
         <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100 m-top-40">
 
             <button mat-button color="accent" (click)="addProduct()" [disabled]="!productForm.valid">
                 <mat-icon>add</mat-icon>
                 <span>Agregar</span>
             </button>
-            
+
         </div>
 
     </mat-card>
