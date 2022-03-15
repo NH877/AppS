@@ -1,0 +1,106 @@
+<div fxLayout="column" fxLayoutAlign="space-around none" >  
+    <mat-card fxLayout="column" fxLayoutAlign="space-around none" [formGroup]="saleForm" style="width: 100%; background-color: aliceblue;" >
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
+
+            <h3>Escaneo de codigo</h3>
+
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
+            
+            <mat-divider></mat-divider>
+
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100 m-top-20">
+            
+            <mat-form-field fxFlex="80">
+                <mat-label>ID</mat-label>
+                <input matInput placeholder="Ingrese ID codigo manualmente" formControlName="id" >
+            </mat-form-field>
+
+            <button mat-button color="accent" (click)="selectSale()">
+                <mat-icon>document_scanner</mat-icon>      
+                <span>ESCANEAR</span>
+            </button>
+
+        </div>
+        <!--ESTO DE ACA ABAJO SE TIENE QUE REPLEGAR CUANDO SE ESCANEE EL ID-->
+        <div fxLayout="column" fxLayoutAlign="space-between none" >
+            <div fxLayout="row" fxLayoutAlign="space-around start" >
+                <img src='assets/buzo.jpg' class='imgRedonda'/>    <!-- <input type="text" id="country name="country" value="Norway" readonly><br><br>-->
+            
+            
+                <mat-card fxLayout="column" fxLayoutAlign="space-around center"  style="width: 40% ; background-color: rgb(203, 230, 253);">
+
+                    <div fxLayout="row" fxLayoutAlign="space-between center" >
+                        
+                        <mat-form-field fxFlex="50">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput placeholder="Nombre" formControlName="name" readonly >    
+                        </mat-form-field>
+                        
+                        <mat-form-field fxFlex="45">
+                            <mat-label>Pecio de venta</mat-label>
+                            <input matInput  placeholder="Precio de venta" formControlName="salePrice" >
+                        </mat-form-field>
+                        
+
+                    </div>
+                    <!-- TENES QUE HACER QUE EL PRECIO DE VENTA Y DE LISTA ESTEN ABAJO DE NOMBRE Y COSTO
+                    PELOTUDO Y QUE SE VEA BIEN-->
+                    <div fxLayout="row" fxLayoutAlign="space-between center" >
+
+                        <mat-form-field fxFlex="40">
+                            <mat-label>Costo</mat-label>
+                            <input matInput  placeholder="Costo" formControlName="cost" readonly >    
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="45">
+                            <mat-label>Precio de lista</mat-label>
+                            <input matInput  placeholder="Precio de venta" formControlName="listPrice">                                           
+                        </mat-form-field>
+
+                    </div>
+
+                </mat-card>
+
+            </div>
+
+            
+
+                <div fxLayout="row" fxLayoutAlign="start center" >
+                      
+                    <img src='assets/size-xs.png'class='img-sizes'/>
+                    <img src='assets/size-s.png' class='img-sizes'/>
+                    <img src='assets/size-m.png' class='img-sizes'/>
+                    <img src='assets/size-l.png' class='img-sizes'/>
+                    <img src='assets/size-xl.png' class='img-sizes'/>
+                    <img src='assets/size-xxl.png' class='img-sizes'/>
+
+                    <mat-form-field appearance="outline" fxFlex="20" style="margin-top: 18px; pointer-events: none;">
+                        <mat-label>Stock</mat-label> 
+                        <input matInput  placeholder="Stock segun talle" value="" readonly #input> 
+                        <mat-icon matSuffix>inventory</mat-icon>
+                    </mat-form-field>
+
+                   <!-- <mat-option *ngFor="let store of getSaleValues()" 
+                        [value]="store.value"class="select-panel">public 
+                        {{store}}
+                    </mat-option> --> 
+
+                </div>
+
+                <div fxLayout="row" fxLayoutAlign="center stretch" style="width: 100%" >
+                    <button mat-button color="accent">
+                        <mat-icon>attach_money</mat-icon>
+                        <span>Vender</span>
+                    </button>
+                </div>
+           
+        
+       
+            
+        </div>
+        
+
+    </mat-card>
+</div>
