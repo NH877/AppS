@@ -72,7 +72,7 @@ export class ProductListComponent implements OnInit {
 
 	public addSale(): void {
 		const dialogRef = this.dialog.open(SaleAddComponent, {
-			width: '9000px',  /* ESTO DEFINE LO GRANDE QUE VA SER EL MAT-DIALOG*/ 
+			width: '1500px',  /* ESTO DEFINE LO GRANDE QUE VA SER EL MAT-DIALOG*/ 
 			autoFocus: false,
 		});
 	}

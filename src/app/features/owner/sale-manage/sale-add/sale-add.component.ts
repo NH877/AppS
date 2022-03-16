@@ -11,7 +11,10 @@ import { ProductService } from 'src/app/shared/services/product/product.service'
 })
 export class SaleAddComponent implements OnInit {
 
-	public saleForm :FormGroup;
+	public saleForm: FormGroup;
+	public productSelected: boolean= false;
+	public barCode: any;
+	data: any;
 
 	constructor(
 		private productService: ProductService,
@@ -38,15 +41,31 @@ export class SaleAddComponent implements OnInit {
 		})		
 	}
 
-	public selectSale(): void{
-		this.productService.getById(this.saleForm.get('id')?.value).get().subscribe(element => {
+	/*public selectSale(): void{ 
+		this.saleForm.get('id')?.value
+		this.productService.getById(this.saleForm.get('id')?.value).valueChanges().subscribe(element => {
+			let product = element as IProduct;
+			this.saleForm.get('name')?.setValue(product.name);
+			this.saleForm.get('salePrice')?.setValue(product.salePrice);
+			this.saleForm.get('listPrice')?.setValue(product.listPrice);
+			this.saleForm.get('cost')?.setValue(product.cost);
+
+			let producData: any= {
+				id: this.data.id,
+				name: this.saleForm.get('name').setValue(element.name),
+				cost: this.saleForm.get('cost')?.value,
+				salePrice: this.saleForm.get('salePrice')?.value,
+				listPrice: this.saleForm.get('listPrice')?.value,
+				stockSize: this.saleForm.get('stockSize')?.value,
+				img: this.saleForm.get('img')?.value,
+				firebaseTimestamp: Date.now(),
+				firebaseId: element.docs[0].id,
+				disabled: false,*/
+			
+			/*this.form.get('nombre').setValue(element.name);
 		})
 	}
-
-	public getSaleValues(): string[]
-	{
-		return Object.values(typeof(Store));     
-	}
+	*/
 	
 }
 
