@@ -37,10 +37,10 @@ export enum Store {
 }
 
 export enum Size {
-    XS,
-    S,
-    M,
-    L,
-    XL,
-    XXL
+    XS = 'XS',
+    S = 'S',
+    M = 'M',
+    L = 'L',
+    XL = 'XL',
+    XXL = 'XXL'
 }

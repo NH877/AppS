@@ -1,69 +1,131 @@
-<div fxLayout="column" fxLayoutAlign="space-around center">
+<mat-grid-list cols="1" rowHeight="2.3:1">
+    <mat-grid-tile>
+        <mat-card [formGroup]="productForm">
 
-    <mat-card fxLayout="column" fxLayoutAlign="space-around center" [formGroup]="productForm">
-
-        <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
-
-            <button mat-icon-button color="accent" (click)="list()" style="margin-top: -15px;">
-                <mat-icon>list</mat-icon>
-            </button>
-
-            <h3>Alta de Productos</h3>
+            <mat-grid-list cols="3" rowHeight="3:1">
+    
+                
+                <mat-grid-tile>
+                    <button mat-icon-button color="accent" (click)="list()" style="margin-top: -15px;">
+                        <mat-icon>list</mat-icon>
+                    </button>
+                </mat-grid-tile>    
+    
+                <mat-grid-tile>
+                    <h3>Alta de Productos</h3>
+                </mat-grid-tile>
+    
+                <mat-grid-tile>
+                    <button mat-icon-button color="accent" (click)="home()" style="margin-top: -15px;">
+                        <mat-icon>home</mat-icon>
+                    </button>
+                </mat-grid-tile>
+    
+            </mat-grid-list>
+    
             
-            <button mat-icon-button color="accent" (click)="home()" style="margin-top: -15px;">
-                <mat-icon>home</mat-icon>
-            </button>
-
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
+    
+                <mat-divider></mat-divider>
+    
             
-            <mat-divider></mat-divider>
+    
+            <mat-grid-list cols="3" rowHeight="3:1" gutterSize="1%">
+    
+                <mat-grid-tile colspan="2">
+                    <mat-form-field class="w-100">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput placeholder="Nombre" formControlName="name">
+                    </mat-form-field>
+                </mat-grid-tile>
+    
+                <mat-grid-tile>
+                    <button mat-raised-button color="accent" class="btn-submit w-100" (click)="fileInput.click()">
+                        <mat-icon>file_upload</mat-icon> ADJUNTAR ARCHIVOS
+                    </button>
+                  
+                 <input accept=".png,.jpg,.jpeg,.gif,.mp4,.mov,.wmv,.heic" multiple type="file" id="inputFile" #fileInput
+                    style="display: none;" (change)="onFileSelected($event)"> 
+    
+                </mat-grid-tile>
+                    
+    
+    
+    
+            </mat-grid-list>
+    
+            <mat-grid-list cols="3" rowHeight="3:1" gutterSize="2%">
+                <mat-grid-tile>
+                    <mat-form-field class="w-100">
+                        <mat-label>Precio</mat-label>
+                        <input matInput type="number" placeholder="Precio" formControlName="cost">
+                    </mat-form-field>
+                </mat-grid-tile>
+    
+                <mat-grid-tile>  
+                    <mat-form-field class="w-100">
+                        <mat-label>Precio de Lista</mat-label>
+                        <input matInput type="number" placeholder="Precio de Lista" formControlName="listPrice">
+                    </mat-form-field>
+                </mat-grid-tile>
+    
+                <mat-grid-tile> 
+                    <mat-form-field class="w-100">
+                        <mat-label>Precio de venta</mat-label>
+                        <input matInput type="number" placeholder="Precio de venta" formControlName="salePrice">
+                    </mat-form-field>
+                </mat-grid-tile>
+            </mat-grid-list>
+    
+        
+            <mat-grid-list cols="1" rowHeight="6:1">
+                <mat-grid-tile>
+                    <h3>Talles y Stock</h3>
+                </mat-grid-tile>
+            </mat-grid-list>
+                        
+            <mat-grid-list cols="6" rowHeight="2:1">
+                <mat-grid-tile>v 
+                    <img src='assets/size-xs.png' class='img-sizes' width="114" height="114"  />
+                </mat-grid-tile>
 
-        </div>
+                <mat-grid-tile>
+                    <img src='assets/size-s.png' class='img-sizes' width="114" height="114" />
+                </mat-grid-tile>
 
-        <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100 m-top-40">
-            
-            <mat-form-field fxFlex="80">
-                <mat-label>Nombre</mat-label>
-                <input matInput placeholder="Nombre" formControlName="name">
-            </mat-form-field>
+                <mat-grid-tile>
+                    <img src='assets/size-m.png' class='img-sizes' width="114" height="114" />
+                </mat-grid-tile>
 
-            <mat-form-field fxFlex="13">
-                <mat-label>Talle</mat-label>
-                <input matInput placeholder="Talle" formControlName="stockSize">
-            </mat-form-field>
+                <mat-grid-tile>
+                    <img src='assets/size-l.png' class='img-sizes' width="114" height="114" />
+                </mat-grid-tile>
 
-        </div>    
+                <mat-grid-tile>
+                    <img src='assets/size-xl.png' class='img-sizes' width="114" height="114" />
+                </mat-grid-tile>
 
-        <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
-            
-            <mat-form-field fxFlex="30">
-                <mat-label>Precio</mat-label>
-                <input matInput type="number" placeholder="Precio" formControlName="cost">
-            </mat-form-field>
+                <mat-grid-tile>
+                    
+                    <img src='assets/size-xxl.png' class='img-sizes' width="114" height="114" />
+                </mat-grid-tile>
+            </mat-grid-list>
+        
+            <mat-grid-list cols="2" rowHeight="3:1">
+                <mat-grid-tile>
+                    <mat-form-field>
+                        <mat-label>Stock</mat-label>
+                        <input matInput placeholder="Stock" formControlName="stockSize">
+                    </mat-form-field>
+                </mat-grid-tile>
 
-            <mat-form-field fxFlex="30">
-                <mat-label>Precio de Lista</mat-label>
-                <input matInput type="number" placeholder="Precio de Lista" formControlName="listPrice">
-            </mat-form-field>
+                <mat-grid-tile>
+                    <button mat-button color="accent" (click)="addProduct()" [disabled]="!productForm.valid">
+                        <mat-icon>add</mat-icon>
+                        <span>Agregar</span>
+                    </button>
+                </mat-grid-tile>
 
-            <mat-form-field fxFlex="30">
-                <mat-label>Precio de venta</mat-label>
-                <input matInput type="number" placeholder="Precio de venta" formControlName="salePrice">
-            </mat-form-field>
-
-        </div>
-            
-        <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100 m-top-40">
-
-            <button mat-button color="accent" (click)="addProduct()" [disabled]="!productForm.valid">
-                <mat-icon>add</mat-icon>
-                <span>Agregar</span>
-            </button>
-            
-        </div>
-
-    </mat-card>
-
-</div>
+            </mat-grid-list>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
