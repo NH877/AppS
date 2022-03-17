@@ -26,6 +26,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSelectModule } from '@angular/material/select';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 // FlexLayout
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -70,7 +71,8 @@ import { SaleHistoryComponent } from './features/owner/sale-manage/sale-history/
 		MatSortModule,
 		MatSnackBarModule,
 		MatPaginatorModule,
-		MatSelectModule
+		MatSelectModule,
+		MatGridListModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
