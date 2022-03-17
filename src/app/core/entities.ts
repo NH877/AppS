@@ -16,12 +16,14 @@ export interface IProduct extends IFirebaseObject {
     img: string[];
     disabled: boolean;
 }
+
 export interface ISale extends IFirebaseObject {
     id: string;
     product: IProduct;
     size: Size
     local: Store;
 }
+
 export interface StockSize {
     size: Size;
     stock: number;

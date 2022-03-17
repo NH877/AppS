@@ -28,9 +28,6 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 
-// FlexLayout
-import { FlexLayoutModule } from '@angular/flex-layout';
-
 // Components
 import { ProductAddComponent } from './features/owner/product-manage/product-add/product-add.component';
 import { HomeComponent } from './features/owner/home/home.component';
@@ -65,7 +62,6 @@ import { SaleAddComponent } from './features/owner/sale-manage/sale-add/sale-add
 		MatCardModule,
 		MatButtonModule,
 		MatIconModule,
-		FlexLayoutModule,
 		MatDividerModule,
 		ReactiveFormsModule,
 		MatTableModule,
