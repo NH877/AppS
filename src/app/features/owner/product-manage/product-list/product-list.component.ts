@@ -8,6 +8,7 @@ import { IProduct } from 'src/app/core/entities';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 import { ProductDeleteComponent } from '../product-delete/product-delete.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { SaleAddComponent } from '../../sale-manage/sale-add/sale-add.component';
 
 
 @Component({
@@ -65,6 +66,13 @@ export class ProductListComponent implements OnInit {
 		const dialogRef = this.dialog.open(ProductDeleteComponent, {
 			width: '700px',
 			data: product as IProduct,
+			autoFocus: false,
+		});
+	}
+
+	public addSale(): void {
+		const dialogRef = this.dialog.open(SaleAddComponent, {
+			width: '1500px',  /* ESTO DEFINE LO GRANDE QUE VA SER EL MAT-DIALOG*/ 
 			autoFocus: false,
 		});
 	}

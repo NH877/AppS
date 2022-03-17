@@ -19,6 +19,7 @@ export interface IProduct extends IFirebaseObject {
 export interface ISale extends IFirebaseObject {
     id: string;
     product: IProduct;
+    size: Size
     local: Store;
 }
 export interface StockSize {
@@ -29,9 +30,10 @@ export interface StockSize {
 /*----------------------------------------------- enums ----------------------------------------------------*/
 
 export enum Store {
-    STORE_A,
-    STORE_B,
-    STORE_C
+	STORE_A,
+	STORE_B,
+	STORE_C,
+	values
 }
 
 export enum Size {

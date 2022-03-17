@@ -25,7 +25,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
-import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
 
 // FlexLayout
@@ -38,6 +38,9 @@ import { ProductListComponent } from './features/owner/product-manage/product-li
 import { ProductModifyComponent } from './features/owner/product-manage/product-modify/product-modify.component';
 import { ProductDeleteComponent } from './features/owner/product-manage/product-delete/product-delete.component';
 import { SaleHistoryComponent } from './features/owner/sale-manage/sale-history/sale-history.component';
+import { SaleAddComponent } from './features/owner/sale-manage/sale-add/sale-add.component';
+
+
 
 
 @NgModule({
@@ -48,7 +51,8 @@ import { SaleHistoryComponent } from './features/owner/sale-manage/sale-history/
 		ProductListComponent,
 		ProductModifyComponent,
 		ProductDeleteComponent,
-		SaleHistoryComponent
+		SaleHistoryComponent,
+		SaleAddComponent
 	],
 	imports: [
 		BrowserModule,
@@ -71,7 +75,7 @@ import { SaleHistoryComponent } from './features/owner/sale-manage/sale-history/
 		MatSortModule,
 		MatSnackBarModule,
 		MatPaginatorModule,
-		MatSelectModule,
+		MatFormFieldModule,
 		MatGridListModule
 	],
 	providers: [],
