@@ -88,7 +88,7 @@ export class SaleAddComponent implements OnInit {
 				this.saleService.add(sale)
 				.then(() => {
 	
-					this.snackBar.open("Se realizo la venda con con exito", "Cerrar", {
+					this.snackBar.open("Se realizo la venta con con exito", "Cerrar", {
 						duration: 2000,
 						panelClass: ['green-snackbar']
 					});
