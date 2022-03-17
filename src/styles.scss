@@ -60,3 +60,29 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .mt-2 {
     margin-top: 2%; 
 }
+
+
+.img-sizes {
+	width: 100px;
+	height: 100px;
+	cursor: pointer;
+}
+
+::ng-deep {
+	.mat-form-field-appearance-outline .mat-form-field-outline {
+		color: black;
+	}
+	mat-form-field {
+		.mat-hint,
+		input,
+		::placeholder,
+		.mat-form-field-label {
+			color: black;
+		}
+	}
+}
+
+.img-sizes:hover {
+    border-radius: 10rem;
+    transform: scale(1.1);
+}

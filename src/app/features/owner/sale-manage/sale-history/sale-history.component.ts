@@ -5,7 +5,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ISale } from 'src/app/core/entities';
-import { SaleHistoryService } from 'src/app/shared/services/sale-history/sale-history.service';
+import { SaleService } from 'src/app/shared/services/sale/sale.service';
 
 @Component({
 	selector: 'app-sale-history',
@@ -23,7 +23,7 @@ export class SaleHistoryComponent implements OnInit {
 	@ViewChild(MatSort) sort: MatSort;
 
 	constructor(
-		private saleHistoryService: SaleHistoryService,
+		private saleService: SaleService,
 		private router: Router,
 		public dialog: MatDialog,
 	) { }
@@ -33,7 +33,7 @@ export class SaleHistoryComponent implements OnInit {
 	}
 
 	private getSaleList (): void {
-		this.saleHistoryService.getAll().valueChanges().subscribe(sales => {
+		this.saleService.getAll().valueChanges().subscribe(sales => {
 			this.saleDataSource.data = sales;
 			this.saleDataSource.paginator = this.paginator;
 			this.saleDataSource.sort = this.sort;

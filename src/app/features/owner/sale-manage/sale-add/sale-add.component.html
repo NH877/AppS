@@ -20,7 +20,7 @@
 
                 <mat-grid-tile>
 
-                    <button mat-button color="accent" class="w-100" >
+                    <button mat-button color="accent" class="w-100" (click)="selectProduct('2022037181232')">
                         <mat-icon>document_scanner</mat-icon>      
                         <span>ESCANEAR</span>
                     </button>
@@ -29,7 +29,7 @@
 
             </mat-grid-list>
 
-            <mat-grid-list cols="4" rowHeight="2:1" > <!-- *ngIf="productSelected" -->
+            <mat-grid-list cols="4" rowHeight="2:1" *ngIf="productSelected">
 
                 <mat-grid-tile >
                     <img src='assets/buzo.jpg' class='imgRedonda'/>
@@ -79,52 +79,47 @@
 
                 </mat-grid-tile>
                 
-
             </mat-grid-list>
 
-            <mat-grid-list cols="8" rowHeight="2:1" class="mt-2" ><!--*ngIf="productSelected"-->
+            <mat-grid-list cols="8" rowHeight="2:1" class="mt-2" *ngIf="productSelected">
                 <mat-grid-tile>
-                    <img src='assets/size-xs.png' class='img-sizes' width="114" height="114" />
+                    <img src='assets/size-xs.png' class='img-sizes' width="114" height="114" (click)="stockOfSize('XS')" />
                 </mat-grid-tile>
 
                 <mat-grid-tile>
-                    <img src='assets/size-s.png' class='img-sizes' width="114" height="114" />
+                    <img src='assets/size-s.png' class='img-sizes' width="114" height="114" (click)="stockOfSize('S')"/>
                 </mat-grid-tile>
 
                 <mat-grid-tile>
-                    <img src='assets/size-m.png' class='img-sizes' width="114" height="114" />
+                    <img src='assets/size-m.png' class='img-sizes' width="114" height="114" (click)="stockOfSize('M')"/>
                 </mat-grid-tile>
 
                 <mat-grid-tile>
-                    <img src='assets/size-l.png' class='img-sizes' width="114" height="114" />
+                    <img src='assets/size-l.png' class='img-sizes' width="114" height="114" (click)="stockOfSize('L')"/>
                 </mat-grid-tile>
 
                 <mat-grid-tile>
-                    <img src='assets/size-xl.png' class='img-sizes' width="114" height="114" />
+                    <img src='assets/size-xl.png' class='img-sizes' width="114" height="114" (click)="stockOfSize('XL')"/>
                 </mat-grid-tile>
 
                 <mat-grid-tile>
-                    <img src='assets/size-xxl.png' class='img-sizes' width="114" height="114" />
+                    <img src='assets/size-xxl.png' class='img-sizes' width="114" height="114" (click)="stockOfSize('XXL')"/>
                 </mat-grid-tile>
 
                 <mat-grid-tile colspan="2">
 
-                    <mat-form-field appearance="outline"  style="margin-top: 18px; pointer-events: none;">
-                        
+                    <mat-form-field appearance="outline" style="margin-top: 18px; pointer-events: none; ">
                         <mat-label>Stock</mat-label> 
-                        
-                            <input matInput  placeholder="Stock segun talle" value="" readonly #input> 
-
-                        <mat-icon >inventory</mat-icon>
-
+                        <input matInput placeholder="Stock segun talle" formControlName="stock" readonly #input> 
+                        <mat-icon matSuffix>inventory</mat-icon>
                     </mat-form-field>
 
                 </mat-grid-tile>
 
             </mat-grid-list>
 
-            <mat-grid-list> <!--*ngIf="productSelected"-->
-                <button mat-button color="accent" class="w-100">
+            <mat-grid-list *ngIf="productSelected">
+                <button mat-button color="accent" class="w-100" (click)="sale()" [disabled]="saleProductValid()">
                     <mat-icon>attach_money</mat-icon>
                     <span>Vender</span>
                 </button>

@@ -1,8 +1,11 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { IProduct, ISale, Store } from 'src/app/core/entities';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { IProduct, ISale, Size, Store } from 'src/app/core/entities';
+import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { ProductService } from 'src/app/shared/services/product/product.service';
+import { SaleService } from 'src/app/shared/services/sale/sale.service';
 
 @Component({
 	selector: 'app-sale-add',
@@ -12,20 +15,18 @@ import { ProductService } from 'src/app/shared/services/product/product.service'
 export class SaleAddComponent implements OnInit {
 
 	public saleForm: FormGroup;
-	public productSelected: boolean= false;
-	public barCode: any;
-	data: any;
+	public productSelected: IProduct;
 
 	constructor(
 		private productService: ProductService,
 		public dialogRef: MatDialogRef<SaleAddComponent>,
-		
+		public saleService: SaleService,
+		private snackBar: MatSnackBar,
 		) { }
 
+
 	ngOnInit(): void {
-
 		this.initForm();
-
 	}
 
 	public initForm(): void{
@@ -34,38 +35,81 @@ export class SaleAddComponent implements OnInit {
 			'cost': new FormControl(''),
 			'salePrice': new FormControl(''),
 			'listPrice': new FormControl(''),
-			'stockSize': new FormControl(''),
+			'stock': new FormControl(''),
 			'id': new FormControl(''),
-			'local': new FormControl(''),
 			'size': new FormControl('')
 		})		
 	}
 
-	/*public selectSale(): void{ 
-		this.saleForm.get('id')?.value
-		this.productService.getById(this.saleForm.get('id')?.value).valueChanges().subscribe(element => {
-			let product = element as IProduct;
-			this.saleForm.get('name')?.setValue(product.name);
-			this.saleForm.get('salePrice')?.setValue(product.salePrice);
-			this.saleForm.get('listPrice')?.setValue(product.listPrice);
-			this.saleForm.get('cost')?.setValue(product.cost);
+	public selectProduct(id: string): void { 
 
-			let producData: any= {
-				id: this.data.id,
-				name: this.saleForm.get('name').setValue(element.name),
-				cost: this.saleForm.get('cost')?.value,
-				salePrice: this.saleForm.get('salePrice')?.value,
-				listPrice: this.saleForm.get('listPrice')?.value,
-				stockSize: this.saleForm.get('stockSize')?.value,
-				img: this.saleForm.get('img')?.value,
-				firebaseTimestamp: Date.now(),
-				firebaseId: element.docs[0].id,
-				disabled: false,*/
-			
-			/*this.form.get('nombre').setValue(element.name);
-		})
+		this.productService.getById(id).valueChanges().subscribe(element => {
+
+			this.productSelected = element[0] as IProduct;
+
+			this.saleForm.get('id')?.setValue(this.productSelected.id);
+			this.saleForm.get('name')?.setValue(this.productSelected.name);
+			this.saleForm.get('salePrice')?.setValue(this.productSelected.salePrice);
+			this.saleForm.get('listPrice')?.setValue(this.productSelected.listPrice);
+			this.saleForm.get('cost')?.setValue(this.productSelected.cost);
+
+			this.stockOfSize(this.saleForm.get('size')?.value);
+		});
+
 	}
-	*/
+
+	public stockOfSize(size: string): void {
+
+		this.saleForm.get('size')?.setValue(size);
+
+		let productFound = this.productSelected.stockSize.find(x => x.size == size);
+
+		if(productFound) 
+			this.saleForm.get('stock')?.setValue(productFound.stock);
+		else	
+			this.saleForm.get('stock')?.setValue('0');
+
+	}
+
+	public sale(): void {
+
+		this.productSelected.stockSize.find(x => x.size == this.saleForm.get('size')?.value ? x.stock-- : null);
+
+		let sale: ISale = {
+			id: CoreHelper.generateIdDate(),
+			product: this.productSelected,
+			size: this.saleForm.get('size')?.value,
+			local: Store.STORE_A,
+		}
+
+		this.productService.modify(this.productSelected)
+			.then(() => {
+
+				this.saleService.add(sale)
+				.then(() => {
 	
+					this.snackBar.open("Se realizo la venda con con exito", "Cerrar", {
+						duration: 2000,
+						panelClass: ['green-snackbar']
+					});
+	
+				})
+			})
+			.catch(error => {
+				console.log("line 109 - sale-add", error);
+
+				this.snackBar.open("Error al intentar vender el producto", "Cerrar", {
+					duration: 3000,
+					panelClass: ['red-snackbar']
+				});
+			})
+			.finally(() => {
+				this.dialogRef.close();
+			});
+	}
+	
+	public saleProductValid(): boolean {
+		return this.saleForm.get('stock')?.value == 0 ? true : false; 
+	}
 }
 

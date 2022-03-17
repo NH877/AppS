@@ -7,22 +7,4 @@
     margin-right: 20px;
 }
 
-.img-sizes {
-	width: 100px;
-	height: 100px;
-	cursor: pointer;
-}
-::ng-deep {
-	.mat-form-field-appearance-outline .mat-form-field-outline {
-		color: black;
-	}
-	mat-form-field {
-		.mat-hint,
-		input,
-		::placeholder,
-		.mat-form-field-label {
-			color: black;
-		}
-	}
-}
 
