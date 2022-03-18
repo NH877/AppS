@@ -4,7 +4,6 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { ISale } from 'src/app/core/entities';
 import { SaleService } from 'src/app/shared/services/sale/sale.service';
 
 @Component({
@@ -15,9 +14,7 @@ import { SaleService } from 'src/app/shared/services/sale/sale.service';
 export class SaleHistoryComponent implements OnInit {
 
 	public saleDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-	public displayedColumns: string[] = ['name', 'cost', 'listPrice', 'salePrice', 'size', 'local'];
-
-	public productSale: ISale;
+	public displayedColumns: string[] = ['name', 'cost', 'listPrice', 'salePrice', 'local'];
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
@@ -45,13 +42,12 @@ export class SaleHistoryComponent implements OnInit {
 	}
 
 	public applyFilter(event: Event): void {
-		
 		const filterValue = (event.target as HTMLInputElement).value;
 		this.saleDataSource.filter = filterValue.trim().toLowerCase();
 
-		if (this.saleDataSource.paginator) 
-			this.saleDataSource.paginator.firstPage();
-		
+		if (this.saleDataSource.paginator ) {
+			this.saleDataSource.paginator.firstPage();	
+		}
 	}
 
 }

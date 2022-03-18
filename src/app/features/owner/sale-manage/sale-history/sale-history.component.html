@@ -1,4 +1,4 @@
-<mat-grid-list cols="1" rowHeight="3:1" style="margin-top: 6%">
+<mat-grid-list cols="1" rowHeight="100%" >
     <mat-grid-tile>
         <mat-card style="width: 60%;">
             
@@ -32,7 +32,7 @@
                 </mat-form-field>
             </mat-grid-list>
 
-            <mat-grid-list>
+            <mat-grid-list rowHeight="2:1">
                 <table mat-table [dataSource]="saleDataSource.data" class="w-100" matSort>
 
                     <ng-container matColumnDef="name">
@@ -53,11 +53,6 @@
                     <ng-container matColumnDef="salePrice">
                         <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio de venta </th>
                         <td mat-cell *matCellDef="let sale"> $ {{sale.product.salePrice}} </td>
-                    </ng-container>
-
-                    <ng-container matColumnDef="size">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Talle </th>
-                        <td mat-cell *matCellDef="let sale">  {{sale.product.stockSize.size}} </td>
                     </ng-container>
 
                     <ng-container matColumnDef="local">
