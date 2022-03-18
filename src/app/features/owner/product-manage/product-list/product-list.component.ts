@@ -35,6 +35,8 @@ export class ProductListComponent implements OnInit {
 	public emptyList: boolean = true;
 	public loading: boolean = true;
 
+	public stock: number=0;
+
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 
@@ -55,6 +57,19 @@ export class ProductListComponent implements OnInit {
 			this.productDataSource.sort = this.sort;
 			this.loading = false;
 		})
+	}
+
+	
+
+	public stockOfSize(size: string, product: IProduct): void {
+
+		let productFound = product.stockSize.find(x => x.size == size);
+
+		if(productFound) 
+			this.stock= productFound.stock;
+		else	
+			this.stock=0;
+
 	}
 
 	public modify(product: any): void {

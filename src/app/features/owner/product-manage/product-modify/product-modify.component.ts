@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { IProduct } from 'src/app/core/entities';
+import { IProduct, Size } from 'src/app/core/entities';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 
 @Component({
@@ -33,9 +33,24 @@ export class ProductModifyComponent implements OnInit {
 			'cost': new FormControl(this.productForModify.cost, [Validators.required]),
 			'salePrice': new FormControl(this.productForModify.salePrice),
 			'listPrice': new FormControl(this.productForModify.listPrice, [Validators.required]),
-			'stockSize': new FormControl(this.productForModify.stockSize, [Validators.required]),
+			'stockXS': new FormControl(0),
+			'stockS': new FormControl(0),
+			'stockM': new FormControl(0),
+			'stockL': new FormControl(0),
+			'stockXL': new FormControl(0),
+			'stockXXL': new FormControl(0),
+
 		})
+	
+		this.productForModify.stockSize.find(x=> x.size == 'XS' ? this.productForm.get('stockXS')?.setValue(x.stock): null);
+		this.productForModify.stockSize.find(x=> x.size == 'S' ? this.productForm.get('stockS')?.setValue(x.stock): null);
+		this.productForModify.stockSize.find(x=> x.size == 'M' ? this.productForm.get('stockM')?.setValue(x.stock): null);
+		this.productForModify.stockSize.find(x=> x.size == 'L' ? this.productForm.get('stockL')?.setValue(x.stock): null);
+		this.productForModify.stockSize.find(x=> x.size == 'XL' ? this.productForm.get('stockXL')?.setValue(x.stock): null);
+		this.productForModify.stockSize.find(x=> x.size == 'XXL' ? this.productForm.get('stockXXL')?.setValue(x.stock): null);
 	}
+
+	
 			
 	public modifyProduct(): void {
 		this.productService.getById(this.productForModify.id).get().subscribe(element => {
