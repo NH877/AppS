@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IProduct, ISale, Size, Store } from 'src/app/core/entities';
+import { IProduct, ISale, Size, StockSize, Store } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 import { SaleService } from 'src/app/shared/services/sale/sale.service';
@@ -16,6 +16,7 @@ export class SaleAddComponent implements OnInit {
 
 	public saleForm: FormGroup;
 	public productSelected: IProduct;
+	public stockSize: StockSize;	
 
 	constructor(
 		private productService: ProductService,
@@ -43,10 +44,10 @@ export class SaleAddComponent implements OnInit {
 
 	public selectProduct(id: string): void { 
 
-		this.productService.getById(id).valueChanges().subscribe(element => {
-
-			this.productSelected = element[0] as IProduct;
-
+		this.productService.getById(id).get().subscribe(element => {
+			
+			this.productSelected = element.docs[0].data() as IProduct ;
+			this.productSelected.firebaseId = element.docs[0].id
 			this.saleForm.get('id')?.setValue(this.productSelected.id);
 			this.saleForm.get('name')?.setValue(this.productSelected.name);
 			this.saleForm.get('salePrice')?.setValue(this.productSelected.salePrice);
@@ -78,8 +79,8 @@ export class SaleAddComponent implements OnInit {
 		let sale: ISale = {
 			id: CoreHelper.generateIdDate(),
 			product: this.productSelected,
-			size: this.saleForm.get('size')?.value,
 			local: Store.STORE_A,
+			firebaseTimestamp: Date.now(),
 		}
 
 		this.productService.modify(this.productSelected)
@@ -96,7 +97,7 @@ export class SaleAddComponent implements OnInit {
 				})
 			})
 			.catch(error => {
-				console.log("line 109 - sale-add", error);
+				console.log("line 99 - sale-add", error);
 
 				this.snackBar.open("Error al intentar vender el producto", "Cerrar", {
 					duration: 3000,

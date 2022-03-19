@@ -20,7 +20,6 @@ export interface IProduct extends IFirebaseObject {
 export interface ISale extends IFirebaseObject {
     id: string;
     product: IProduct;
-    size: Size
     local: Store;
 }
 

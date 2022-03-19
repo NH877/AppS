@@ -1,4 +1,62 @@
-<div fxLayout="column" fxLayoutAlign="space-around center" >
+<mat-grid-list cols="1"  rowHeight="3:1" style= "margin-top: 6%;">
+    <mat-grid-tile class="ta-c">
+        <mat-card style="width: 100%;" [formGroup]="productForm">
+            
+            <h3>Baja de Producto</h3>
+            <mat-divider></mat-divider>
+
+            <mat-grid-list cols="4" rowHeight="2:1" gutterSize="1%">
+
+                <mat-grid-tile colspan="4">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput placeholder="Nombre" formControlName="name">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                
+
+            </mat-grid-list>
+
+            <mat-grid-list cols="3" rowHeight="2:1" gutterSize="2%">
+                <mat-form-field>
+                    <mat-label>Precio</mat-label>
+                    <input matInput type="number" placeholder="Precio" formControlName="cost">
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>Precio de Lista</mat-label>
+                    <input matInput type="number" placeholder="Precio de Lista" formControlName="listPrice">
+                </mat-form-field>
+    
+                <mat-form-field>
+                    <mat-label>Precio de venta</mat-label>
+                    <input matInput type="number" placeholder="Precio de venta" formControlName="salePrice">
+                </mat-form-field>
+
+            </mat-grid-list>
+
+
+            <mat-grid-list class="ta-c">
+              
+                    <button mat-button color="warn" (click)="delete()">
+                        <mat-icon>delete_forever</mat-icon>
+                        <span>Eliminar</span>
+                    </button>
+               
+            </mat-grid-list>
+            
+
+         
+
+
+
+
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
+
+<!--  <div fxLayout="column" fxLayoutAlign="space-around center" >
     <mat-card fxLayout="column" fxLayoutAlign="space-around center" style="width: 100%; background-color: aliceblue;" [formGroup]="productForm">
 
         <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
@@ -56,4 +114,4 @@
         
     </mat-card>
         
-</div>
+</div>  -->

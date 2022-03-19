@@ -12,7 +12,7 @@ import { ProductService } from 'src/app/shared/services/product/product.service'
 })
 export class ProductDeleteComponent implements OnInit {
 
-	public productForm: FormGroup;
+	public productForm: FormGroup;	
 
 	constructor(
 		private productService: ProductService,
