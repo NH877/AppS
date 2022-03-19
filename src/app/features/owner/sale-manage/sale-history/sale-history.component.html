@@ -1,40 +1,38 @@
-<div fxLayout="column" fxLayoutAlign="space-around center">
-
-    <mat-card fxLayout="column" fxLayoutAlign="space-around center" >
-
-        <div fxLayout="row" fxLayoutAlign="space-between center"  class="w-100">
-            <button mat-icon-button color="accent" (click)="home()" style="margin-top: -15px;">
-                <mat-icon>home</mat-icon>
-        </button>
-         
-            <h3>Historial de ventas</h3>
-
-            <button mat-icon-button color="accent" (click)="home()" style="margin-top: -15px;">
-                    <mat-icon>home</mat-icon>
-            </button>
-           
-        </div>
-
-        <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
+<mat-grid-list cols="1" rowHeight="3:1" style="margin-top: 6%">
+    <mat-grid-tile>
+        <mat-card style="width: 60%;">
             
-            <mat-divider></mat-divider>
+            <mat-grid-list cols="3" rowHeight="7:1">
+                <mat-grid-tile >
+                    <button mat-icon-button color="accent" (click)="home()" >
+                        <mat-icon>home</mat-icon>
+                    </button>
+                </mat-grid-tile>
 
-        </div>
+                <mat-grid-tile>
+                    <h3>Historial de ventas</h3>
+                </mat-grid-tile>
 
-        <div fxLayout="row" fxLayoutAlign="center" class="w-100">
-            
-            <mat-form-field fxFlex="90">
-                <mat-label>Filtro</mat-label> 
-                <input matInput (keyup)="applyFilter($event)" placeholder="Filtración" #input> 
-                <mat-icon matSuffix>search</mat-icon>
-            </mat-form-field>
+                <mat-grid-tile >
+                    <button mat-icon-button color="accent" (click)="home()">
+                        <mat-icon>home</mat-icon>
+                    </button>
+                </mat-grid-tile>
+            </mat-grid-list>
 
-        </div>
+            <mat-grid-list >
+                <mat-divider></mat-divider>
+            </mat-grid-list>
 
-        <div  fxLayout="column" fxLayoutAlign="space-around center" class="w-100" style="margin-top: 2px;">
-            
-            <div class="w-100 mat-elevation-z8">
-                
+            <mat-grid-list class="ta-c">
+                <mat-form-field style="width: 100%;">
+                    <mat-label>Filtro</mat-label> 
+                    <input matInput (keyup)="applyFilter($event)" placeholder="Filtración" #input> 
+                    <mat-icon matSuffix>search</mat-icon>
+                </mat-form-field>
+            </mat-grid-list>
+
+            <mat-grid-list>
                 <table mat-table [dataSource]="saleDataSource.data" class="w-100" matSort>
 
                     <ng-container matColumnDef="name">
@@ -71,19 +69,10 @@
                     <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
                 
                 </table>
-
                 <mat-paginator class="w-100" [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+            </mat-grid-list>
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
 
-            </div>
 
-            <!-- <div fxLayout="row" fxLayoutAlign="center center" style="width: 100%; margin-bottom: 40px;" *ngIf="emptyList && !loading">
-
-                <mat-icon color="accent" matTooltip="La lista esta vacia">sentiment_dissatisfied</mat-icon>
-
-            </div> -->
-           
-        </div>
-       
-    </mat-card>
-    
-</div>
