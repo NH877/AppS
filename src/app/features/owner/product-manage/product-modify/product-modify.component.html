@@ -1,69 +1,153 @@
-<div fxLayout="column" fxLayoutAlign="space-around center" >
-    <mat-card fxLayout="column" fxLayoutAlign="space-around center" style="width: 60%; margin-top: 5rem; background-color: aliceblue;" [formGroup]="productForm">
-        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
-
-            <button mat-icon-button color="accent" (click)="list()" style="margin-top: -15px;">
-                <mat-icon>list</mat-icon>
-            </button>
-
-            <h3>Modificación de Producto</h3>
+<mat-grid-list cols="1" rowHeight="2:1" style="margin-top: 6%;">
+    <mat-grid-tile>
+        <mat-card style="width: 60%; margin-top: 5rem; background-color: aliceblue;" [formGroup]="productForm">
             
-            <button mat-icon-button color="accent" (click)="home()" style="margin-top: -15px;">
-                <mat-icon>home</mat-icon>
-            </button>
+            <mat-grid-list cols="3" rowHeight="7:1" style="width: 100%;">
 
-        </div>
-        
-        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%;">
+                <mat-grid-tile>
+                    <button mat-icon-button color="accent" (click)="list()" style="margin-top: -15px;">
+                        <mat-icon>list</mat-icon>
+                    </button>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <h3>Modificación de Producto</h3>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <button mat-icon-button color="accent" (click)="home()" style="margin-top: -15px;">
+                        <mat-icon>home</mat-icon>
+                    </button>
+                </mat-grid-tile>
+
+            </mat-grid-list>
             
             <mat-divider></mat-divider>
 
-        </div>
+            <mat-grid-list cols="2" rowHeight="3:1" gutterSize="1%">
+                
+                <mat-grid-tile colspan="2">
+                    <mat-form-field class="w-100">
+                        <mat-label>Nombre</mat-label>
+                        <input matInput placeholder="Nombre" formControlName="name">
+                    </mat-form-field>
+                </mat-grid-tile>
 
-        <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100 m-top-40">
+            </mat-grid-list>
             
-            <mat-form-field fxFlex="80">
-                <mat-label>Nombre</mat-label>
-                <input matInput placeholder="Nombre" formControlName="name">
-            </mat-form-field>
-
-            <mat-form-field fxFlex="13">
-                <mat-label>Talle</mat-label>
-                <input matInput placeholder="Talle" formControlName="stockSize">
-            </mat-form-field>
-
-        </div>
-        
-        <div fxLayout="row" fxLayoutAlign="space-around center" class="w-100">
+            <mat-grid-list cols="3" rowHeight="3:1" gutterSize="2%">
             
-            <mat-form-field fxFlex="30">
-                <mat-label>Precio</mat-label>
-                <input matInput type="number" placeholder="Precio" formControlName="cost">
-            </mat-form-field>
+                <mat-grid-tile>
+                    <mat-form-field class="w-100">
+                        <mat-label>Precio</mat-label>
+                        <input matInput type="number" placeholder="Precio" formControlName="cost">
+                    </mat-form-field>
+                </mat-grid-tile>
 
-            <mat-form-field fxFlex="30">
-                <mat-label>Precio de Lista</mat-label>
-                <input matInput type="number" placeholder="Precio de Lista" formControlName="listPrice">
-            </mat-form-field>
+                <mat-grid-tile>  
+                    <mat-form-field class="w-100">
+                        <mat-label>Precio de Lista</mat-label>
+                        <input matInput type="number" placeholder="Precio de Lista" formControlName="listPrice">
+                    </mat-form-field>
+                </mat-grid-tile>
+                
+                <mat-grid-tile>
+                    <mat-form-field class="w-100">
+                        <mat-label>Precio de venta</mat-label>
+                        <input matInput type="number" placeholder="Precio de venta" formControlName="salePrice">
+                    </mat-form-field>
+                </mat-grid-tile>
 
-            <mat-form-field fxFlex="30">
-                <mat-label>Precio de venta</mat-label>
-                <input matInput type="number" placeholder="Precio de venta" formControlName="salePrice">
-            </mat-form-field>
+            </mat-grid-list>
 
+            <mat-grid-list cols="6" rowHeight="2:1" class="w-100">
 
-        </div>
+                <mat-grid-tile>
+                    <img src='assets/size-xs.png' class='img-sizes' width="114" height="114"  />
+                </mat-grid-tile>
 
-        
-        <div fxLayout="row" fxLayoutAlign="space-around center" style="width: 100%; margin-top: 60px;">
+                <mat-grid-tile>
+                    <img src='assets/size-s.png' class='img-sizes' width="114" height="114" />
+                </mat-grid-tile>
 
-            <button mat-button color="accent" (click)="modifyProduct()" [disabled]="!productForm.valid">
-                <mat-icon>edit</mat-icon>
-                <span>Modificar</span>
-            </button>
+                <mat-grid-tile>
+                    <img src='assets/size-m.png' class='img-sizes' width="114" height="114" />
+                </mat-grid-tile>
 
-        </div>
-        
-    </mat-card>
+                <mat-grid-tile>
+                    <img src='assets/size-l.png' class='img-sizes' width="114" height="114" />
+                </mat-grid-tile>
 
-</div>
+                <mat-grid-tile>
+                    <img src='assets/size-xl.png' class='img-sizes' width="114" height="114" />
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <img src='assets/size-xxl.png' class='img-sizes' width="114" height="114" />
+                </mat-grid-tile>
+                
+            </mat-grid-list>
+            
+            <mat-grid-list cols="6" rowHeight="2:1">
+
+                <mat-grid-tile>
+                    <mat-form-field style="width: 40%;">
+                        <mat-label>Stock</mat-label>
+                        <input matInput type="number" placeholder="Stock" formControlName="stockXS">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field style="width: 40%;">
+                        <mat-label>Stock</mat-label>
+                        <input matInput type="number" placeholder="Stock" formControlName="stockS">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field style="width: 40%;">
+                        <mat-label>Stock</mat-label>
+                        <input matInput type="number" placeholder="Stock" formControlName="stockM">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field style="width: 40%;">
+                        <mat-label>Stock</mat-label>
+                        <input matInput type="number" placeholder="Stock" formControlName="stockL">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field style="width: 40%;">
+                        <mat-label>Stock</mat-label>
+                        <input matInput type="number" placeholder="Stock" formControlName="stockXL">
+                    </mat-form-field>
+                </mat-grid-tile>
+
+                <mat-grid-tile>
+                    <mat-form-field style="width: 40%;">
+                        <mat-label>Stock</mat-label>
+                        <input matInput type="number" placeholder="Stock" formControlName="stockXXL">
+                    </mat-form-field>
+                </mat-grid-tile>
+                
+            </mat-grid-list>
+            
+
+            <mat-grid-list cols="1" rowHeight="7:1" style="width: 100%; margin-top: 40px;">
+
+                <mat-grid-tile>
+                    <button mat-button color="accent" (click)="modifyProduct()" [disabled]="!productForm.valid">
+                        <mat-icon>edit</mat-icon>
+                        <span>Modificar</span>
+                    </button>
+                </mat-grid-tile>
+
+            </mat-grid-list>
+
+            
+            
+        </mat-card>
+    </mat-grid-tile>
+</mat-grid-list>
