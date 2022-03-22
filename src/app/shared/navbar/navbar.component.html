@@ -1,0 +1,22 @@
+<mat-toolbar color="primary">
+    <span>My App</span>
+    <span class="example-spacer"></span>
+    <button mat-button [matMenuTriggerFor]="productMenu">
+        <mat-icon>person</mat-icon>
+        Productos
+    </button>
+    <mat-menu #productMenu="matMenu">
+        <button mat-menu-item (click)="addProduct()">
+            <mat-icon>add</mat-icon>
+            Agregar
+        </button>
+        <button mat-menu-item (click)="listProduct()">
+            <mat-icon>list</mat-icon>
+            Lista
+        </button>
+        <button mat-menu-item (click)="listSales()">
+            <mat-icon>history_edu</mat-icon>
+            Historial de Ventas
+        </button>
+    </mat-menu>
+</mat-toolbar>

@@ -27,6 +27,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu';
 
 // Components
 import { ProductAddComponent } from './features/owner/product-manage/product-add/product-add.component';
@@ -36,6 +38,7 @@ import { ProductModifyComponent } from './features/owner/product-manage/product-
 import { ProductDeleteComponent } from './features/owner/product-manage/product-delete/product-delete.component';
 import { SaleHistoryComponent } from './features/owner/sale-manage/sale-history/sale-history.component';
 import { SaleAddComponent } from './features/owner/sale-manage/sale-add/sale-add.component';
+import { NavbarComponent } from './shared/navbar/navbar.component';
 
 
 
@@ -49,7 +52,8 @@ import { SaleAddComponent } from './features/owner/sale-manage/sale-add/sale-add
 		ProductModifyComponent,
 		ProductDeleteComponent,
 		SaleHistoryComponent,
-		SaleAddComponent
+		SaleAddComponent,
+		NavbarComponent
 	],
 	imports: [
 		BrowserModule,
@@ -72,7 +76,9 @@ import { SaleAddComponent } from './features/owner/sale-manage/sale-add/sale-add
 		MatSnackBarModule,
 		MatPaginatorModule,
 		MatFormFieldModule,
-		MatGridListModule
+		MatGridListModule,
+		MatToolbarModule,
+		MatMenuModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
