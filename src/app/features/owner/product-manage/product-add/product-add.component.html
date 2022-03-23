@@ -1,162 +1,159 @@
-<mat-grid-list cols="1" rowHeight="3:1" style="margin-top: 6%">
-    <mat-grid-tile>
-        <mat-card [formGroup]="productForm" style="width: 60%;">
-
-            <mat-grid-list cols="3" rowHeight="7:1">
-    
-                <mat-grid-tile>
-                    <button mat-icon-button color="accent" (click)="list()" style="margin-top: -15px;">
-                        <mat-icon>list</mat-icon>
-                    </button>
-                </mat-grid-tile>    
-    
-                <mat-grid-tile>
-                    <h3>Alta de Productos</h3>
-                </mat-grid-tile>
-    
-                <mat-grid-tile>
-                    <button mat-icon-button color="accent" (click)="home()" style="margin-top: -15px;">
-                        <mat-icon>home</mat-icon>
-                    </button>
-                </mat-grid-tile>
-    
-            </mat-grid-list>
-    
+<div class="row">
+    <div class="col">
+        <mat-card [formGroup]="productForm" style="width: 70%;">
+            <mat-card-header>
+                <mat-card-title>Alta de Productos</mat-card-title>
+            </mat-card-header>
             <mat-divider></mat-divider>
-    
-            <mat-grid-list cols="4" rowHeight="3:1" gutterSize="1%">
-    
-                <mat-grid-tile colspan="3">
-                    <mat-form-field class="w-100">
-                        <mat-label>Nombre</mat-label>
-                        <input matInput placeholder="Nombre" formControlName="name">
-                    </mat-form-field>
-                </mat-grid-tile>
-    
-                <mat-grid-tile>
-
-                    <button mat-raised-button color="primary" class="w-100">
-                        <mat-icon>file_upload</mat-icon>
-                    </button>
-                  
-                 <!-- <input accept=".png,.jpg,.jpeg,.gif,.mp4,.mov,.wmv,.heic" multiple type="file" id="inputFile" #fileInput
-                    style="display: none;" (change)="onFileSelected($event)">  -->
-    
-                </mat-grid-tile>
-                    
-            </mat-grid-list>
-    
-            <mat-grid-list cols="3" rowHeight="3:1" gutterSize="2%">
-                <mat-grid-tile>
-                    <mat-form-field class="w-100">
-                        <mat-label>Precio</mat-label>
-                        <input matInput type="number" placeholder="Precio" formControlName="cost">
-                    </mat-form-field>
-                </mat-grid-tile>
-    
-                <mat-grid-tile>  
-                    <mat-form-field class="w-100">
-                        <mat-label>Precio de Lista</mat-label>
-                        <input matInput type="number" placeholder="Precio de Lista" formControlName="listPrice">
-                    </mat-form-field>
-                </mat-grid-tile>
-    
-                <mat-grid-tile> 
-                    <mat-form-field class="w-100">
-                        <mat-label>Precio de venta</mat-label>
-                        <input matInput type="number" placeholder="Precio de venta" formControlName="salePrice">
-                    </mat-form-field>
-                </mat-grid-tile>
-
-            </mat-grid-list>
-                        
-            <mat-grid-list cols="6" rowHeight="2:1">
-
-                <mat-grid-tile>
-                    <img src='assets/size-xs.png' class='img-sizes' width="114" height="114"  />
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <img src='assets/size-s.png' class='img-sizes' width="114" height="114" />
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <img src='assets/size-m.png' class='img-sizes' width="114" height="114" />
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <img src='assets/size-l.png' class='img-sizes' width="114" height="114" />
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <img src='assets/size-xl.png' class='img-sizes' width="114" height="114" />
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <img src='assets/size-xxl.png' class='img-sizes' width="114" height="114" />
-                </mat-grid-tile>
-                
-            </mat-grid-list>
-
-            <mat-grid-list cols="6" rowHeight="2:1">
-
-                <mat-grid-tile>
-                    <mat-form-field style="width: 40%;">
-                        <mat-label>Stock</mat-label>
-                        <input matInput type="number" placeholder="Stock" formControlName="stockXS">
-                    </mat-form-field>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <mat-form-field style="width: 40%;">
-                        <mat-label>Stock</mat-label>
-                        <input matInput type="number" placeholder="Stock" formControlName="stockS">
-                    </mat-form-field>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <mat-form-field style="width: 40%;">
-                        <mat-label>Stock</mat-label>
-                        <input matInput type="number" placeholder="Stock" formControlName="stockM">
-                    </mat-form-field>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <mat-form-field style="width: 40%;">
-                        <mat-label>Stock</mat-label>
-                        <input matInput type="number" placeholder="Stock" formControlName="stockL">
-                    </mat-form-field>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <mat-form-field style="width: 40%;">
-                        <mat-label>Stock</mat-label>
-                        <input matInput type="number" placeholder="Stock" formControlName="stockXL">
-                    </mat-form-field>
-                </mat-grid-tile>
-
-                <mat-grid-tile>
-                    <mat-form-field style="width: 40%;">
-                        <mat-label>Stock</mat-label>
-                        <input matInput type="number" placeholder="Stock" formControlName="stockXXL">
-                    </mat-form-field>
-                </mat-grid-tile>
-                
-            </mat-grid-list>
-        
-            <mat-grid-list cols="1" rowHeight="11:1">
-
-                <mat-grid-tile>
-                    <button mat-button color="accent" (click)="addProduct()" [disabled]="!productForm.valid">
-                        <mat-icon>add</mat-icon>
-                        <span>Agregar</span>
-                    </button>
-                </mat-grid-tile>
-
-            </mat-grid-list>
-
+            <mat-card-content>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput placeholder="Nombre" formControlName="name">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Precio</mat-label>
+                            <input matInput type="number" placeholder="Precio" formControlName="cost">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Precio de Lista</mat-label>
+                            <input matInput type="number" placeholder="Precio de Lista" formControlName="listPrice">
+                        </mat-form-field>
+                    </div>
+                    <div class="col">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Precio de venta</mat-label>
+                            <input matInput type="number" placeholder="Precio de venta" formControlName="salePrice">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-card class="mat-elevation-z0 outline">
+                            <div class="row">
+                                <div class="col">
+                                    <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg"
+                                        alt="Photo of a Shiba Inu">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <button mat-button color="accent" class="w-100">
+                                        <mat-icon>file_upload</mat-icon>
+                                    </button>
+                                </div>
+                            </div>
+                        </mat-card>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <img src='assets/size-xs.png' class="mx-auto d-block" width="114" height="114" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Stock</mat-label>
+                                    <input matInput type="number" placeholder="Stock" formControlName="stockXS">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <img src='assets/size-s.png' class="mx-auto d-block" width="114" height="114" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Stock</mat-label>
+                                    <input matInput type="number" placeholder="Stock" formControlName="stockS">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <img src='assets/size-m.png' class="mx-auto d-block" width="114" height="114" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Stock</mat-label>
+                                    <input matInput type="number" placeholder="Stock" formControlName="stockM">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <img src='assets/size-l.png' class="mx-auto d-block" width="114" height="114" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Stock</mat-label>
+                                    <input matInput type="number" placeholder="Stock" formControlName="stockL">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <img src='assets/size-xl.png' class="mx-auto d-block" width="114" height="114" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Stock</mat-label>
+                                    <input matInput type="number" placeholder="Stock" formControlName="stockXL">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <img src='assets/size-xxl.png' class="mx-auto d-block" width="114" height="114" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Stock</mat-label>
+                                    <input matInput type="number" placeholder="Stock" formControlName="stockXXL">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions align="end">
+                <button mat-button color="accent" (click)="addProduct()" [disabled]="!productForm.valid">
+                    <mat-icon>add</mat-icon>
+                    <span>Agregar</span>
+                </button>
+            </mat-card-actions>
         </mat-card>
-
-    </mat-grid-tile>
-
-</mat-grid-list>
+    </div>
+</div>
