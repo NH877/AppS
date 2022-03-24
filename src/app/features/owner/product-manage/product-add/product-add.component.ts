@@ -15,6 +15,16 @@ export class ProductAddComponent implements OnInit {
 
 	public productForm: FormGroup;
 	private stockSizeList: StockSize[] = [];
+	public nameControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(25), Validators.minLength(4)]);
+	public costControl: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
+	public salePriceControl: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
+	public listPriceControl: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
+	public stockXSControl: FormControl = new FormControl(0, [Validators.min(0)]);
+	public stockSControl: FormControl = new FormControl(0, [Validators.min(0)]);
+	public stockMControl: FormControl = new FormControl(0, [Validators.min(0)]);
+	public stockLControl: FormControl = new FormControl(0, [Validators.min(0)]);	
+	public stockXLControl: FormControl = new FormControl(0, [Validators.min(0)]);
+	public stockXXLControl: FormControl = new FormControl(0, [Validators.min(0)]);
 
 	constructor(
 		private productService: ProductService,
@@ -28,19 +38,62 @@ export class ProductAddComponent implements OnInit {
 
 	public initForm(): void {
 		this.productForm = new FormGroup({
-			'name': new FormControl('', [Validators.required, Validators.maxLength(25), Validators.minLength(4)]),
-			'cost': new FormControl(null, [Validators.required]),
-			'salePrice': new FormControl(null, [Validators.required]),
-			'listPrice': new FormControl(null, [Validators.required]),
-			'stockXS': new FormControl(0),
-			'stockS': new FormControl(0),
-			'stockM': new FormControl(0),
-			'stockL': new FormControl(0),
-			'stockXL': new FormControl(0),
-			'stockXXL': new FormControl(0),
+			'name': this.nameControl,
+			'cost': this.costControl,
+			'salePrice': this.salePriceControl,
+			'listPrice': this.listPriceControl,
+			'stockXS': this.stockXSControl,
+			'stockS': this.stockSControl,
+			'stockM': this.stockMControl,
+			'stockL': this.stockLControl,
+			'stockXL': this.stockXLControl,
+			'stockXXL': this.stockXXLControl,
 
 		})
 	}
+	
+	public addStock(size: string): void {
+		
+		let stock: number;
+
+		
+		switch(size){
+			case 'XS':
+				stock = this.productForm.get('stockXS')?.value;
+				stock++;
+				this.productForm.get('stockXS')?.setValue(stock);
+				break;
+			case 'S':
+				stock = this.productForm.get('stockS')?.value;
+				stock++;
+				this.productForm.get('stockS')?.setValue(stock);
+				break;
+			case 'M':
+				stock = this.productForm.get('stockM')?.value;
+				stock++;
+				this.productForm.get('stockM')?.setValue(stock);
+				break;
+			case 'L':
+				stock = this.productForm.get('stockL')?.value;
+				stock++;
+				this.productForm.get('stockL')?.setValue(stock);
+				break;
+			case 'XL':
+				stock = this.productForm.get('stockXL')?.value;
+				stock++;
+				this.productForm.get('stockXL')?.setValue(stock);
+				break;
+			case 'XXL':
+				stock = this.productForm.get('stockXXL')?.value;
+				stock++;
+				this.productForm.get('stockXXL')?.setValue(stock);
+				break;
+				
+		}
+		
+		
+	}
+	
 
 	public addProduct(): void {
 
