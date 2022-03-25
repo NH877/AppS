@@ -13,8 +13,7 @@ import { ProductService } from 'src/app/shared/services/product/product.service'
 })
 export class ProductModifyComponent implements OnInit {
 
-	@Input() productForModify: IProduct;
-	@Output() modifiedProduct = new EventEmitter<IProduct>();
+	
 
 	public productForm: FormGroup;
 
@@ -32,10 +31,10 @@ export class ProductModifyComponent implements OnInit {
 
 	public initForm(): void {
 		this.productForm = new FormGroup({
-			'name': new FormControl(this.productForModify.name, [Validators.required, Validators.maxLength(25), Validators.minLength(4)]),
-			'cost': new FormControl(this.productForModify.cost, [Validators.required]),
-			'salePrice': new FormControl(this.productForModify.salePrice),
-			'listPrice': new FormControl(this.productForModify.listPrice, [Validators.required]),
+			'name': new FormControl(this.data.name, [Validators.required, Validators.maxLength(25), Validators.minLength(4)]),
+			'cost': new FormControl(this.data.cost, [Validators.required]),
+			'salePrice': new FormControl(this.data.salePrice),
+			'listPrice': new FormControl(this.data.listPrice, [Validators.required]),
 			'stockXS': new FormControl(0),
 			'stockS': new FormControl(0),
 			'stockM': new FormControl(0),
@@ -45,21 +44,21 @@ export class ProductModifyComponent implements OnInit {
 
 		})
 	
-		this.productForModify.stockSize.find(x=> x.size == 'XS' ? this.productForm.get('stockXS')?.setValue(x.stock): null);
-		this.productForModify.stockSize.find(x=> x.size == 'S' ? this.productForm.get('stockS')?.setValue(x.stock): null);
-		this.productForModify.stockSize.find(x=> x.size == 'M' ? this.productForm.get('stockM')?.setValue(x.stock): null);
-		this.productForModify.stockSize.find(x=> x.size == 'L' ? this.productForm.get('stockL')?.setValue(x.stock): null);
-		this.productForModify.stockSize.find(x=> x.size == 'XL' ? this.productForm.get('stockXL')?.setValue(x.stock): null);
-		this.productForModify.stockSize.find(x=> x.size == 'XXL' ? this.productForm.get('stockXXL')?.setValue(x.stock): null);
+		this.data.stockSize.find(x=> x.size == 'XS' ? this.productForm.get('stockXS')?.setValue(x.stock): null);
+		this.data.stockSize.find(x=> x.size == 'S' ? this.productForm.get('stockS')?.setValue(x.stock): null);
+		this.data.stockSize.find(x=> x.size == 'M' ? this.productForm.get('stockM')?.setValue(x.stock): null);
+		this.data.stockSize.find(x=> x.size == 'L' ? this.productForm.get('stockL')?.setValue(x.stock): null);
+		this.data.stockSize.find(x=> x.size == 'XL' ? this.productForm.get('stockXL')?.setValue(x.stock): null);
+		this.data.stockSize.find(x=> x.size == 'XXL' ? this.productForm.get('stockXXL')?.setValue(x.stock): null);
 	}
 
 	
 			
 	public modifyProduct(): void {
-		this.productService.getById(this.productForModify.id).get().subscribe(element => {
+		this.productService.getById(this.data.id).get().subscribe(element => {
 
 			let product: IProduct = {
-				id: this.productForModify.id,
+				id: this.data.id,
 				name: this.productForm.get('name')?.value,
 				cost: this.productForm.get('cost')?.value,
 				salePrice: this.productForm.get('salePrice')?.value,
@@ -77,7 +76,7 @@ export class ProductModifyComponent implements OnInit {
 						duration: 3000,
 						panelClass: ['blue-snackbar']
 					});
-					this.modifiedProduct.emit(product);
+					
 				})
 				.catch( error => {
 					console.log("line 65 - product-modify", error);
@@ -96,7 +95,7 @@ export class ProductModifyComponent implements OnInit {
 	}
 
 	public list(): void {
-		this.modifiedProduct.emit(this.productForModify);
+		
 	}
 
 }
