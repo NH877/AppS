@@ -13,8 +13,6 @@ import { ProductService } from 'src/app/shared/services/product/product.service'
 })
 export class ProductModifyComponent implements OnInit {
 
-	
-
 	public productForm: FormGroup;
 
 	constructor(
@@ -40,8 +38,7 @@ export class ProductModifyComponent implements OnInit {
 			'stockM': new FormControl(0),
 			'stockL': new FormControl(0),
 			'stockXL': new FormControl(0),
-			'stockXXL': new FormControl(0),
-
+			'stockXXL': new FormControl(0),	
 		})
 	
 		this.data.stockSize.find(x=> x.size == 'XS' ? this.productForm.get('stockXS')?.setValue(x.stock): null);
@@ -51,9 +48,7 @@ export class ProductModifyComponent implements OnInit {
 		this.data.stockSize.find(x=> x.size == 'XL' ? this.productForm.get('stockXL')?.setValue(x.stock): null);
 		this.data.stockSize.find(x=> x.size == 'XXL' ? this.productForm.get('stockXXL')?.setValue(x.stock): null);
 	}
-
-	
-			
+		
 	public modifyProduct(): void {
 		this.productService.getById(this.data.id).get().subscribe(element => {
 
@@ -92,10 +87,6 @@ export class ProductModifyComponent implements OnInit {
 
 	public home(): void {
 		this.router.navigate(['']);
-	}
-
-	public list(): void {
-		
 	}
 
 }
