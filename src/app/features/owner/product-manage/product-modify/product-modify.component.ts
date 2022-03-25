@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { IProduct, Size } from 'src/app/core/entities';
+import { IProduct, } from 'src/app/core/entities';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 
 @Component({
