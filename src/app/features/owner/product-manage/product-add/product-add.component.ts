@@ -48,7 +48,6 @@ export class ProductAddComponent implements OnInit {
 			'stockL': this.stockLControl,
 			'stockXL': this.stockXLControl,
 			'stockXXL': this.stockXXLControl,
-
 		})
 	}
 	
@@ -56,8 +55,8 @@ export class ProductAddComponent implements OnInit {
 		
 		let stock: number;
 
-		
-		switch(size){
+		switch(size)
+		{
 			case 'XS':
 				stock = this.productForm.get('stockXS')?.value;
 				stock++;
@@ -88,13 +87,9 @@ export class ProductAddComponent implements OnInit {
 				stock++;
 				this.productForm.get('stockXXL')?.setValue(stock);
 				break;
-				
 		}
-		
-		
 	}
 	
-
 	public addProduct(): void {
 
 		let newStockSizeXS: StockSize = {
