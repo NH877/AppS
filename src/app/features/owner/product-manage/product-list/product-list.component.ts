@@ -60,8 +60,6 @@ export class ProductListComponent implements OnInit {
 		})
 	}
 
-	
-
 	public stockOfSize(size: string, product: IProduct): void {
 
 		let productFound = product.stockSize.find(x => x.size == size);
