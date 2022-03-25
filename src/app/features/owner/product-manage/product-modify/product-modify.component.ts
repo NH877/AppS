@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { IProduct, Size } from 'src/app/core/entities';
@@ -20,7 +21,9 @@ export class ProductModifyComponent implements OnInit {
 	constructor(
 		private productService: ProductService,
 		private router: Router,
-		private snackBar: MatSnackBar
+		private snackBar: MatSnackBar,
+		public dialogRef: MatDialogRef<ProductModifyComponent>,
+		@Inject(MAT_DIALOG_DATA) public data: IProduct,
 	) { }
 
 	ngOnInit(): void {

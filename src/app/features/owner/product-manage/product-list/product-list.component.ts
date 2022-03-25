@@ -9,6 +9,7 @@ import { ProductService } from 'src/app/shared/services/product/product.service'
 import { ProductDeleteComponent } from '../product-delete/product-delete.component';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SaleAddComponent } from '../../sale-manage/sale-add/sale-add.component';
+import { ProductModifyComponent } from '../product-modify/product-modify.component';
 
 
 @Component({
@@ -73,8 +74,11 @@ export class ProductListComponent implements OnInit {
 	}
 
 	public modify(product: any): void {
-		this.productForModify = (product as IProduct);
-		this.modifyProduct = true;
+		const dialogRef = this.dialog.open(ProductModifyComponent, {
+			width: 'auto',
+			data: product as IProduct,
+
+		});
 	}
 
 	public delete(product: any): void {
