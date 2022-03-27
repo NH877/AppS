@@ -74,138 +74,140 @@
                     </div>
                 </div>
                 <div class="row mt-2">
-                    <mat-card class="mat-elevation-z0 outline">
-                        <div class="row">
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col">
-                                        <img src='assets/size-xs.png' class="mx-auto d-block" width="114" height="114"
-                                            (click)="addStock('XS')" />
+                    <div class="col">
+                        <mat-card class="mat-elevation-z0 outline">
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src='assets/size-xs.png' class="mx-auto d-block" width="114"
+                                                height="114" (click)="addStock('XS')" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Stock</mat-label>
+                                                <input matInput type="number" placeholder="Stock"
+                                                    formControlName="stockXS" min="0">
+                                                <mat-error
+                                                    *ngIf="stockXSControl.hasError('min') && !stockXSControl.hasError('required')">
+                                                    No se pueden usar numeros negativos.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Stock</mat-label>
-                                            <input matInput type="number" placeholder="Stock" formControlName="stockXS"
-                                                min="0">
-                                            <mat-error
-                                                *ngIf="stockXSControl.hasError('min') && !stockXSControl.hasError('required')">
-                                                No se pueden usar numeros negativos.
-                                            </mat-error>
-                                        </mat-form-field>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src='assets/size-s.png' class="mx-auto d-block" width="114"
+                                                height="114" (click)="addStock('S')" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Stock</mat-label>
+                                                <input matInput type="number" placeholder="Stock"
+                                                    formControlName="stockS" min="0">
+                                                <mat-error
+                                                    *ngIf="stockSControl.hasError('min') && !stockSControl.hasError('required')">
+                                                    No se pueden usar numeros negativos.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col">
-                                        <img src='assets/size-s.png' class="mx-auto d-block" width="114" height="114"
-                                            (click)="addStock('S')" />
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src='assets/size-m.png' class="mx-auto d-block" width="114"
+                                                height="114" (click)="addStock('M')" />
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Stock</mat-label>
-                                            <input matInput type="number" placeholder="Stock" formControlName="stockS"
-                                                min="0">
-                                            <mat-error
-                                                *ngIf="stockSControl.hasError('min') && !stockSControl.hasError('required')">
-                                                No se pueden usar numeros negativos.
-                                            </mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col">
-                                        <img src='assets/size-m.png' class="mx-auto d-block" width="114" height="114"
-                                            (click)="addStock('M')" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Stock</mat-label>
-                                            <input matInput type="number" placeholder="Stock" formControlName="stockM"
-                                                min="0">
-                                            <mat-error
-                                                *ngIf="stockMControl.hasError('min') && !stockMControl.hasError('required')">
-                                                No se pueden usar numeros negativos.
-                                            </mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col">
-                                        <img src='assets/size-l.png' class="mx-auto d-block" width="114" height="114"
-                                            (click)="addStock('L')" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Stock</mat-label>
-                                            <input matInput type="number" placeholder="Stock" formControlName="stockL"
-                                                min="0">
-                                            <mat-error
-                                                *ngIf="stockLControl.hasError('min') && !stockLControl.hasError('required')">
-                                                No se pueden usar numeros negativos.
-                                            </mat-error>
-                                        </mat-form-field>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Stock</mat-label>
+                                                <input matInput type="number" placeholder="Stock"
+                                                    formControlName="stockM" min="0">
+                                                <mat-error
+                                                    *ngIf="stockMControl.hasError('min') && !stockMControl.hasError('required')">
+                                                    No se pueden usar numeros negativos.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col">
-                                        <img src='assets/size-xl.png' class="mx-auto d-block" width="114" height="114"
-                                            (click)="addStock('XL')" />
+                            <div class="row">
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src='assets/size-l.png' class="mx-auto d-block" width="114"
+                                                height="114" (click)="addStock('L')" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Stock</mat-label>
+                                                <input matInput type="number" placeholder="Stock"
+                                                    formControlName="stockL" min="0">
+                                                <mat-error
+                                                    *ngIf="stockLControl.hasError('min') && !stockLControl.hasError('required')">
+                                                    No se pueden usar numeros negativos.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Stock</mat-label>
-                                            <input matInput type="number" placeholder="Stock" formControlName="stockXL"
-                                                min="0">
-                                            <mat-error
-                                                *ngIf="stockXLControl.hasError('min') && !stockXLControl.hasError('required')">
-                                                No se pueden usar numeros negativos.
-                                            </mat-error>
-                                        </mat-form-field>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src='assets/size-xl.png' class="mx-auto d-block" width="114"
+                                                height="114" (click)="addStock('XL')" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Stock</mat-label>
+                                                <input matInput type="number" placeholder="Stock"
+                                                    formControlName="stockXL" min="0">
+                                                <mat-error
+                                                    *ngIf="stockXLControl.hasError('min') && !stockXLControl.hasError('required')">
+                                                    No se pueden usar numeros negativos.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="row">
+                                        <div class="col">
+                                            <img src='assets/size-xxl.png' class="mx-auto d-block" width="114"
+                                                height="114" (click)="addStock('XXL')" />
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <mat-form-field appearance="outline">
+                                                <mat-label>Stock</mat-label>
+                                                <input matInput type="number" placeholder="Stock"
+                                                    formControlName="stockXXL" min="0">
+                                                <mat-error
+                                                    *ngIf="stockXXLControl.hasError('min') && !stockXXLControl.hasError('required')">
+                                                    No se pueden usar numeros negativos.
+                                                </mat-error>
+                                            </mat-form-field>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col">
-                                <div class="row">
-                                    <div class="col">
-                                        <img src='assets/size-xxl.png' class="mx-auto d-block" width="114" height="114"
-                                            (click)="addStock('XXL')" />
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="col">
-                                        <mat-form-field appearance="outline">
-                                            <mat-label>Stock</mat-label>
-                                            <input matInput type="number" placeholder="Stock" formControlName="stockXXL"
-                                                min="0">
-                                            <mat-error
-                                                *ngIf="stockXXLControl.hasError('min') && !stockXXLControl.hasError('required')">
-                                                No se pueden usar numeros negativos.
-                                            </mat-error>
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </mat-card>
+                        </mat-card>
+                    </div>
                 </div>
             </mat-card-content>
             <mat-card-actions>
@@ -222,7 +224,7 @@
                         </button>
                     </div>
                 </div>
-                
+
             </mat-card-actions>
         </mat-card>
     </div>
