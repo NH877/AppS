@@ -25,6 +25,7 @@ export class ProductAddComponent implements OnInit {
 	public stockLControl: FormControl = new FormControl(0, [Validators.min(0)]);	
 	public stockXLControl: FormControl = new FormControl(0, [Validators.min(0)]);
 	public stockXXLControl: FormControl = new FormControl(0, [Validators.min(0)]);
+	
 
 	constructor(
 		private productService: ProductService,
@@ -173,4 +174,7 @@ export class ProductAddComponent implements OnInit {
 		this.router.navigate(['/list-product']);
 	}
 
+	public resetForm(): void{
+		this.productForm.reset();
+	}
 }
