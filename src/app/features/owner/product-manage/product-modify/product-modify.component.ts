@@ -66,7 +66,7 @@ export class ProductModifyComponent implements OnInit {
 				firebaseId: element.docs[0].id,
 				disabled: false,
 			}
-			
+			this.dialogRef.close();
 			this.productService.modify(product)
 				.then(() => {
 					this.snackBar.open("Producto modificado", "Cerrar", {
