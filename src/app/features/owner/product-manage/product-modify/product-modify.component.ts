@@ -14,6 +14,7 @@ import { ProductService } from 'src/app/shared/services/product/product.service'
 export class ProductModifyComponent implements OnInit {
 
 	public productForm: FormGroup;
+	public originalProduct: IProduct;
 
 	constructor(
 		private productService: ProductService,
@@ -24,6 +25,7 @@ export class ProductModifyComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
+		this.originalProduct = this.data;
 		this.initForm();
 	}
 
@@ -74,7 +76,7 @@ export class ProductModifyComponent implements OnInit {
 					
 				})
 				.catch( error => {
-					console.log("line 65 - product-modify", error);
+					console.log("line 79 - product-modify", error);
 					this.snackBar.open("Error al intentar modificar el producto", "Cerrar", {
 						duration: 3000,
 						panelClass: ['red-snackbar']
@@ -83,6 +85,56 @@ export class ProductModifyComponent implements OnInit {
 
 		})
 		
+	}
+
+	public validateModifyButton(): boolean {
+		if(this.productForm.valid)
+		{
+			if(this.productForm.get('name')?.value != this.originalProduct.name)
+				return false;
+			
+			if(this.productForm.get('cost')?.value != this.originalProduct.cost)
+				return false;
+
+			if(this.productForm.get('salePrice')?.value != this.originalProduct.salePrice)
+				return false;
+
+			if(this.productForm.get('listPrice')?.value != this.originalProduct.listPrice)
+				return false;
+
+			for(let i=0; i<this.originalProduct.stockSize.length; i++)
+			{
+				switch(this.originalProduct.stockSize[i].size)
+				{
+					case 'XS': 
+						if(this.productForm.get('stockXS')?.value != this.originalProduct.stockSize[i].stock)
+							return false;
+						break;
+					case 'S':
+						if(this.productForm.get('stockS')?.value != this.originalProduct.stockSize[i].stock)
+							return false;
+						break;
+					case 'M':
+						if(this.productForm.get('stockM')?.value != this.originalProduct.stockSize[i].stock)
+							return false;
+						break;
+					case 'L':
+						if(this.productForm.get('stockL')?.value != this.originalProduct.stockSize[i].stock)
+							return false;
+						break;
+					case 'XL':
+						if(this.productForm.get('stockXL')?.value != this.originalProduct.stockSize[i].stock)
+							return false;
+						break;
+					case 'XXL':
+						if(this.productForm.get('stockXXL')?.value != this.originalProduct.stockSize[i].stock)
+							return false;
+						break;
+					
+				}
+			}
+		}
+		return true;
 	}
 
 	public home(): void {
