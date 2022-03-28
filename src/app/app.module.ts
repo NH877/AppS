@@ -26,7 +26,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 
@@ -84,7 +83,6 @@ import { ProductScanComponent } from './features/owner/product-manage/product-sc
 		MatSnackBarModule,
 		MatPaginatorModule,
 		MatFormFieldModule,
-		MatGridListModule,
 		MatToolbarModule,
 		MatMenuModule
 	],
