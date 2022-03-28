@@ -130,7 +130,7 @@
                 </div>
             </mat-card-content>
             <mat-card-actions>
-                <button mat-button color="accent" class="w-100" (click)="modifyProduct()" [disabled]="!productForm.valid">
+                <button mat-button color="accent" class="w-100" (click)="modifyProduct()" [disabled]="validateModifyButton()">
                     <mat-icon>edit</mat-icon>
                     <span>Modificar</span>
                 </button>

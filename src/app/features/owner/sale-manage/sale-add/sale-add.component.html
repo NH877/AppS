@@ -1,131 +1,139 @@
-<mat-grid-list cols="1" style="height: 500px" [formGroup]="saleForm" >
+<div class="row">
+    <div class="col">
+        <mat-card [formGroup]="saleForm" style="width: 100%;">
+            <mat-card-header>
+                <mat-card-title>Escaneo de codigo</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-grid-list cols="4" rowHeight="5:1">
 
-    <h3>Escaneo de codigo</h3>
-            
-    <mat-divider></mat-divider>
-           
-        <mat-grid-list cols="4" rowHeight="5:1">
+                    <mat-grid-tile colspan="3">
 
-            <mat-grid-tile colspan="3">
+                        <mat-form-field class="w-100">
+                            <mat-label>ID</mat-label>
+                            <input matInput placeholder="Ingrese ID codigo manualmente" formControlName="id">
+                            <!---->
+                        </mat-form-field>
 
-                <mat-form-field class="w-100">
-                    <mat-label>ID</mat-label>
-                    <input matInput placeholder="Ingrese ID codigo manualmente" formControlName="id"> 
-                </mat-form-field>
+                    </mat-grid-tile>
 
-            </mat-grid-tile>
+                    <mat-grid-tile>
 
-            <mat-grid-tile>
+                        <button mat-button color="accent" class="w-100" (click)="selectProduct('2022031719111')">
+                            <mat-icon>document_scanner</mat-icon>
+                            <span>ESCANEAR</span>
+                        </button>
 
-                <button mat-button color="accent" class="w-100" (click)="selectProduct('20220323175612')">
-                    <mat-icon>document_scanner</mat-icon>      
-                    <span>ESCANEAR</span>
-                </button>
+                    </mat-grid-tile>
 
-            </mat-grid-tile>
+                </mat-grid-list>
 
-        </mat-grid-list>
+                <mat-grid-list cols="4" rowHeight="2:1" *ngIf="productSelected">
 
-        <mat-grid-list cols="4" rowHeight="2:1" *ngIf="productSelected">
+                    <mat-grid-tile>
+                        <img src='assets/buzo.jpg' class='imgRedonda' />
+                    </mat-grid-tile>
 
-            <mat-grid-tile >
-                <img src='assets/buzo.jpg' class='imgRedonda'/>
-            </mat-grid-tile>
+                    <mat-grid-tile colspan="3">
+                        <mat-card style="width: 100% ; ">
 
-            <mat-grid-tile colspan="3" >
-                <mat-card  style="width: 100% ; ">   
-                    <mat-grid-list cols="2" rowHeight="6:1" gutterSize="1%">
-                            
-                        <mat-grid-tile >
-                            <mat-form-field style="width: 100%;" >
-                                <mat-label>Nombre</mat-label>
-                                <input matInput placeholder="Nombre" formControlName="name" readonly >    
-                            </mat-form-field>
-                        </mat-grid-tile>
+                            <mat-grid-list cols="2" rowHeight="6:1" gutterSize="1%">
 
-                        <mat-grid-tile >
-                            <mat-form-field style="width: 100%;" >
-                                <mat-label>Pecio de venta</mat-label>
-                                <input matInput  placeholder="Precio de venta" formControlName="salePrice" >
-                            </mat-form-field>
-                        </mat-grid-tile>                            
+                                <mat-grid-tile>
+                                    <mat-form-field style="width: 100%;">
+                                        <mat-label>Nombre</mat-label>
+                                        <input matInput placeholder="Nombre" formControlName="name" readonly>
+                                    </mat-form-field>
+                                </mat-grid-tile>
 
-                    </mat-grid-list>
+                                <mat-grid-tile>
+                                    <mat-form-field style="width: 100%;">
+                                        <mat-label>Pecio de venta</mat-label>
+                                        <input matInput placeholder="Precio de venta" formControlName="salePrice">
+                                    </mat-form-field>
+                                </mat-grid-tile>
 
-                    <mat-grid-list cols="2" rowHeight="6:1" gutterSize="1%">
 
-                        <mat-grid-tile>
-                            <mat-form-field style="width: 100%;">
-                                <mat-label>Costo</mat-label>
-                                <input matInput  placeholder="Costo" formControlName="cost" readonly >    
-                            </mat-form-field>
-                        </mat-grid-tile>
-                            
-                        <mat-grid-tile>
-                            <mat-form-field style="width: 100%;" >
-                                <mat-label>Precio de lista</mat-label>
-                                <input matInput  placeholder="Precio de venta" formControlName="listPrice">                                           
-                            </mat-form-field>
-                        </mat-grid-tile>
-                        
-                    </mat-grid-list>
-                        
-                </mat-card>   
+                            </mat-grid-list>
 
-            </mat-grid-tile>
-                
-        </mat-grid-list>
+                            <mat-grid-list cols="2" rowHeight="6:1" gutterSize="1%">
 
-        <mat-grid-list cols="8" rowHeight="2:1" class="mt-2" *ngIf="productSelected">
-            <mat-grid-tile>
-                <img src='assets/size-xs.png' class='img-sizes' width="114" height="114" (click)="stockOfSize('XS')" />
-            </mat-grid-tile>
+                                <mat-grid-tile>
+                                    <mat-form-field style="width: 100%;">
+                                        <mat-label>Costo</mat-label>
+                                        <input matInput placeholder="Costo" formControlName="cost" readonly>
+                                    </mat-form-field>
+                                </mat-grid-tile>
 
-            <mat-grid-tile>
-                <img src='assets/size-s.png' class='img-sizes' width="114" height="114" (click)="stockOfSize('S')"/>
-            </mat-grid-tile>
+                                <mat-grid-tile>
+                                    <mat-form-field style="width: 100%;">
+                                        <mat-label>Precio de lista</mat-label>
+                                        <input matInput placeholder="Precio de venta" formControlName="listPrice">
+                                    </mat-form-field>
+                                </mat-grid-tile>
 
-            <mat-grid-tile>
-                <img src='assets/size-m.png' class='img-sizes' width="114" height="114" (click)="stockOfSize('M')"/>
-            </mat-grid-tile>
+                            </mat-grid-list>
 
-            <mat-grid-tile>
-                <img src='assets/size-l.png' class='img-sizes' width="114" height="114" (click)="stockOfSize('L')"/>
-            </mat-grid-tile>
+                        </mat-card>
 
-            <mat-grid-tile>
-                <img src='assets/size-xl.png' class='img-sizes' width="114" height="114" (click)="stockOfSize('XL')"/>
-            </mat-grid-tile>
+                    </mat-grid-tile>
 
-            <mat-grid-tile>
-                <img src='assets/size-xxl.png' class='img-sizes' width="114" height="114" (click)="stockOfSize('XXL')"/>
-            </mat-grid-tile>
+                </mat-grid-list>
 
-            <mat-grid-tile colspan="2">
+                <mat-grid-list cols="8" rowHeight="2:1" class="mt-2" *ngIf="productSelected">
+                    <mat-grid-tile>
+                        <img src='assets/size-xs.png' class='img-sizes' width="114" height="114"
+                            (click)="stockOfSize('XS')" />
+                    </mat-grid-tile>
 
-                <mat-form-field appearance="outline" style="margin-top: 18px; pointer-events: none; ">
-                    <mat-label>Stock</mat-label> 
-                    <input matInput placeholder="Stock segun talle" formControlName="stock" readonly #input> 
-                    <mat-icon matSuffix>inventory</mat-icon>
-                </mat-form-field>
+                    <mat-grid-tile>
+                        <img src='assets/size-s.png' class='img-sizes' width="114" height="114"
+                            (click)="stockOfSize('S')" />
+                    </mat-grid-tile>
 
-            </mat-grid-tile>
+                    <mat-grid-tile>
+                        <img src='assets/size-m.png' class='img-sizes' width="114" height="114"
+                            (click)="stockOfSize('M')" />
+                    </mat-grid-tile>
 
-        </mat-grid-list>
+                    <mat-grid-tile>
+                        <img src='assets/size-l.png' class='img-sizes' width="114" height="114"
+                            (click)="stockOfSize('L')" />
+                    </mat-grid-tile>
 
-        <mat-grid-list *ngIf="productSelected">
-            <button mat-button color="accent" class="w-100" (click)="sale()" [disabled]="saleProductValid()">
-                <mat-icon>attach_money</mat-icon>
-                <span>Vender</span>
-            </button>
-        </mat-grid-list>
-        
-</mat-grid-list>
-            
-                
-    
-               
-    
-            
+                    <mat-grid-tile>
+                        <img src='assets/size-xl.png' class='img-sizes' width="114" height="114"
+                            (click)="stockOfSize('XL')" />
+                    </mat-grid-tile>
 
-                   
+                    <mat-grid-tile>
+                        <img src='assets/size-xxl.png' class='img-sizes' width="114" height="114"
+                            (click)="stockOfSize('XXL')" />
+                    </mat-grid-tile>
+
+                    <mat-grid-tile colspan="2">
+
+                        <mat-form-field appearance="outline" style="margin-top: 18px; pointer-events: none; ">
+                            <mat-label>Stock</mat-label>
+                            <input matInput placeholder="Stock segun talle" formControlName="stock" readonly #input>
+                            <mat-icon matSuffix>inventory</mat-icon>
+                        </mat-form-field>
+
+                    </mat-grid-tile>
+
+                </mat-grid-list>
+            </mat-card-content>
+            <mat-card-actions>
+                <div class="row" *ngIf="productSelected">
+                    <div class="col">
+                        <button mat-button color="accent" class="w-100" (click)="sale()"
+                            [disabled]="saleProductValid()">
+                            <mat-icon>attach_money</mat-icon>
+                            <span>Vender</span>
+                        </button>
+                    </div>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
