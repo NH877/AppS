@@ -125,9 +125,14 @@ export class ProductListComponent implements OnInit {
 
 	}
 
-	public sell(){
-		
+	public sell(product: any): void{
 
+		this.dialog.open(SaleAddComponent, {
+			width: 'auto',
+			data: product as IProduct,
+			autoFocus: false,
+		});
+		
 	}
 
 }
