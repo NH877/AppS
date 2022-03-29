@@ -73,7 +73,7 @@ export class ProductListComponent implements OnInit {
 	}
 
 	public modify(product: any): void {
-		const dialogRef = this.dialog.open(ProductModifyComponent, {
+		this.dialog.open(ProductModifyComponent, {
 			width: 'auto',
 			data: product as IProduct,
 			autoFocus: false,
