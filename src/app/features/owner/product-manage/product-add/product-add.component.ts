@@ -22,9 +22,13 @@ export class ProductAddComponent implements OnInit {
 	public stockXSControl: FormControl = new FormControl(0, [Validators.min(0)]);
 	public stockSControl: FormControl = new FormControl(0, [Validators.min(0)]);
 	public stockMControl: FormControl = new FormControl(0, [Validators.min(0)]);
-	public stockLControl: FormControl = new FormControl(0, [Validators.min(0)]);	
+	public stockLControl: FormControl = new FormControl(0, [Validators.min(0)]);
 	public stockXLControl: FormControl = new FormControl(0, [Validators.min(0)]);
 	public stockXXLControl: FormControl = new FormControl(0, [Validators.min(0)]);
+	private file: File;
+	public imageURL: string;
+	public loading: boolean = false;
+
 
 	public originalProduct: IProduct;
 	@Input() productDataForModify: IProduct;
@@ -34,16 +38,16 @@ export class ProductAddComponent implements OnInit {
 	constructor(
 		private productService: ProductService,
 		private router: Router,
-		private snackBar: MatSnackBar,
+		private snackBar: MatSnackBar
 	) { }
-	
+
 	ngOnInit(): void {
 
 		this.initForm();
 
-		if(this.productDataForModify != undefined)
+		if (this.productDataForModify != undefined)
 			this.initFormForModify();
-		else if(this.productDataForDelete != this.productDataForModify)
+		else if (this.productDataForDelete != this.productDataForModify)
 			this.initFormForDelete();
 
 	}
@@ -66,48 +70,50 @@ export class ProductAddComponent implements OnInit {
 	public initFormForModify(): void {
 
 		this.originalProduct = this.productDataForModify;
+		this.imageURL = this.originalProduct.img;
 
-		if(this.productDataForModify.name)
+		if (this.productDataForModify.name)
 			this.productForm.get('name')?.setValue(this.productDataForModify.name);
-		if(this.productDataForModify.cost)
+		if (this.productDataForModify.cost)
 			this.productForm.get('cost')?.setValue(this.productDataForModify.cost);
-		if(this.productDataForModify.salePrice)
+		if (this.productDataForModify.salePrice)
 			this.productForm.get('salePrice')?.setValue(this.productDataForModify.salePrice);
-		if(this.productDataForModify.listPrice)
+		if (this.productDataForModify.listPrice)
 			this.productForm.get('listPrice')?.setValue(this.productDataForModify.listPrice);
 
-		this.productDataForModify.stockSize.find(x=> x.size == 'XS' ? this.productForm.get('stockXS')?.setValue(x.stock): null);
-		this.productDataForModify.stockSize.find(x=> x.size == 'S' ? this.productForm.get('stockS')?.setValue(x.stock): null);
-		this.productDataForModify.stockSize.find(x=> x.size == 'M' ? this.productForm.get('stockM')?.setValue(x.stock): null);
-		this.productDataForModify.stockSize.find(x=> x.size == 'L' ? this.productForm.get('stockL')?.setValue(x.stock): null);
-		this.productDataForModify.stockSize.find(x=> x.size == 'XL' ? this.productForm.get('stockXL')?.setValue(x.stock): null);
-		this.productDataForModify.stockSize.find(x=> x.size == 'XXL' ? this.productForm.get('stockXXL')?.setValue(x.stock): null);
+		this.productDataForModify.stockSize.find(x => x.size == 'XS' ? this.productForm.get('stockXS')?.setValue(x.stock) : null);
+		this.productDataForModify.stockSize.find(x => x.size == 'S' ? this.productForm.get('stockS')?.setValue(x.stock) : null);
+		this.productDataForModify.stockSize.find(x => x.size == 'M' ? this.productForm.get('stockM')?.setValue(x.stock) : null);
+		this.productDataForModify.stockSize.find(x => x.size == 'L' ? this.productForm.get('stockL')?.setValue(x.stock) : null);
+		this.productDataForModify.stockSize.find(x => x.size == 'XL' ? this.productForm.get('stockXL')?.setValue(x.stock) : null);
+		this.productDataForModify.stockSize.find(x => x.size == 'XXL' ? this.productForm.get('stockXXL')?.setValue(x.stock) : null);
 	}
 
-	public initFormForDelete(): void{
+	public initFormForDelete(): void {
 
 		this.originalProduct = this.productDataForDelete;
+		this.imageURL = this.originalProduct.img;
 
-		if(this.productDataForDelete.name)
+		if (this.productDataForDelete.name)
 			this.productForm.get('name')?.setValue(this.productDataForDelete.name);
-		if(this.productDataForDelete.cost)
+		if (this.productDataForDelete.cost)
 			this.productForm.get('cost')?.setValue(this.productDataForDelete.cost);
-		if(this.productDataForDelete.salePrice)
+		if (this.productDataForDelete.salePrice)
 			this.productForm.get('salePrice')?.setValue(this.productDataForDelete.salePrice);
-		if(this.productDataForDelete.listPrice)
+		if (this.productDataForDelete.listPrice)
 			this.productForm.get('listPrice')?.setValue(this.productDataForDelete.listPrice);
 
-		this.productDataForDelete.stockSize.find(x=> x.size == 'XS' ? this.productForm.get('stockXS')?.setValue(x.stock): null);
-		this.productDataForDelete.stockSize.find(x=> x.size == 'S' ? this.productForm.get('stockS')?.setValue(x.stock): null);
-		this.productDataForDelete.stockSize.find(x=> x.size == 'M' ? this.productForm.get('stockM')?.setValue(x.stock): null);
-		this.productDataForDelete.stockSize.find(x=> x.size == 'L' ? this.productForm.get('stockL')?.setValue(x.stock): null);
-		this.productDataForDelete.stockSize.find(x=> x.size == 'XL' ? this.productForm.get('stockXL')?.setValue(x.stock): null);
-		this.productDataForDelete.stockSize.find(x=> x.size == 'XXL' ? this.productForm.get('stockXXL')?.setValue(x.stock): null);
+		this.productDataForDelete.stockSize.find(x => x.size == 'XS' ? this.productForm.get('stockXS')?.setValue(x.stock) : null);
+		this.productDataForDelete.stockSize.find(x => x.size == 'S' ? this.productForm.get('stockS')?.setValue(x.stock) : null);
+		this.productDataForDelete.stockSize.find(x => x.size == 'M' ? this.productForm.get('stockM')?.setValue(x.stock) : null);
+		this.productDataForDelete.stockSize.find(x => x.size == 'L' ? this.productForm.get('stockL')?.setValue(x.stock) : null);
+		this.productDataForDelete.stockSize.find(x => x.size == 'XL' ? this.productForm.get('stockXL')?.setValue(x.stock) : null);
+		this.productDataForDelete.stockSize.find(x => x.size == 'XXL' ? this.productForm.get('stockXXL')?.setValue(x.stock) : null);
 
-		this.productForm.get('name')?.disable(); 
-		this.productForm.get('cost')?.disable(); 
-		this.productForm.get('salePrice')?.disable(); 
-		this.productForm.get('listPrice')?.disable(); 
+		this.productForm.get('name')?.disable();
+		this.productForm.get('cost')?.disable();
+		this.productForm.get('salePrice')?.disable();
+		this.productForm.get('listPrice')?.disable();
 		this.productForm.get('stockXS')?.disable();
 		this.productForm.get('stockS')?.disable();
 		this.productForm.get('stockM')?.disable();
@@ -117,21 +123,28 @@ export class ProductAddComponent implements OnInit {
 	}
 
 	public isAddProduct(): boolean {
-		if(this.productDataForModify || this.productDataForDelete)
-		{
+		if (this.productDataForModify || this.productDataForDelete) {
 			return false;
-		} 
+		}
 		return true;
 	}
 
+	public onFileSelected(event: any): void {
+		this.file = event.target.files[0];
+		const reader = new FileReader();
+
+		reader.onload = () =>
+			this.imageURL = reader.result as string;
+
+		reader.readAsDataURL(this.file)
+	}
+
 	public addStock(size: string): void {
-		
-		if(!this.productDataForDelete)
-		{
+
+		if (!this.productDataForDelete) {
 			let stock: number;
 
-			switch(size)
-			{
+			switch (size) {
 				case 'XS':
 					stock = this.productForm.get('stockXS')?.value;
 					stock++;
@@ -163,9 +176,9 @@ export class ProductAddComponent implements OnInit {
 					this.productForm.get('stockXXL')?.setValue(stock);
 					break;
 			}
-		}	
+		}
 	}
-	
+
 	public pushStockSizeList(): void {
 
 		let newStockSizeXS: StockSize = {
@@ -212,46 +225,85 @@ export class ProductAddComponent implements OnInit {
 	}
 
 	public addProduct(): void {
-
+		this.loading = true;
 		this.pushStockSizeList();
 
-		let product: IProduct = {
-			id: CoreHelper.generateIdDate(),
-			name: this.productForm.get('name')?.value,
-			cost: this.productForm.get('cost')?.value,
-			salePrice: this.productForm.get('salePrice')?.value,
-			listPrice: this.productForm.get('listPrice')?.value,
-			stockSize: this.stockSizeList,
-			img: this.productForm.get('img')?.value,
-			firebaseTimestamp: Date.now(),
-			disabled: false,
+		let idProduct = CoreHelper.generateIdDate();
+
+		let name: string = "img-" + idProduct;
+		this.productForm.get('img')?.setValue(name);
+
+		if (this.file) 
+		{
+			this.productService.addFileStorage(this.file, name)
+				.then(() => {
+					this.productService.getFileStorage(name).then(element => {
+
+						let product: IProduct = {
+							id: idProduct,
+							name: this.productForm.get('name')?.value,
+							cost: this.productForm.get('cost')?.value,
+							salePrice: this.productForm.get('salePrice')?.value,
+							listPrice: this.productForm.get('listPrice')?.value,
+							stockSize: this.stockSizeList,
+							img: element,
+							firebaseTimestamp: Date.now(),
+							disabled: false,
+						}
+						this.addProductToFirebase(product);
+					})
+				})
+				.catch(error => {
+					this.snackBar.open("Error al intentar cargar la imagen del producto", "Cerrar", {
+						duration: 3000,
+						panelClass: ['red-snackbar']
+					});
+				});
 		}
+		else 
+		{
+			let product: IProduct = {
+				id: idProduct,
+				name: this.productForm.get('name')?.value,
+				cost: this.productForm.get('cost')?.value,
+				salePrice: this.productForm.get('salePrice')?.value,
+				listPrice: this.productForm.get('listPrice')?.value,
+				stockSize: this.stockSizeList,
+				img: "assets/img-test.jpg",
+				firebaseTimestamp: Date.now(),
+				disabled: false,
+			}
+			this.addProductToFirebase(product);
+		}
+		
+	}
 
+	private addProductToFirebase(product: IProduct): void {
 		this.productService.add(product)
-			.then(() => {
-				this.snackBar.open("Producto agregado", "Cerrar", {
-					duration: 3000,
-					panelClass: ['green-snackbar']
-				});
-
-				this.router.navigate(['/list-product']);
-			})
-			.catch(error => {
-				console.log("line 194 - product-add", error);
-				this.snackBar.open("Error al intentar agregar el producto", "Cerrar", {
-					duration: 3000,
-					panelClass: ['red-snackbar']
-				});
+		.then(() => {
+			this.loading = false;
+			this.snackBar.open("Producto agregado", "Cerrar", {
+				duration: 3000,
+				panelClass: ['green-snackbar']
 			});
+		})
+		.catch(error => {
+			this.snackBar.open("Error al intentar agregar el producto", "Cerrar", {
+				duration: 3000,
+				panelClass: ['red-snackbar']
+			});
+		})
+		.finally(() => {
+			this.router.navigate(['/list-product']);
+		})
 	}
 
 	public validateModifyButton(): boolean {
 
-		if(this.productForm.valid)
-		{
+		if(this.productForm.valid) {
 			if(this.productForm.get('name')?.value != this.originalProduct.name)
 				return false;
-			
+
 			if(this.productForm.get('cost')?.value != this.originalProduct.cost)
 				return false;
 
@@ -261,32 +313,34 @@ export class ProductAddComponent implements OnInit {
 			if(this.productForm.get('listPrice')?.value != this.originalProduct.listPrice)
 				return false;
 
-			for(let i=0; i<this.originalProduct.stockSize.length; i++)
+			if(this.imageURL != this.originalProduct.img)
+				return false;
+
+			for(let i = 0; i < this.originalProduct.stockSize.length; i++) 
 			{
-				switch(this.originalProduct.stockSize[i].size)
-				{
-					case 'XS': 
-						if(this.productForm.get('stockXS')?.value != this.originalProduct.stockSize[i].stock)
+				switch (this.originalProduct.stockSize[i].size) {
+					case 'XS':
+						if (this.productForm.get('stockXS')?.value != this.originalProduct.stockSize[i].stock)
 							return false;
 						break;
 					case 'S':
-						if(this.productForm.get('stockS')?.value != this.originalProduct.stockSize[i].stock)
+						if (this.productForm.get('stockS')?.value != this.originalProduct.stockSize[i].stock)
 							return false;
 						break;
 					case 'M':
-						if(this.productForm.get('stockM')?.value != this.originalProduct.stockSize[i].stock)
+						if (this.productForm.get('stockM')?.value != this.originalProduct.stockSize[i].stock)
 							return false;
 						break;
 					case 'L':
-						if(this.productForm.get('stockL')?.value != this.originalProduct.stockSize[i].stock)
+						if (this.productForm.get('stockL')?.value != this.originalProduct.stockSize[i].stock)
 							return false;
 						break;
 					case 'XL':
-						if(this.productForm.get('stockXL')?.value != this.originalProduct.stockSize[i].stock)
+						if (this.productForm.get('stockXL')?.value != this.originalProduct.stockSize[i].stock)
 							return false;
 						break;
 					case 'XXL':
-						if(this.productForm.get('stockXXL')?.value != this.originalProduct.stockSize[i].stock)
+						if (this.productForm.get('stockXXL')?.value != this.originalProduct.stockSize[i].stock)
 							return false;
 						break;
 				}
@@ -297,32 +351,68 @@ export class ProductAddComponent implements OnInit {
 	}
 
 	public modifyProduct(): void {
-
+		this.loading = true;
 		this.productService.getById(this.productDataForModify.id).get().subscribe(element => {
 			this.pushStockSizeList();
-			let product: IProduct = {
-				id: this.productDataForModify.id,
-				name: this.productForm.get('name')?.value,
-				cost: this.productForm.get('cost')?.value,
-				salePrice: this.productForm.get('salePrice')?.value,
-				listPrice: this.productForm.get('listPrice')?.value,
-				stockSize: this.stockSizeList,
-				img: this.productForm.get('img')?.value,
-				firebaseTimestamp: Date.now(),
-				firebaseId: element.docs[0].id,
-				disabled: false,
+			if(this.imageURL != this.productDataForModify.img)
+			{
+				let name = "img-"+this.productDataForModify.id;
+				this.deleteFile(name);
+				this.productService.addFileStorage(this.file, name)
+					.then(() => {
+						this.productService.getFileStorage(name).then(file => {
+							
+							let product: IProduct = {
+								id: this.productDataForModify.id,
+								name: this.productForm.get('name')?.value,
+								cost: this.productForm.get('cost')?.value,
+								salePrice: this.productForm.get('salePrice')?.value,
+								listPrice: this.productForm.get('listPrice')?.value,
+								stockSize: this.stockSizeList,
+								img: file,
+								firebaseTimestamp: Date.now(),
+								firebaseId: element.docs[0].id,
+								disabled: false,
+							}
+							this.modifyProductToFirebase(product);
+						})
+					})
+					.catch(error => {
+						this.snackBar.open("Error al intentar cargar la imagen del producto", "Cerrar", {
+							duration: 3000,
+							panelClass: ['red-snackbar']
+						});
+					});
 			}
+			else{
 
-			this.productService.modify(product)
+				let product: IProduct = {
+					id: this.productDataForModify.id,
+					name: this.productForm.get('name')?.value,
+					cost: this.productForm.get('cost')?.value,
+					salePrice: this.productForm.get('salePrice')?.value,
+					listPrice: this.productForm.get('listPrice')?.value,
+					stockSize: this.stockSizeList,
+					img: this.imageURL,
+					firebaseTimestamp: Date.now(),
+					firebaseId: element.docs[0].id,
+					disabled: false,
+				}
+				this.modifyProductToFirebase(product);
+			}
+		})
+	}
+
+	private modifyProductToFirebase(product: IProduct): void {
+		this.productService.modify(product)
 				.then(() => {
+					this.loading = false;
 					this.snackBar.open("Producto modificado", "Cerrar", {
 						duration: 3000,
 						panelClass: ['blue-snackbar']
 					});
-					
 				})
-				.catch( error => {
-					console.log("line 279 - product-modify", error);
+				.catch(error => {
 					this.snackBar.open("Error al intentar modificar el producto", "Cerrar", {
 						duration: 3000,
 						panelClass: ['red-snackbar']
@@ -331,10 +421,10 @@ export class ProductAddComponent implements OnInit {
 				.finally(() => {
 					this.closeDialogEvent.emit(true);
 				});
-		})
 	}
 
 	public delete(): void {
+		this.loading = true;
 		this.productService.getById(this.productDataForDelete.id).get().subscribe(element => {
 
 			let product: IProduct = {
@@ -352,13 +442,14 @@ export class ProductAddComponent implements OnInit {
 
 			this.productService.delete(product)
 				.then(() => {
+					this.deleteFile("img-"+this.productDataForDelete.id);
+					this.loading = false;
 					this.snackBar.open("Producto Eliminado", "Cerrar", {
 						duration: 3000,
 						panelClass: ['orange-snackbar']
 					});
 				})
-				.catch( error => {
-					console.log("line 361 - product-add", error);
+				.catch(error => {
 					this.snackBar.open("Error al intentar eliminar el producto", "Cerrar", {
 						duration: 3000,
 						panelClass: ['red-snackbar']
@@ -367,9 +458,11 @@ export class ProductAddComponent implements OnInit {
 				.finally(() => {
 					this.closeDialogEvent.emit(true);
 				})
-
 		})
+	}
 
+	public deleteFile(path: string): void {
+		this.productService.deleteFileStorage(path);
 	}
 
 	public home(): void {
@@ -384,7 +477,7 @@ export class ProductAddComponent implements OnInit {
 		this.router.navigate(['/list-product']);
 	}
 
-	public resetForm(): void{
+	public resetForm(): void {
 		this.productForm.reset();
 	}
 }

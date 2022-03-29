@@ -42,10 +42,6 @@ import { FooterComponent } from './shared/footer/footer.component';
 import { ProductScanComponent } from './features/owner/product-manage/product-scan/product-scan.component';
 
 
-
-
-
-
 @NgModule({
 	declarations: [
 		AppComponent,
@@ -59,10 +55,6 @@ import { ProductScanComponent } from './features/owner/product-manage/product-sc
 		NavbarComponent,
 		FooterComponent,
 		ProductScanComponent,
-
-
-
-
 	],
 	imports: [
 		BrowserModule,

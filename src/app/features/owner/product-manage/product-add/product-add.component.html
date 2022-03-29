@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" *ngIf="!loading">
     <div class="col">
         <mat-card [formGroup]="productForm">
             <mat-card-header>
@@ -62,12 +62,14 @@
                         <mat-card class="mat-elevation-z0 outline p-0">
                             <div class="row">
                                 <div class="col">
-                                    <img class="img-fluid mx-auto d-block" src="assets/buzo.jpg">
+                                    <img class="img-fluid mx-auto d-block" src="assets/img-test.jpg" *ngIf="!imageURL">
+                                    <img class="img-fluid mx-auto d-block" [src]="imageURL" *ngIf="imageURL">
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row" *ngIf="!productDataForDelete">
                                 <div class="col">
-                                    <button mat-button color="accent" class="w-100">
+                                    <input type="file" id="file" #file (change)="onFileSelected($event)" accept=".png, .jpg, .jpeg" hidden/>
+                                    <button mat-button color="accent" class="w-100" (click)="file.click()">
                                         <mat-icon>file_upload</mat-icon>
                                     </button>
                                 </div>
@@ -242,5 +244,11 @@
 
             </mat-card-actions>
         </mat-card>
+    </div>
+</div>
+
+<div class="row" *ngIf="loading">
+    <div class="col"> 
+        <mat-spinner></mat-spinner>
     </div>
 </div>

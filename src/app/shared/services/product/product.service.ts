@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { AngularFireStorage, AngularFireStorageReference, AngularFireUploadTask } from '@angular/fire/compat/storage';
 import { IProduct } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { FirebaseHelper } from 'src/app/core/helpers/firebase-helper';
@@ -10,7 +10,10 @@ import { FirebaseHelper } from 'src/app/core/helpers/firebase-helper';
 })
 export class ProductService {
 
-	constructor(private db: AngularFirestore) { }
+	constructor(
+        private db: AngularFirestore,
+        private storage: AngularFireStorage,
+        ) { }
 
 	public getAll(): AngularFirestoreCollection<unknown> {
         return this.db.collection('product', ref => ref.orderBy('firebaseTimestamp','asc'));
@@ -41,4 +44,17 @@ export class ProductService {
     public modify(product: IProduct): Promise<void> {
         return this.db.collection('product').doc(product.firebaseId).update(CoreHelper.convertToObject(product));
     }
+
+    public addFileStorage(file: File, name: string): AngularFireUploadTask {
+        return this.storage.upload(name, file);
+    }
+
+    public getFileStorage(path: string): Promise<string> {
+        return this.storage.ref(path).getDownloadURL().toPromise().then(url => url);
+    }
+
+    public deleteFileStorage(path: string) {
+        return this.storage.ref(path).delete();
+    }
+
 }
