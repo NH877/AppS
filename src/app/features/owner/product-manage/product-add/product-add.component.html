@@ -2,8 +2,9 @@
     <div class="col">
         <mat-card [formGroup]="productForm">
             <mat-card-header>
-                <mat-card-title *ngIf="!productDataForModify">Alta de Productos</mat-card-title>
+                <mat-card-title *ngIf="isAddProduct()">Alta de Productos</mat-card-title>
                 <mat-card-title *ngIf="productDataForModify">Modificación de Producto</mat-card-title>
+                <mat-card-title *ngIf="productDataForDelete">Eliminación de Producto</mat-card-title>
             </mat-card-header>
             <mat-card-content>
                 <div class="row">
@@ -218,7 +219,7 @@
                             <mat-icon>clear</mat-icon>
                             <span>Cancalar</span>
                         </button>
-                        <button mat-button (click)="resetForm()" *ngIf="!productDataForModify">
+                        <button mat-button (click)="resetForm()" *ngIf="isAddProduct()">
                             <span>Reset</span>
                         </button>
                     </div>
@@ -227,9 +228,13 @@
                             <mat-icon>edit</mat-icon>
                             <span>Modificar</span>
                         </button>
-                        <button mat-button color="accent" (click)="addProduct()" [disabled]="!productForm.valid" *ngIf="!productDataForModify">
+                        <button mat-button color="accent" (click)="addProduct()" [disabled]="!productForm.valid" *ngIf="isAddProduct()">
                             <mat-icon>add</mat-icon>
                             <span>Agregar</span>
+                        </button>
+                        <button mat-button (click)="delete()" *ngIf="productDataForDelete">
+                            <mat-icon>delete_forever</mat-icon>
+                            <span>Eliminar</span>
                         </button>
                     </div>
                 </div>
