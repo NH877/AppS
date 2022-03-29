@@ -10,6 +10,7 @@ import { ProductDeleteComponent } from '../product-delete/product-delete.compone
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { SaleAddComponent } from '../../sale-manage/sale-add/sale-add.component';
 import { ProductModifyComponent } from '../product-modify/product-modify.component';
+import { ProductScanComponent } from '../product-scan/product-scan.component';
 
 
 @Component({
@@ -72,7 +73,7 @@ export class ProductListComponent implements OnInit {
 	}
 
 	public modify(product: any): void {
-		const dialogRef = this.dialog.open(ProductModifyComponent, {
+		this.dialog.open(ProductModifyComponent, {
 			width: 'auto',
 			data: product as IProduct,
 			autoFocus: false,
@@ -89,7 +90,7 @@ export class ProductListComponent implements OnInit {
 
 	public addSale(): void {
 		const dialogRef = this.dialog.open(SaleAddComponent, {
-			width: '1500px',  /* ESTO DEFINE LO GRANDE QUE VA SER EL MAT-DIALOG*/ 
+			width: '900px',  /* ESTO DEFINE LO ANCHO QUE VA SER EL MAT-DIALOG*/ 
 			autoFocus: false,
 		});
 	}
@@ -117,8 +118,21 @@ export class ProductListComponent implements OnInit {
 		
 	}
 
-	public sell(){
+	public scanProduct(){const dialogRef = this.dialog.open(ProductScanComponent, {
+		width: '900px',  /* ESTO DEFINE LO ANCHO QUE VA SER EL MAT-DIALOG*/ 
+		autoFocus: false,
+	});
 
+	}
+
+	public sell(product: any): void{
+
+		this.dialog.open(SaleAddComponent, {
+			width: 'auto',
+			data: product as IProduct,
+			autoFocus: false,
+		});
+		
 	}
 
 }

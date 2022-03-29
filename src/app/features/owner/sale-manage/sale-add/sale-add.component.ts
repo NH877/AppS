@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IProduct, ISale, Size, StockSize, Store } from 'src/app/core/entities';
+import { IProduct, ISale, StockSize, Store } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 import { SaleService } from 'src/app/shared/services/sale/sale.service';
@@ -23,6 +23,7 @@ export class SaleAddComponent implements OnInit {
 		public dialogRef: MatDialogRef<SaleAddComponent>,
 		public saleService: SaleService,
 		private snackBar: MatSnackBar,
+    	@Inject(MAT_DIALOG_DATA) public data: IProduct,
 		) { }
 
 
@@ -31,33 +32,19 @@ export class SaleAddComponent implements OnInit {
 	}
 
 	public initForm(): void{
+		console.log(this.data);
 		this.saleForm = new FormGroup({
-			'name': new FormControl(''),
-			'cost': new FormControl(''),
-			'salePrice': new FormControl(''),
-			'listPrice': new FormControl(''),
-			'stock': new FormControl(''),
-			'id': new FormControl(''),
-			'size': new FormControl('')
+			'name': new FormControl(this.data.name),
+			'cost': new FormControl(this.data.cost),
+			'salePrice': new FormControl(this.data.salePrice),
+			'listPrice': new FormControl(this.data.listPrice),
+			'stock': new FormControl(null),
+			'id': new FormControl(this.data.id),
+			'size': new FormControl(null),
 		})		
 	}
 
-	public selectProduct(id: string): void { 
-
-		this.productService.getById(id).get().subscribe(element => {
-			
-			this.productSelected = element.docs[0].data() as IProduct ;
-			this.productSelected.firebaseId = element.docs[0].id
-			this.saleForm.get('id')?.setValue(this.productSelected.id);
-			this.saleForm.get('name')?.setValue(this.productSelected.name);
-			this.saleForm.get('salePrice')?.setValue(this.productSelected.salePrice);
-			this.saleForm.get('listPrice')?.setValue(this.productSelected.listPrice);
-			this.saleForm.get('cost')?.setValue(this.productSelected.cost);
-
-			this.stockOfSize(this.saleForm.get('size')?.value);
-		});
-
-	}
+	
 
 	public stockOfSize(size: string): void {
 

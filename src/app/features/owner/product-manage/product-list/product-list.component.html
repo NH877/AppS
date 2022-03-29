@@ -15,7 +15,7 @@
                         </mat-form-field>
                     </div>
                     <div class="col-3">
-                        <button mat-button color="accent" (click)="addSale()" class="w-100">
+                        <button mat-button color="accent" (click)="scanProduct()" class="w-100">
                             <!--BOTON A TRABAJAR (click)="addSale()"-->
                             <mat-icon>document_scanner</mat-icon>
                             <span>Escanear codigo</span>
@@ -50,7 +50,7 @@
                                 <th mat-header-cell *matHeaderCellDef> Acciones </th>
                                 <td mat-cell *matCellDef="let product">
 
-                                    <button mat-icon-button class="greenButton" (click)="sell()">
+                                    <button mat-icon-button class="greenButton" (click)="sell(product)">
                                         <mat-icon>point_of_sale</mat-icon>
                                     </button>
 

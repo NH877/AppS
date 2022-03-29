@@ -1,0 +1,18 @@
+<div class="row" [formGroup]="scanForm">
+    <div class="col-9">  
+
+        <mat-form-field class="w-100">
+            <mat-label>ID</mat-label>
+            <input matInput placeholder="Ingrese ID codigo manualmente" formControlName="id"> 
+        </mat-form-field>
+
+    </div>
+    <div class="col-3">
+
+        <button mat-button color="accent" class="w-100" (click)="selectProduct()">
+            <mat-icon>document_scanner</mat-icon>      
+            <span>ESCANEAR</span>
+        </button>
+        
+    </div>
+</div>

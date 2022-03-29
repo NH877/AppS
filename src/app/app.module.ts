@@ -26,7 +26,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule } from '@angular/material/sort';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatGridListModule } from '@angular/material/grid-list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 
@@ -40,6 +39,9 @@ import { SaleHistoryComponent } from './features/owner/sale-manage/sale-history/
 import { SaleAddComponent } from './features/owner/sale-manage/sale-add/sale-add.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { ProductScanComponent } from './features/owner/product-manage/product-scan/product-scan.component';
+
+
 
 
 
@@ -55,7 +57,12 @@ import { FooterComponent } from './shared/footer/footer.component';
 		SaleHistoryComponent,
 		SaleAddComponent,
 		NavbarComponent,
-  FooterComponent
+		FooterComponent,
+		ProductScanComponent,
+
+
+
+
 	],
 	imports: [
 		BrowserModule,
@@ -78,7 +85,6 @@ import { FooterComponent } from './shared/footer/footer.component';
 		MatSnackBarModule,
 		MatPaginatorModule,
 		MatFormFieldModule,
-		MatGridListModule,
 		MatToolbarModule,
 		MatMenuModule
 	],

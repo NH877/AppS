@@ -32,7 +32,6 @@ export class ProductDeleteComponent implements OnInit {
             'salePrice': new FormControl({value: this.data.salePrice, disabled: true}),
             'listPrice': new FormControl({value: this.data.listPrice, disabled: true}),
             'stockSize': new FormControl({value: this.data.stockSize, disabled: true}),
-            
 		})
 	}
 
