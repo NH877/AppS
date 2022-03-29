@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
@@ -7,7 +7,7 @@ import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 
 @Component({
-	selector: 'app-product-add',
+	selector: 'app-product-data',
 	templateUrl: './product-add.component.html',
 	styleUrls: ['./product-add.component.scss']
 })
@@ -25,16 +25,25 @@ export class ProductAddComponent implements OnInit {
 	public stockLControl: FormControl = new FormControl(0, [Validators.min(0)]);	
 	public stockXLControl: FormControl = new FormControl(0, [Validators.min(0)]);
 	public stockXXLControl: FormControl = new FormControl(0, [Validators.min(0)]);
-	
+
+	public originalProduct: IProduct;
+	@Input() productDataForModify: IProduct;
+	@Input() productDataForDelete: IProduct;
+	@Output() closeDialogEvent = new EventEmitter<boolean>();
 
 	constructor(
 		private productService: ProductService,
 		private router: Router,
-		private snackBar: MatSnackBar
+		private snackBar: MatSnackBar,
 	) { }
 
 	ngOnInit(): void {
+
 		this.initForm();
+
+		if(this.productDataForModify != undefined)
+			this.initFormForModify();
+
 	}
 
 	public initForm(): void {
@@ -51,7 +60,28 @@ export class ProductAddComponent implements OnInit {
 			'stockXXL': this.stockXXLControl,
 		})
 	}
-	
+
+	public initFormForModify(): void {
+
+		this.originalProduct = this.productDataForModify;
+
+		if(this.productDataForModify.name)
+			this.productForm.get('name')?.setValue(this.productDataForModify.name);
+		if(this.productDataForModify.cost)
+			this.productForm.get('cost')?.setValue(this.productDataForModify.cost);
+		if(this.productDataForModify.salePrice)
+			this.productForm.get('salePrice')?.setValue(this.productDataForModify.salePrice);
+		if(this.productDataForModify.listPrice)
+			this.productForm.get('listPrice')?.setValue(this.productDataForModify.listPrice);
+
+		this.productDataForModify.stockSize.find(x=> x.size == 'XS' ? this.productForm.get('stockXS')?.setValue(x.stock): null);
+		this.productDataForModify.stockSize.find(x=> x.size == 'S' ? this.productForm.get('stockS')?.setValue(x.stock): null);
+		this.productDataForModify.stockSize.find(x=> x.size == 'M' ? this.productForm.get('stockM')?.setValue(x.stock): null);
+		this.productDataForModify.stockSize.find(x=> x.size == 'L' ? this.productForm.get('stockL')?.setValue(x.stock): null);
+		this.productDataForModify.stockSize.find(x=> x.size == 'XL' ? this.productForm.get('stockXL')?.setValue(x.stock): null);
+		this.productDataForModify.stockSize.find(x=> x.size == 'XXL' ? this.productForm.get('stockXXL')?.setValue(x.stock): null);
+	}
+
 	public addStock(size: string): void {
 		
 		let stock: number;
@@ -91,7 +121,7 @@ export class ProductAddComponent implements OnInit {
 		}
 	}
 	
-	public addProduct(): void {
+	public pushStockSizeList(): void {
 
 		let newStockSizeXS: StockSize = {
 			size: Size.XS,
@@ -134,6 +164,11 @@ export class ProductAddComponent implements OnInit {
 		}
 
 		this.stockSizeList.push(newStockSizeXXL);
+	}
+
+	public addProduct(): void {
+
+		this.pushStockSizeList();
 
 		let product: IProduct = {
 			id: CoreHelper.generateIdDate(),
@@ -156,9 +191,8 @@ export class ProductAddComponent implements OnInit {
 
 				this.router.navigate(['/list-product']);
 			})
-
 			.catch(error => {
-				console.log("line 112 - product-add", error);
+				console.log("line 194 - product-add", error);
 				this.snackBar.open("Error al intentar agregar el producto", "Cerrar", {
 					duration: 3000,
 					panelClass: ['red-snackbar']
@@ -166,8 +200,101 @@ export class ProductAddComponent implements OnInit {
 			});
 	}
 
+	public validateModifyButton(): boolean {
+
+		if(this.productForm.valid)
+		{
+			if(this.productForm.get('name')?.value != this.originalProduct.name)
+				return false;
+			
+			if(this.productForm.get('cost')?.value != this.originalProduct.cost)
+				return false;
+
+			if(this.productForm.get('salePrice')?.value != this.originalProduct.salePrice)
+				return false;
+
+			if(this.productForm.get('listPrice')?.value != this.originalProduct.listPrice)
+				return false;
+
+			for(let i=0; i<this.originalProduct.stockSize.length; i++)
+			{
+				switch(this.originalProduct.stockSize[i].size)
+				{
+					case 'XS': 
+						if(this.productForm.get('stockXS')?.value != this.originalProduct.stockSize[i].stock)
+							return false;
+						break;
+					case 'S':
+						if(this.productForm.get('stockS')?.value != this.originalProduct.stockSize[i].stock)
+							return false;
+						break;
+					case 'M':
+						if(this.productForm.get('stockM')?.value != this.originalProduct.stockSize[i].stock)
+							return false;
+						break;
+					case 'L':
+						if(this.productForm.get('stockL')?.value != this.originalProduct.stockSize[i].stock)
+							return false;
+						break;
+					case 'XL':
+						if(this.productForm.get('stockXL')?.value != this.originalProduct.stockSize[i].stock)
+							return false;
+						break;
+					case 'XXL':
+						if(this.productForm.get('stockXXL')?.value != this.originalProduct.stockSize[i].stock)
+							return false;
+						break;
+				}
+			}
+		}
+
+		return true;
+	}
+
+	public modifyProduct(): void {
+
+		this.productService.getById(this.productDataForModify.id).get().subscribe(element => {
+			this.pushStockSizeList();
+			let product: IProduct = {
+				id: this.productDataForModify.id,
+				name: this.productForm.get('name')?.value,
+				cost: this.productForm.get('cost')?.value,
+				salePrice: this.productForm.get('salePrice')?.value,
+				listPrice: this.productForm.get('listPrice')?.value,
+				stockSize: this.stockSizeList,
+				img: this.productForm.get('img')?.value,
+				firebaseTimestamp: Date.now(),
+				firebaseId: element.docs[0].id,
+				disabled: false,
+			}
+
+			this.productService.modify(product)
+				.then(() => {
+					this.snackBar.open("Producto modificado", "Cerrar", {
+						duration: 3000,
+						panelClass: ['blue-snackbar']
+					});
+					
+				})
+				.catch( error => {
+					console.log("line 279 - product-modify", error);
+					this.snackBar.open("Error al intentar modificar el producto", "Cerrar", {
+						duration: 3000,
+						panelClass: ['red-snackbar']
+					});
+				})
+				.finally(() => {
+					this.closeDialogEvent.emit(true);
+				});
+		})
+	}
+
 	public home(): void {
 		this.router.navigate(['']);
+	}
+
+	public cancelModify(): void {
+		this.closeDialogEvent.emit(false);
 	}
 
 	public list(): void {
