@@ -38,6 +38,7 @@ import { ProductDeleteComponent } from './features/owner/product-manage/product-
 import { SaleHistoryComponent } from './features/owner/sale-manage/sale-history/sale-history.component';
 import { SaleAddComponent } from './features/owner/sale-manage/sale-add/sale-add.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { FooterComponent } from './shared/footer/footer.component';
 import { ProductScanComponent } from './features/owner/product-manage/product-scan/product-scan.component';
 
 
@@ -56,10 +57,11 @@ import { ProductScanComponent } from './features/owner/product-manage/product-sc
 		SaleHistoryComponent,
 		SaleAddComponent,
 		NavbarComponent,
-  		ProductScanComponent,
-  
- 
-  
+		FooterComponent,
+		ProductScanComponent,
+
+
+
 
 	],
 	imports: [

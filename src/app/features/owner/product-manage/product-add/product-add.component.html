@@ -58,9 +58,9 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col">
+                    <div class="col max-size-image-col">
                         <mat-card class="mat-elevation-z0 outline p-0">
-                            <div class="row photo-max-size">
+                            <div class="row">
                                 <div class="col">
                                     <img class="img-fluid mx-auto d-block" src="assets/buzo.jpg">
                                 </div>
@@ -224,7 +224,8 @@
                         </button>
                     </div>
                     <div class="col" align="end">
-                        <button mat-button color="accent" (click)="modifyProduct()" [disabled]="validateModifyButton()" *ngIf="productDataForModify">
+                        <button mat-button color="accent" (click)="modifyProduct()" [disabled]="validateModifyButton()"
+                            *ngIf="productDataForModify">
                             <mat-icon>edit</mat-icon>
                             <span>Modificar</span>
                         </button>
@@ -238,7 +239,7 @@
                         </button>
                     </div>
                 </div>
-                
+
             </mat-card-actions>
         </mat-card>
     </div>
