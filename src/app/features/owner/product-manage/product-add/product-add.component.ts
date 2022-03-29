@@ -36,13 +36,15 @@ export class ProductAddComponent implements OnInit {
 		private router: Router,
 		private snackBar: MatSnackBar,
 	) { }
-
+	
 	ngOnInit(): void {
 
 		this.initForm();
 
 		if(this.productDataForModify != undefined)
 			this.initFormForModify();
+		else if(this.productDataForDelete != this.productDataForModify)
+			this.initFormForDelete();
 
 	}
 
@@ -82,43 +84,86 @@ export class ProductAddComponent implements OnInit {
 		this.productDataForModify.stockSize.find(x=> x.size == 'XXL' ? this.productForm.get('stockXXL')?.setValue(x.stock): null);
 	}
 
+	public initFormForDelete(): void{
+
+		this.originalProduct = this.productDataForDelete;
+
+		if(this.productDataForDelete.name)
+			this.productForm.get('name')?.setValue(this.productDataForDelete.name);
+		if(this.productDataForDelete.cost)
+			this.productForm.get('cost')?.setValue(this.productDataForDelete.cost);
+		if(this.productDataForDelete.salePrice)
+			this.productForm.get('salePrice')?.setValue(this.productDataForDelete.salePrice);
+		if(this.productDataForDelete.listPrice)
+			this.productForm.get('listPrice')?.setValue(this.productDataForDelete.listPrice);
+
+		this.productDataForDelete.stockSize.find(x=> x.size == 'XS' ? this.productForm.get('stockXS')?.setValue(x.stock): null);
+		this.productDataForDelete.stockSize.find(x=> x.size == 'S' ? this.productForm.get('stockS')?.setValue(x.stock): null);
+		this.productDataForDelete.stockSize.find(x=> x.size == 'M' ? this.productForm.get('stockM')?.setValue(x.stock): null);
+		this.productDataForDelete.stockSize.find(x=> x.size == 'L' ? this.productForm.get('stockL')?.setValue(x.stock): null);
+		this.productDataForDelete.stockSize.find(x=> x.size == 'XL' ? this.productForm.get('stockXL')?.setValue(x.stock): null);
+		this.productDataForDelete.stockSize.find(x=> x.size == 'XXL' ? this.productForm.get('stockXXL')?.setValue(x.stock): null);
+
+		this.productForm.get('name')?.disable(); 
+		this.productForm.get('cost')?.disable(); 
+		this.productForm.get('salePrice')?.disable(); 
+		this.productForm.get('listPrice')?.disable(); 
+		this.productForm.get('stockXS')?.disable();
+		this.productForm.get('stockS')?.disable();
+		this.productForm.get('stockM')?.disable();
+		this.productForm.get('stockL')?.disable();
+		this.productForm.get('stockXL')?.disable();
+		this.productForm.get('stockXXL')?.disable();
+	}
+
+	public isAddProduct(): boolean {
+		if(this.productDataForModify || this.productDataForDelete)
+		{
+			return false;
+		} 
+		return true;
+	}
+
 	public addStock(size: string): void {
 		
-		let stock: number;
-
-		switch(size)
+		if(!this.productDataForDelete)
 		{
-			case 'XS':
-				stock = this.productForm.get('stockXS')?.value;
-				stock++;
-				this.productForm.get('stockXS')?.setValue(stock);
-				break;
-			case 'S':
-				stock = this.productForm.get('stockS')?.value;
-				stock++;
-				this.productForm.get('stockS')?.setValue(stock);
-				break;
-			case 'M':
-				stock = this.productForm.get('stockM')?.value;
-				stock++;
-				this.productForm.get('stockM')?.setValue(stock);
-				break;
-			case 'L':
-				stock = this.productForm.get('stockL')?.value;
-				stock++;
-				this.productForm.get('stockL')?.setValue(stock);
-				break;
-			case 'XL':
-				stock = this.productForm.get('stockXL')?.value;
-				stock++;
-				this.productForm.get('stockXL')?.setValue(stock);
-				break;
-			case 'XXL':
-				stock = this.productForm.get('stockXXL')?.value;
-				stock++;
-				this.productForm.get('stockXXL')?.setValue(stock);
-				break;
-		}
+			let stock: number;
+
+			switch(size)
+			{
+				case 'XS':
+					stock = this.productForm.get('stockXS')?.value;
+					stock++;
+					this.productForm.get('stockXS')?.setValue(stock);
+					break;
+				case 'S':
+					stock = this.productForm.get('stockS')?.value;
+					stock++;
+					this.productForm.get('stockS')?.setValue(stock);
+					break;
+				case 'M':
+					stock = this.productForm.get('stockM')?.value;
+					stock++;
+					this.productForm.get('stockM')?.setValue(stock);
+					break;
+				case 'L':
+					stock = this.productForm.get('stockL')?.value;
+					stock++;
+					this.productForm.get('stockL')?.setValue(stock);
+					break;
+				case 'XL':
+					stock = this.productForm.get('stockXL')?.value;
+					stock++;
+					this.productForm.get('stockXL')?.setValue(stock);
+					break;
+				case 'XXL':
+					stock = this.productForm.get('stockXXL')?.value;
+					stock++;
+					this.productForm.get('stockXXL')?.setValue(stock);
+					break;
+			}
+		}	
 	}
 	
 	public pushStockSizeList(): void {
@@ -287,6 +332,44 @@ export class ProductAddComponent implements OnInit {
 					this.closeDialogEvent.emit(true);
 				});
 		})
+	}
+
+	public delete(): void {
+		this.productService.getById(this.productDataForDelete.id).get().subscribe(element => {
+
+			let product: IProduct = {
+				id: this.productDataForDelete.id,
+				name: this.productForm.get('name')?.value,
+				cost: this.productForm.get('cost')?.value,
+				salePrice: this.productForm.get('salePrice')?.value,
+				listPrice: this.productForm.get('listPrice')?.value,
+				stockSize: this.productForm.get('stockSize')?.value,
+				img: this.productForm.get('img')?.value,
+				firebaseTimestamp: Date.now(),
+				firebaseId: element.docs[0].id,
+				disabled: false,
+			}
+
+			this.productService.delete(product)
+				.then(() => {
+					this.snackBar.open("Producto Eliminado", "Cerrar", {
+						duration: 3000,
+						panelClass: ['orange-snackbar']
+					});
+				})
+				.catch( error => {
+					console.log("line 361 - product-add", error);
+					this.snackBar.open("Error al intentar eliminar el producto", "Cerrar", {
+						duration: 3000,
+						panelClass: ['red-snackbar']
+					});
+				})
+				.finally(() => {
+					this.closeDialogEvent.emit(true);
+				})
+
+		})
+
 	}
 
 	public home(): void {

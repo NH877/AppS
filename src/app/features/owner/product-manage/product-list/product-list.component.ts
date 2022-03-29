@@ -81,8 +81,8 @@ export class ProductListComponent implements OnInit {
 	}
 
 	public delete(product: any): void {
-		const dialogRef = this.dialog.open(ProductDeleteComponent, {
-			width: '700px',
+		this.dialog.open(ProductDeleteComponent, {
+			width: 'auto',
 			data: product as IProduct,
 			autoFocus: false,
 		});
