@@ -32,7 +32,6 @@ export class SaleAddComponent implements OnInit {
 	}
 
 	public initForm(): void{
-		console.log(this.data);
 		this.saleForm = new FormGroup({
 			'name': new FormControl(this.data.name),
 			'cost': new FormControl(this.data.cost),
@@ -75,17 +74,13 @@ export class SaleAddComponent implements OnInit {
 
 				this.saleService.add(sale)
 				.then(() => {
-	
 					this.snackBar.open("Se realizo la venta con con exito", "Cerrar", {
 						duration: 2000,
 						panelClass: ['green-snackbar']
 					});
-	
 				})
 			})
 			.catch(error => {
-				console.log("line 99 - sale-add", error);
-
 				this.snackBar.open("Error al intentar vender el producto", "Cerrar", {
 					duration: 3000,
 					panelClass: ['red-snackbar']

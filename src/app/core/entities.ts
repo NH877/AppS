@@ -13,7 +13,7 @@ export interface IProduct extends IFirebaseObject {
     salePrice: number;
     listPrice: number;
     stockSize: StockSize[];
-    img: string[];
+    img: string;
     disabled: boolean;
 }
 
