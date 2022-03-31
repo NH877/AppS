@@ -1,6 +1,42 @@
 <div class="row">
     <div class="col">
-        <!-- <mat-card [formGroup]="saleForm" style="width: 100%;">
+        <mat-card [formGroup]="saleForm">
+            <mat-card-header>
+                <mat-card-title>Venta de Producto</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Nombre</mat-label>
+                                    <input matInput placeholder="Nombre" formControlName="name">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Seleccione Un Talle</mat-label>
+                                    <mat-select [(ngModel)]="selectedValue" name="stock">
+                                        <mat-option *ngFor="let stock of stocks" value="stock.value">
+                                            {{stock.viewValue}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+</div>
+        
+        
+
+<!-- <mat-card [formGroup]="saleForm" style="width: 100%;">
 
             <mat-card-header>
                 <mat-card-title>Escaneo de codigo</mat-card-title>
@@ -114,5 +150,3 @@
                 </div>
             </mat-card-actions>
         </mat-card> -->
-    </div>
-</div>
