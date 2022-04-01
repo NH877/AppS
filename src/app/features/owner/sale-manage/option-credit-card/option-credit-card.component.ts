@@ -22,30 +22,6 @@ export class OptionCreditCardComponent implements OnInit {
     public total12: any = (this.fee12 * 12).toFixed();
     public total18: any = (this.fee18 * 18).toFixed();
 
-    public varCredits = [
-        {
-            count: 3,
-            description: 0,
-        },
-        {
-            count: 6,
-            description: 9,
-        },
-        {
-            count: 9,
-            description: 30,
-        },
-        {
-            count: 12,
-            description: 0,
-        },
-        {
-            count: 18,
-            description: 10,
-        },
-    ]
-
-
     constructor() { }
 
     ngOnInit(): void {
