@@ -11,6 +11,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { SaleAddComponent } from '../../sale-manage/sale-add/sale-add.component';
 import { ProductModifyComponent } from '../product-modify/product-modify.component';
 import { ProductScanComponent } from '../product-scan/product-scan.component';
+import { OptionCreditCardComponent } from '../../sale-manage/option-credit-card/option-credit-card.component';
 
 
 @Component({
@@ -133,6 +134,14 @@ export class ProductListComponent implements OnInit {
 			autoFocus: false,
 		});
 		
+	}
+
+	public creditCard(): void{
+		const dialogRef = this.dialog.open(OptionCreditCardComponent, {
+			width: '700px',  /* ESTO DEFINE LO ANCHO QUE VA SER EL MAT-DIALOG*/ 
+			data: 10000 as number,
+			autoFocus: false,
+		});
 	}
 
 }
