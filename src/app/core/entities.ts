@@ -21,6 +21,7 @@ export interface ISale extends IFirebaseObject {
     id: string;
     product: IProduct;
     discount: string;
+    local: Store;   
     rate: string;
     totalPriceSale: number;
     payment: Payment;
