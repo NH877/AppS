@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IProduct, ISale, StockSize, Store } from 'src/app/core/entities';
+import { IProduct, ISale, Payment, StockSize, Store } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 import { SaleService } from 'src/app/shared/services/sale/sale.service';
@@ -67,6 +67,10 @@ export class SaleAddComponent implements OnInit {
 			product: this.productSelected,
 			local: Store.STORE_A,
 			firebaseTimestamp: Date.now(),
+			discount: '',
+			rate: '',
+			totalPriceSale: 0,
+			payment:Payment.Efective
 		}
 
 		this.productService.modify(this.productSelected)
