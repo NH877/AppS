@@ -20,7 +20,10 @@ export interface IProduct extends IFirebaseObject {
 export interface ISale extends IFirebaseObject {
     id: string;
     product: IProduct;
-    local: Store;
+    discount: string;
+    rate: string;
+    totalPriceSale: number;
+    payment: Payment;
 }
 
 export interface StockSize {
@@ -44,4 +47,9 @@ export enum Size {
     L = 'L',
     XL = 'XL',
     XXL = 'XXL'
+}
+
+export enum Payment{
+    Efective,
+    Credit_Card    
 }
