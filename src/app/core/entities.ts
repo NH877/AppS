@@ -22,6 +22,12 @@ export interface ISale extends IFirebaseObject {
     product: IProduct;
     local: Store;
 }
+export interface IDiscount extends IFirebaseObject {
+    id: string;
+    name: string;
+    rate: number;
+    firebaseTimestamp: number;
+}
 
 export interface StockSize {
     size: Size;
@@ -31,10 +37,10 @@ export interface StockSize {
 /*----------------------------------------------- enums ----------------------------------------------------*/
 
 export enum Store {
-	STORE_A,
-	STORE_B,
-	STORE_C,
-	values
+    STORE_A,
+    STORE_B,
+    STORE_C,
+    values
 }
 
 export enum Size {

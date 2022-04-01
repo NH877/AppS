@@ -42,7 +42,8 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ProductScanComponent } from './features/owner/product-manage/product-scan/product-scan.component';
 import { OptionCreditCardComponent } from './features/owner/sale-manage/option-credit-card/option-credit-card.component';
-
+import { DiscountListComponent } from './features/owner/discount-manage/discount-list/discount-list.component';
+import { DiscountAddComponent } from './features/owner/discount-manage/discount-add/discount-add.component';
 
 
 @NgModule({
@@ -58,8 +59,9 @@ import { OptionCreditCardComponent } from './features/owner/sale-manage/option-c
 		NavbarComponent,
 		FooterComponent,
 		ProductScanComponent,
-  		OptionCreditCardComponent,
- 
+  	OptionCreditCardComponent,
+    DiscountListComponent,
+    DiscountAddComponent,
 	],
 	imports: [
 		BrowserModule,
