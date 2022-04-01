@@ -28,6 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 
 // Components
 import { ProductAddComponent } from './features/owner/product-manage/product-add/product-add.component';
@@ -78,7 +79,8 @@ import { ProductScanComponent } from './features/owner/product-manage/product-sc
 		MatPaginatorModule,
 		MatFormFieldModule,
 		MatToolbarModule,
-		MatMenuModule
+		MatMenuModule,
+		MatSelectModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]
