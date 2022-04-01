@@ -40,6 +40,8 @@ import { SaleAddComponent } from './features/owner/sale-manage/sale-add/sale-add
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ProductScanComponent } from './features/owner/product-manage/product-scan/product-scan.component';
+import { DiscountListComponent } from './features/owner/discount-manage/discount-list/discount-list.component';
+import { DiscountAddComponent } from './features/owner/discount-manage/discount-add/discount-add.component';
 
 
 @NgModule({
@@ -55,6 +57,8 @@ import { ProductScanComponent } from './features/owner/product-manage/product-sc
 		NavbarComponent,
 		FooterComponent,
 		ProductScanComponent,
+  DiscountListComponent,
+  DiscountAddComponent,
 	],
 	imports: [
 		BrowserModule,
