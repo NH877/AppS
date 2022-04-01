@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { environment } from 'src/environments/environment';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // Firebase
 import { AngularFireModule } from '@angular/fire/compat';
@@ -29,6 +29,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
+import {MatRadioModule} from '@angular/material/radio';
 
 // Components
 import { ProductAddComponent } from './features/owner/product-manage/product-add/product-add.component';
@@ -41,6 +42,9 @@ import { SaleAddComponent } from './features/owner/sale-manage/sale-add/sale-add
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
 import { ProductScanComponent } from './features/owner/product-manage/product-scan/product-scan.component';
+import { OptionCreditCardComponent } from './features/owner/sale-manage/option-credit-card/option-credit-card.component';
+import { DiscountListComponent } from './features/owner/discount-manage/discount-list/discount-list.component';
+import { DiscountAddComponent } from './features/owner/discount-manage/discount-add/discount-add.component';
 
 
 @NgModule({
@@ -56,6 +60,9 @@ import { ProductScanComponent } from './features/owner/product-manage/product-sc
 		NavbarComponent,
 		FooterComponent,
 		ProductScanComponent,
+  	OptionCreditCardComponent,
+    DiscountListComponent,
+    DiscountAddComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -81,6 +88,8 @@ import { ProductScanComponent } from './features/owner/product-manage/product-sc
 		MatToolbarModule,
 		MatMenuModule,
 		MatSelectModule
+		MatRadioModule,
+		FormsModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

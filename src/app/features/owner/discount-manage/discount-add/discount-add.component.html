@@ -1,0 +1,19 @@
+<div class="row" [formGroup]="discountForm">
+    <div class="col">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Nombre</mat-label>
+            <input matInput placeholder="Nombre" formControlName="name">
+        </mat-form-field>
+    </div>
+    <div class="col">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Tasa de descuento</mat-label>
+            <input matInput placeholder="Tasa de descuento" formControlName="rate">
+        </mat-form-field>
+    </div>
+    <div class="col">
+        <button mat-button color="accent" class="w-100" (click)="addDiscount()">
+            <mat-icon>file_upload</mat-icon>
+        </button>
+    </div>
+</div>

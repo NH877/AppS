@@ -24,4 +24,8 @@ export class NavbarComponent implements OnInit {
 	public listSales(): void {
 		this.router.navigate(['/sale-history'])
 	}
+
+	public listDiscount(): void {
+		this.router.navigate(['/list-discount'])
+	}
 }
