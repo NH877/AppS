@@ -1,6 +1,147 @@
 <div class="row">
     <div class="col">
-        <!-- <mat-card [formGroup]="saleForm" style="width: 100%;">
+        <mat-card [formGroup]="saleForm">
+            <mat-card-header style="justify-content: center;">
+                <mat-card-title>Venta de Producto</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <div class="row">
+                    <div class="col">
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Nombre</mat-label>
+                                    <input matInput placeholder="Nombre" formControlName="name">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Seleccionar un talle.</mat-label>
+                                    <mat-select>
+                                        <mat-option>
+                                            XS
+                                        </mat-option>
+                                        <mat-option>
+                                            S
+                                        </mat-option>
+                                        <mat-option>
+                                            M
+                                        </mat-option>
+                                        <mat-option>
+                                            L
+                                        </mat-option>
+                                        <mat-option>
+                                            XL
+                                        </mat-option>
+                                        <mat-option>
+                                            XXL
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Stock</mat-label>
+                                    <input matInput placeholder="Stock" formControlName="stock">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <mat-card>
+                            <mat-card-header style="justify-content: center;">
+                                <mat-card-title>Medio de Pago</mat-card-title>
+                            </mat-card-header>
+                            <div class="row">
+                                <div class="col">   
+                                    <button mat-flat-button color="accent" class="w-100">Efectivo</button>
+                                </div>
+                                <div class="col">
+                                    <button mat-flat-button color="accent" class="w-100">Tarjeta</button>
+                                </div>
+                            </div>
+                        </mat-card>
+                        <div class="row" style="margin-top: 5%;">
+                            <div class="col">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Cuotas</mat-label>
+                                    <mat-select>
+                                        <mat-option>
+                                            1
+                                        </mat-option>
+                                        <mat-option>
+                                            3
+                                        </mat-option>
+                                        <mat-option>
+                                            6
+                                        </mat-option>
+                                        <mat-option>
+                                            9
+                                        </mat-option>
+                                        <mat-option>
+                                            12
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="outline">
+                                    <mat-label>Valor de la cuota</mat-label>
+                                    <input matInput placeholder="Valor">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Descuento</mat-label>
+                                    <input matInput placeholder="Valor">
+                                </mat-form-field>
+                            </div>
+                        </div>  
+                    </div>
+                    <div class="col max-size-image-col">
+                        <mat-card class="mat-elevation-z0 outline p-0">
+                            <img class="img-fluid mx-auto d-block" src="assets/img-test.jpg">
+                        </mat-card>
+                        <mat-form-field appearance="outline" style="margin-top: 12%;">
+                            <mat-label>Total</mat-label>
+                            <input matInput placeholder="Total">
+                        </mat-form-field>
+                        <mat-form-field appearance="outline">
+                            <mat-label>Total</mat-label>
+                            <input matInput placeholder="Total">
+                        </mat-form-field>
+                    </div>
+                </div>
+            </mat-card-content>
+            <mat-card-actions>
+                <div class="row">
+                    <div class="col" aling="end">
+                        <button mat-button>
+                            <mat-icon>clear</mat-icon>
+                            <span>Cancelar</span>
+                        </button>
+                    </div>
+                    <div class="col" align="end">
+                        <button mat-button>
+                            <mat-icon>monetization_on</mat-icon>
+                            <span>Vender</span>
+                        </button>
+                    </div>
+                </div>
+            </mat-card-actions>
+        </mat-card>
+    </div>
+</div>
+                        
+                        
+
+
+
+
+
+<!-- <mat-card [formGroup]="saleForm" style="width: 100%;">
 
             <mat-card-header>
                 <mat-card-title>Escaneo de codigo</mat-card-title>
@@ -114,5 +255,3 @@
                 </div>
             </mat-card-actions>
         </mat-card> -->
-    </div>
-</div>

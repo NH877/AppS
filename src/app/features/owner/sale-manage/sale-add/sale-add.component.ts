@@ -40,6 +40,8 @@ export class SaleAddComponent implements OnInit {
 			'stock': new FormControl(null),
 			'id': new FormControl(this.data.id),
 			'size': new FormControl(null),
+			
+			
 		})		
 	}
 

@@ -28,6 +28,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
 import {MatRadioModule} from '@angular/material/radio';
 
 // Components
@@ -86,6 +87,7 @@ import { DiscountAddComponent } from './features/owner/discount-manage/discount-
 		MatFormFieldModule,
 		MatToolbarModule,
 		MatMenuModule,
+		MatSelectModule
 		MatRadioModule,
 		FormsModule
 	],

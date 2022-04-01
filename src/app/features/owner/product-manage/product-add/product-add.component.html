@@ -1,7 +1,7 @@
 <div class="row" *ngIf="!loading">
     <div class="col">
         <mat-card [formGroup]="productForm">
-            <mat-card-header>
+            <mat-card-header  style="justify-content: center;">
                 <mat-card-title *ngIf="isAddProduct()">Alta de Productos</mat-card-title>
                 <mat-card-title *ngIf="productDataForModify">Modificación de Producto</mat-card-title>
                 <mat-card-title *ngIf="productDataForDelete">Eliminación de Producto</mat-card-title>
