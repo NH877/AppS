@@ -29,7 +29,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 
 // Components
 import { ProductAddComponent } from './features/owner/product-manage/product-add/product-add.component';
@@ -60,9 +60,9 @@ import { DiscountAddComponent } from './features/owner/discount-manage/discount-
 		NavbarComponent,
 		FooterComponent,
 		ProductScanComponent,
-  	OptionCreditCardComponent,
-    DiscountListComponent,
-    DiscountAddComponent,
+		OptionCreditCardComponent,
+		DiscountListComponent,
+		DiscountAddComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -87,7 +87,7 @@ import { DiscountAddComponent } from './features/owner/discount-manage/discount-
 		MatFormFieldModule,
 		MatToolbarModule,
 		MatMenuModule,
-		MatSelectModule
+		MatSelectModule,
 		MatRadioModule,
 		FormsModule
 	],
