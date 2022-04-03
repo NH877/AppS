@@ -45,6 +45,7 @@ import { ProductScanComponent } from './features/owner/product-manage/product-sc
 import { OptionCreditCardComponent } from './features/owner/sale-manage/option-credit-card/option-credit-card.component';
 import { DiscountListComponent } from './features/owner/discount-manage/discount-list/discount-list.component';
 import { DiscountAddComponent } from './features/owner/discount-manage/discount-add/discount-add.component';
+import { DiscountModifyComponent } from './features/owner/discount-manage/discount-modify/discount-modify.component';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { DiscountAddComponent } from './features/owner/discount-manage/discount-
 		OptionCreditCardComponent,
 		DiscountListComponent,
 		DiscountAddComponent,
+  DiscountModifyComponent,
 	],
 	imports: [
 		BrowserModule,

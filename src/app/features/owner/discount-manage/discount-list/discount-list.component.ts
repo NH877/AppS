@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { IDiscount } from 'src/app/core/entities';
 import { DiscountService } from 'src/app/shared/services/discount/discount.service';
 import { DiscountAddComponent } from '../discount-add/discount-add.component';
+import { DiscountModifyComponent } from '../discount-modify/discount-modify.component';
 
 @Component({
     selector: 'app-discount-list',
@@ -54,11 +55,19 @@ export class DiscountListComponent implements OnInit {
         })
     }
 
-    public addSale(): void {
+    public addDiscount(): void {
         const dialogRef = this.dialog.open(DiscountAddComponent, {
-            width: '900px',  /* ESTO DEFINE LO ANCHO QUE VA SER EL MAT-DIALOG*/
+            width: '900px',
             autoFocus: false,
         });
+    }
+
+    public modifyDiscount(discount: IDiscount): void {
+        const dialogRef = this.dialog.open(DiscountModifyComponent, {
+            width: '900px',
+            autoFocus: false,
+        });
+        dialogRef.componentInstance.discount = discount;
     }
 
     public applyFilter(event: Event): void {

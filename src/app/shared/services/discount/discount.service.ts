@@ -22,9 +22,11 @@ export class DiscountService {
         return this.db.collection('discount', ref => ref.where('id','==',id));
 	}
 
-
     public delete(dc: any): Promise<void> {
-        console.log(dc)
         return this.db.collection('discount').doc(dc.firebaseId).delete();
+    }
+
+    public modify(dc: any): Promise<void> {
+        return this.db.collection('discount').doc(dc.firebaseId).update(CoreHelper.convertToObject(dc));
     }
 }
