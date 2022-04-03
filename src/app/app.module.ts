@@ -30,6 +30,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatListModule } from '@angular/material/list';
+
 
 // Components
 import { ProductAddComponent } from './features/owner/product-manage/product-add/product-add.component';
@@ -46,6 +48,7 @@ import { OptionCreditCardComponent } from './features/owner/sale-manage/option-c
 import { DiscountListComponent } from './features/owner/discount-manage/discount-list/discount-list.component';
 import { DiscountAddComponent } from './features/owner/discount-manage/discount-add/discount-add.component';
 import { DiscountModifyComponent } from './features/owner/discount-manage/discount-modify/discount-modify.component';
+import { DiscountSelectorComponent } from './features/owner/discount-manage/discount-selector/discount-selector.component';
 
 
 @NgModule({
@@ -64,7 +67,8 @@ import { DiscountModifyComponent } from './features/owner/discount-manage/discou
 		OptionCreditCardComponent,
 		DiscountListComponent,
 		DiscountAddComponent,
-  DiscountModifyComponent,
+		DiscountModifyComponent,
+  DiscountSelectorComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -91,7 +95,8 @@ import { DiscountModifyComponent } from './features/owner/discount-manage/discou
 		MatMenuModule,
 		MatSelectModule,
 		MatRadioModule,
-		FormsModule
+		FormsModule,
+		MatListModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

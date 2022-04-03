@@ -143,5 +143,5 @@ export class ProductListComponent implements OnInit {
 			autoFocus: false,
 		});
 	}
-
+	
 }

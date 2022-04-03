@@ -57,6 +57,11 @@
                                 </mat-form-field>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col">
+                                <app-discount-selector (newItemEvent)="handleDiscountReceived($event)"></app-discount-selector> <!-- Connect this -->
+                            </div>
+                        </div>
                     </div>
                     <div class="col max-size-image-col">
                         <mat-card class="mat-elevation-z0 outline p-0">

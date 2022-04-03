@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { IProduct, Size, StockSize } from 'src/app/core/entities';
+import { IDiscount, IProduct, Size, StockSize } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 
@@ -233,8 +233,7 @@ export class ProductAddComponent implements OnInit {
 		let name: string = "img-" + idProduct;
 		this.productForm.get('img')?.setValue(name);
 
-		if (this.file) 
-		{
+		if (this.file) {
 			this.productService.addFileStorage(this.file, name)
 				.then(() => {
 					this.productService.getFileStorage(name).then(element => {
@@ -260,8 +259,7 @@ export class ProductAddComponent implements OnInit {
 					});
 				});
 		}
-		else 
-		{
+		else {
 			let product: IProduct = {
 				id: idProduct,
 				name: this.productForm.get('name')?.value,
@@ -275,49 +273,48 @@ export class ProductAddComponent implements OnInit {
 			}
 			this.addProductToFirebase(product);
 		}
-		
+
 	}
 
 	private addProductToFirebase(product: IProduct): void {
 		this.productService.add(product)
-		.then(() => {
-			this.loading = false;
-			this.snackBar.open("Producto agregado", "Cerrar", {
-				duration: 3000,
-				panelClass: ['green-snackbar']
-			});
-		})
-		.catch(error => {
-			this.snackBar.open("Error al intentar agregar el producto", "Cerrar", {
-				duration: 3000,
-				panelClass: ['red-snackbar']
-			});
-		})
-		.finally(() => {
-			this.router.navigate(['/list-product']);
-		})
+			.then(() => {
+				this.loading = false;
+				this.snackBar.open("Producto agregado", "Cerrar", {
+					duration: 3000,
+					panelClass: ['green-snackbar']
+				});
+			})
+			.catch(error => {
+				this.snackBar.open("Error al intentar agregar el producto", "Cerrar", {
+					duration: 3000,
+					panelClass: ['red-snackbar']
+				});
+			})
+			.finally(() => {
+				this.router.navigate(['/list-product']);
+			})
 	}
 
 	public validateModifyButton(): boolean {
 
-		if(this.productForm.valid) {
-			if(this.productForm.get('name')?.value != this.originalProduct.name)
+		if (this.productForm.valid) {
+			if (this.productForm.get('name')?.value != this.originalProduct.name)
 				return false;
 
-			if(this.productForm.get('cost')?.value != this.originalProduct.cost)
+			if (this.productForm.get('cost')?.value != this.originalProduct.cost)
 				return false;
 
-			if(this.productForm.get('salePrice')?.value != this.originalProduct.salePrice)
+			if (this.productForm.get('salePrice')?.value != this.originalProduct.salePrice)
 				return false;
 
-			if(this.productForm.get('listPrice')?.value != this.originalProduct.listPrice)
+			if (this.productForm.get('listPrice')?.value != this.originalProduct.listPrice)
 				return false;
 
-			if(this.imageURL != this.originalProduct.img)
+			if (this.imageURL != this.originalProduct.img)
 				return false;
 
-			for(let i = 0; i < this.originalProduct.stockSize.length; i++) 
-			{
+			for (let i = 0; i < this.originalProduct.stockSize.length; i++) {
 				switch (this.originalProduct.stockSize[i].size) {
 					case 'XS':
 						if (this.productForm.get('stockXS')?.value != this.originalProduct.stockSize[i].stock)
@@ -354,14 +351,13 @@ export class ProductAddComponent implements OnInit {
 		this.loading = true;
 		this.productService.getById(this.productDataForModify.id).get().subscribe(element => {
 			this.pushStockSizeList();
-			if(this.imageURL != this.productDataForModify.img)
-			{
-				let name = "img-"+this.productDataForModify.id;
+			if (this.imageURL != this.productDataForModify.img) {
+				let name = "img-" + this.productDataForModify.id;
 				this.deleteFile(name);
 				this.productService.addFileStorage(this.file, name)
 					.then(() => {
 						this.productService.getFileStorage(name).then(file => {
-							
+
 							let product: IProduct = {
 								id: this.productDataForModify.id,
 								name: this.productForm.get('name')?.value,
@@ -384,7 +380,7 @@ export class ProductAddComponent implements OnInit {
 						});
 					});
 			}
-			else{
+			else {
 
 				let product: IProduct = {
 					id: this.productDataForModify.id,
@@ -405,22 +401,22 @@ export class ProductAddComponent implements OnInit {
 
 	private modifyProductToFirebase(product: IProduct): void {
 		this.productService.modify(product)
-				.then(() => {
-					this.loading = false;
-					this.snackBar.open("Producto modificado", "Cerrar", {
-						duration: 3000,
-						panelClass: ['blue-snackbar']
-					});
-				})
-				.catch(error => {
-					this.snackBar.open("Error al intentar modificar el producto", "Cerrar", {
-						duration: 3000,
-						panelClass: ['red-snackbar']
-					});
-				})
-				.finally(() => {
-					this.closeDialogEvent.emit(true);
+			.then(() => {
+				this.loading = false;
+				this.snackBar.open("Producto modificado", "Cerrar", {
+					duration: 3000,
+					panelClass: ['blue-snackbar']
 				});
+			})
+			.catch(error => {
+				this.snackBar.open("Error al intentar modificar el producto", "Cerrar", {
+					duration: 3000,
+					panelClass: ['red-snackbar']
+				});
+			})
+			.finally(() => {
+				this.closeDialogEvent.emit(true);
+			});
 	}
 
 	public delete(): void {
@@ -442,7 +438,7 @@ export class ProductAddComponent implements OnInit {
 
 			this.productService.delete(product)
 				.then(() => {
-					this.deleteFile("img-"+this.productDataForDelete.id);
+					this.deleteFile("img-" + this.productDataForDelete.id);
 					this.loading = false;
 					this.snackBar.open("Producto Eliminado", "Cerrar", {
 						duration: 3000,
@@ -479,5 +475,9 @@ export class ProductAddComponent implements OnInit {
 
 	public resetForm(): void {
 		this.productForm.reset();
+	}
+
+	public handleDiscountReceived(discount: IDiscount): void {
+		console.log(discount);
 	}
 }
