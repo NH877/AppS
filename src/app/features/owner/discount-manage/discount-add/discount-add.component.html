@@ -1,29 +1,40 @@
-<div class="row">
-    <div class="col">
-        Agregar
-    </div>
-</div>
-<div class="row" [formGroup]="discountForm">
-    <div class="col">
-        <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Nombre</mat-label>
-            <input matInput placeholder="Nombre" formControlName="name">
-        </mat-form-field>
-    </div>
-    <div class="col">
-        <mat-form-field class="w-100" appearance="outline">
-            <mat-label>Tasa de descuento</mat-label>
-            <input matInput placeholder="Tasa de descuento" formControlName="rate">
-        </mat-form-field>
-    </div>
-    <div class="col">
-        <button mat-button color="danger" class="w-100" (click)="addDiscount()">
-            <mat-icon>file_upload</mat-icon>
-        </button>
-    </div>
-    <div class="col">
-        <button mat-button color="warn" class="w-100" (click)="addDiscount()">
-            <mat-icon>close</mat-icon>
-        </button>
-    </div>
-</div>
+<mat-card [formGroup]="discountForm">
+    <mat-card-header>
+        <mat-card-title>Crear descuento</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="row">
+            <div class="col">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput placeholder="Nombre" formControlName="name">
+                </mat-form-field>
+            </div>
+            <div class="col">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Tasa de descuento</mat-label>
+                    <input matInput placeholder="Tasa de descuento" formControlName="rate">
+                </mat-form-field>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <app-product-multi-selector (newItemEvent)="handleResponce($event)"></app-product-multi-selector>
+            </div>
+        </div>
+    </mat-card-content>
+    <mat-card-actions>
+        <div class="row">
+            <div class="col">
+                <button mat-button color="danger" class="w-100" (click)="addDiscount()">
+                    <mat-icon>file_upload</mat-icon>
+                </button>
+            </div>
+            <div class="col">
+                <button mat-button color="warn" class="w-100">
+                    <mat-icon>close</mat-icon>
+                </button>
+            </div>
+        </div>
+    </mat-card-actions>
+</mat-card>

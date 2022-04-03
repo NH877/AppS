@@ -1,0 +1,8 @@
+<mat-form-field appearance="outline" class="w-100" *ngIf="!isLoading">
+    <mat-label>Productos que tendrán el descuento</mat-label>
+    <mat-select [(ngModel)]="selectedProducts" (selectionChange)="changedSelected()" multiple>
+        <mat-option *ngFor="let product of productList" [value]="product" >
+            {{product.name}}
+        </mat-option>
+    </mat-select>
+</mat-form-field>

@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IDiscount } from 'src/app/core/entities';
+import { IDiscount, IProduct } from 'src/app/core/entities';
 import { DiscountService } from 'src/app/shared/services/discount/discount.service';
+import { ProductService } from 'src/app/shared/services/product/product.service';
 
 @Component({
     selector: 'app-discount-modify',
@@ -15,11 +16,14 @@ export class DiscountModifyComponent implements OnInit {
     public nameControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(25), Validators.minLength(4)]);
     public rateControl: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
 
+    public selectedProducts: IProduct[] = [];
     public discount: IDiscount;
+    public isLoading: boolean;
 
-    constructor(private dcService: DiscountService, private snackBar: MatSnackBar) { }
+    constructor(private dcService: DiscountService, private snackBar: MatSnackBar, private pService: ProductService) { }
 
     ngOnInit(): void {
+        this.isLoading = true;
         this.initForm();
     }
 
@@ -28,8 +32,21 @@ export class DiscountModifyComponent implements OnInit {
             'name': this.nameControl,
             'rate': this.rateControl,
         })
-        this.discountForm.controls['name'].setValue(this.discount.name);       
+        this.discountForm.controls['name'].setValue(this.discount.name);
         this.discountForm.controls['rate'].setValue(this.discount.rate);
+        this.getListProduct();
+    }
+
+    private async getListProduct(): Promise<void> {
+        await this.pService.getAll_sync().then(responce => {
+            responce.forEach(pr => {
+                if (pr.discount?.id == this.discount.id)
+                    this.selectedProducts.push(pr);
+            });
+        })
+            .finally(() => {
+                this.isLoading = false;
+            })
     }
 
     public modifyDiscount(): void {
@@ -51,5 +68,28 @@ export class DiscountModifyComponent implements OnInit {
                     });
                 })
         })
+    }
+
+    public addNewDiscountToProducts(discount: IDiscount): void {
+        let failEdits = 0;
+        this.selectedProducts.forEach(product => {
+            product.discount = discount;
+            this.pService.modify(product).catch(error => {
+                failEdits++;
+            })
+                .finally(() => {
+                    if (failEdits > 0) {
+                        let message = "Error al intentar asignar el descuento en " + failEdits + " productos"
+                        this.snackBar.open(message, "Cerrar", {
+                            duration: 100000,
+                            panelClass: ['red-snackbar']
+                        });
+                    }
+                })
+        });
+    }
+
+    public handleResponce(selectedProducts: IProduct[]) {
+        this.selectedProducts = selectedProducts;
     }
 }
