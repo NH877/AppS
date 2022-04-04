@@ -20,9 +20,9 @@ export interface IProduct extends IFirebaseObject {
 export interface ISale extends IFirebaseObject {
     id: string;
     product: IProduct;
-    discount: string;
+    discount: number;
     local: Store;   
-    rate: string;
+    rate: number;
     totalPriceSale: number;
     payment: Payment;
 }

@@ -69,8 +69,8 @@ export class SaleAddComponent implements OnInit {
 			product: this.productSelected,
 			local: Store.STORE_A,
 			firebaseTimestamp: Date.now(),
-			discount: '',
-			rate: '',
+			discount: 0,
+			rate: 0,
 			totalPriceSale: 0,
 			payment:Payment.Efective
 		}
