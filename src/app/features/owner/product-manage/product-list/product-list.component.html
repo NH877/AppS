@@ -75,7 +75,7 @@
                                     <div class="example-element-detail"
                                         [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
                                         <div fxLayout="row" fxLayoutAlign="space-around center">
-                                            <img src='assets/buzo.jpg' class='imgRedonda' />
+                                            <img src='{{element.img}}' class='imgRedonda' />
                                             <img src='assets/size-xs.png' class='img-sizes'
                                                 (click)="stockOfSize('XS', element)" />
                                             <img src='assets/size-s.png' class='img-sizes'
