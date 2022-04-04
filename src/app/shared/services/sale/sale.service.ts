@@ -18,6 +18,12 @@ export class SaleService {
 		return this.db.collection('sale', ref => ref.orderBy('firebaseTimestamp', 'asc'));
 	}
 
+	public delete(sale: any): Promise<void> {
+        return this.db.collection('sale').doc(sale.firebaseId).delete();
+    }
 
+	public getById(id: string): AngularFirestoreCollection<unknown> {
+        return this.db.collection('sale', ref => ref.where('id','==',id));
+	}
 
 }
