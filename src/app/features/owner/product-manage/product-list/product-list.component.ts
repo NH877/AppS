@@ -62,6 +62,10 @@ export class ProductListComponent implements OnInit {
 		})
 	}
 
+	public resetStock(): void{
+		this.stock=0;
+	}
+
 	public stockOfSize(size: string, product: IProduct): void {
 
 		let productFound = product.stockSize.find(x => x.size == size);
@@ -76,6 +80,7 @@ export class ProductListComponent implements OnInit {
 	public modify(product: any): void {
 		this.dialog.open(ProductModifyComponent, {
 			width: 'auto',
+			height: '99%',
 			data: product as IProduct,
 			autoFocus: false,
 		});
