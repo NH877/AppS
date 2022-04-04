@@ -5,9 +5,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
-import { IProduct, ISale } from 'src/app/core/entities';
+import { ISale } from 'src/app/core/entities';
 import { SaleService } from 'src/app/shared/services/sale/sale.service';
-import { ProductDeleteComponent } from '../../product-manage/product-delete/product-delete.component';
+
 
 @Component({
 	selector: 'app-sale-history',
