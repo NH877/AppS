@@ -22,27 +22,27 @@
             <div class="col-1"> 
                 <div class="row mt-10">
                     <div class="col">
-                        <mat-radio-button color="warn"></mat-radio-button>
+                        <mat-radio-button color="warn" (click)="selectTotal('3')"></mat-radio-button>
                     </div>
                 </div>
                 <div class="row mt-10">
                     <div class="col">
-                        <mat-radio-button color="warn"></mat-radio-button>
+                        <mat-radio-button color="warn" (click)="selectTotal('6')"></mat-radio-button>
                     </div>
                 </div>
                 <div class="row mt-10">
                     <div class="col">
-                        <mat-radio-button color="warn"></mat-radio-button>
+                        <mat-radio-button color="warn" (click)="selectTotal('9')"></mat-radio-button>
                     </div>
                 </div>
                 <div class="row mt-10">
                     <div class="col">
-                        <mat-radio-button color="warn"></mat-radio-button>
+                        <mat-radio-button color="warn" (click)="selectTotal('12')"></mat-radio-button>
                     </div>
                 </div>
                 <div class="row mt-10">
                     <div class="col">
-                        <mat-radio-button color="warn"></mat-radio-button>
+                        <mat-radio-button color="warn" (click)="selectTotal('18')"></mat-radio-button>
                     </div>
                 </div>
             </div>
@@ -164,7 +164,10 @@
         </div>
         <div class="row mt-10">
             <div class="col">
-                Tu total a pagar por cuota es: 
+                <button mat-icon-button class="greenButton" (click)="submit()">
+                    <mat-icon>done_outline</mat-icon>
+                    <span>Confirmar</span>
+                </button>
             </div>
         </div>
     </div>
