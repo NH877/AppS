@@ -38,15 +38,19 @@ export class DiscountModifyComponent implements OnInit {
     }
 
     private async getListProduct(): Promise<void> {
+        /*
         await this.pService.getAll_sync().then(responce => {
             responce.forEach(pr => {
-                if (pr.discount?.id == this.discount.id)
-                    this.selectedProducts.push(pr);
+                pr.discount.forEach(disc => {
+                    if (disc.id == this.discount.id)
+                        this.selectedProducts.push(pr);
+                })
             });
         })
             .finally(() => {
                 this.isLoading = false;
             })
+            */
     }
 
     public modifyDiscount(): void {
@@ -73,7 +77,7 @@ export class DiscountModifyComponent implements OnInit {
     public addNewDiscountToProducts(discount: IDiscount): void {
         let failEdits = 0;
         this.selectedProducts.forEach(product => {
-            product.discount = discount;
+            product.discount.push(discount);
             this.pService.modify(product).catch(error => {
                 failEdits++;
             })

@@ -248,6 +248,7 @@ export class ProductAddComponent implements OnInit {
 							img: element,
 							firebaseTimestamp: Date.now(),
 							disabled: false,
+							discount: []
 						}
 						this.addProductToFirebase(product);
 					})
@@ -270,6 +271,7 @@ export class ProductAddComponent implements OnInit {
 				img: "assets/img-test.jpg",
 				firebaseTimestamp: Date.now(),
 				disabled: false,
+				discount: []
 			}
 			this.addProductToFirebase(product);
 		}
@@ -369,6 +371,7 @@ export class ProductAddComponent implements OnInit {
 								firebaseTimestamp: Date.now(),
 								firebaseId: element.docs[0].id,
 								disabled: false,
+								discount: []
 							}
 							this.modifyProductToFirebase(product);
 						})
@@ -393,6 +396,7 @@ export class ProductAddComponent implements OnInit {
 					firebaseTimestamp: Date.now(),
 					firebaseId: element.docs[0].id,
 					disabled: false,
+					discount: []
 				}
 				this.modifyProductToFirebase(product);
 			}
@@ -434,6 +438,7 @@ export class ProductAddComponent implements OnInit {
 				firebaseTimestamp: Date.now(),
 				firebaseId: element.docs[0].id,
 				disabled: false,
+				discount: []
 			}
 
 			this.productService.delete(product)
