@@ -64,9 +64,9 @@ export class DiscountListComponent implements OnInit {
     public modifyDiscount(discount: IDiscount): void {
         const dialogRef = this.dialog.open(DiscountModifyComponent, {
             width: '900px',
+            data: discount,
             autoFocus: false,
         });
-        dialogRef.componentInstance.discount = discount;
     }
 
     public applyFilter(event: Event): void {
