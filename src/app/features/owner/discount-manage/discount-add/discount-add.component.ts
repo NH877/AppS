@@ -57,8 +57,10 @@ export class DiscountAddComponent implements OnInit {
 
 	public addNewDiscountToProducts(discount: IDiscount): void {
 		let failEdits = 0;
+		console.log(this.selectedProducts)
 		this.selectedProducts.forEach(product => {
 			product.discount = discount;
+			console.log("-------------")
 			this.pService.modify(product).catch(error => {
 				failEdits++;
 			})
