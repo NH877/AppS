@@ -28,21 +28,15 @@ export class ProductMultiSelectorComponent implements OnInit {
     private getProducts(): void {
         this.productService.getAll_sync().then(responce => {
             this.productList = responce as IProduct[];
-
             this.selectedProducts = this.products
-            this.products.forEach(p => {
-                for (let i = 0; i < this.productList.length; i++) {
-                    console.log(p)
-                    console.log(this.productList[i])
-                    if (JSON.stringify(p) == JSON.stringify(this.productList[i])) {
-                        console.log("Hay 1 igual")
-                    }
-                }
-            });
         })
             .finally(() => {
                 this.isLoading = false;
             })
+    }
+
+    compareFn(op1: IProduct, op2: IProduct) {
+        return op1.name === op2.name;
     }
 
     public changedSelected() {
