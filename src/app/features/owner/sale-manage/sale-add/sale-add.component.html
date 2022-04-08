@@ -19,7 +19,7 @@
                             <div class="col">
                                 <mat-form-field appearance="outline">
                                     <mat-label>Seleccionar un talle</mat-label>
-                                    <mat-select [formControl]="sizeControl" (selectionChange)="stockOfSize($event.value)">
+                                    <mat-select [formControl]="sizeControl" (selectionChange)="handleSizeChange($event.value)">
                                         <mat-option value="XS">
                                             XS
                                         </mat-option>
@@ -50,10 +50,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <mat-form-field appearance="outline" class="w-100">
-                                    <mat-label>Descuento</mat-label>
-                                    <input matInput placeholder="Valor">
-                                </mat-form-field>
+                                <app-discount-selector (newItemEvent)="handleSelected($event)"></app-discount-selector>
                             </div>
                         </div> 
                     </div>
@@ -81,23 +78,31 @@
                                 </div>
                             </div>
                         </mat-card> 
-                        <div class="row" style="margin-top: 5%;" *ngIf="this.isCredit">
+                        <div class="row mt-3">
+                            <div class="col-6">
+                                <mat-form-field appearance="outline"class="w-100">
+                                    <mat-label>Total</mat-label>
+                                    <input matInput placeholder="Total" readonly formControlName="total">
+                                </mat-form-field>
+                            </div>
+                            <div class="col-6">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Total con descuento</mat-label>
+                                    <input matInput placeholder="Total con descuento" readonly formControlName="discountTotal">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row"  *ngIf="this.isCredit">
                             <div class="col">
-                                <mat-form-field appearance="outline">
+                                <mat-form-field appearance="outline" class="w-100">
                                     <mat-label>Cuotas</mat-label>
                                     <input matInput placeholder="Cuotas" readonly formControlName="feeNumber">
                                 </mat-form-field>
                             </div>
                             <div class="col">
-                                <mat-form-field appearance="outline">
+                                <mat-form-field appearance="outline" class="w-100">
                                     <mat-label>Valor de la cuota</mat-label>
                                     <input matInput placeholder="Valor" readonly formControlName="feeValue">
-                                </mat-form-field>
-                            </div>
-                            <div class="col">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Total</mat-label>
-                                    <input matInput placeholder="Total" readonly formControlName="total">
                                 </mat-form-field>
                             </div>
                         </div> 
