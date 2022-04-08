@@ -38,7 +38,12 @@ export class ProductListComponent implements OnInit {
 	public emptyList: boolean = true;
 	public loading: boolean = true;
 
-	public stock: number=0;
+	public stockXS: number=0;
+	public stockS: number=0;
+	public stockM: number=0;
+	public stockL: number=0;
+	public stockXL: number=0;
+	public stockXXL: number=0;
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
@@ -62,18 +67,23 @@ export class ProductListComponent implements OnInit {
 		})
 	}
 
-	public resetStock(): void{
-		this.stock=0;
+	public resetStock(product: IProduct): void{
+		this.stockXS= this.stockOfSize('XS', product);
+		this.stockS= this.stockOfSize('S', product);
+		this.stockM= this.stockOfSize('M', product);
+		this.stockL= this.stockOfSize('L', product);
+		this.stockXL= this.stockOfSize('XL', product);
+		this.stockXXL= this.stockOfSize('XXL', product);
 	}
 
-	public stockOfSize(size: string, product: IProduct): void {
+	public stockOfSize(size: string, product: IProduct): number {
 
 		let productFound = product.stockSize.find(x => x.size == size);
 
 		if(productFound) 
-			this.stock= productFound.stock;
+			return productFound.stock;
 		else	
-			this.stock=0;
+			return 0;
 
 	}
 
