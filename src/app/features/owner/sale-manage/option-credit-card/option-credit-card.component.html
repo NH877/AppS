@@ -17,30 +17,29 @@
             </div>
         </div>
 
-
         <div class="row">
             <div class="col-1"> 
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         <mat-radio-button color="warn" (click)="selectTotal('3')"></mat-radio-button>
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         <mat-radio-button color="warn" (click)="selectTotal('6')"></mat-radio-button>
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         <mat-radio-button color="warn" (click)="selectTotal('9')"></mat-radio-button>
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         <mat-radio-button color="warn" (click)="selectTotal('12')"></mat-radio-button>
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         <mat-radio-button color="warn" (click)="selectTotal('18')"></mat-radio-button>
                     </div>
@@ -48,27 +47,27 @@
             </div>
 
             <div class="col-2">
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         3
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         6
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         9
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         12
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         18
                     </div>
@@ -76,27 +75,27 @@
             </div>
             
             <div class="col-3">
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         Sin Interes
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                        9%
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         30%
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         Sin Interes
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         10%
                     </div>
@@ -104,27 +103,27 @@
             </div>
 
             <div class="col-3">
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         {{fee3}}
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         {{fee6}}
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         {{fee9}}
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         {{fee12}}
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         {{fee18}}
                     </div>
@@ -132,41 +131,40 @@
             </div>
 
             <div class="col-3">
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         {{total3}}
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         {{total6}}
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         {{total9}}
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         {{total12}}
                     </div>
                 </div>
-                <div class="row mt-10">
+                <div class="row mt-3">
                     <div class="col">
                         {{total18}}
                     </div>
                 </div>
             </div>
 
-            <mat-divider style="margin-top: 5%"></mat-divider>
+            <mat-divider class="mt-4"></mat-divider>
 
         </div>
-        <div class="row mt-10">
-            <div class="col">
+        <div class="row mt-3">
+            <div class="col d-flex justify-content-end">
                 <button mat-icon-button class="greenButton" (click)="submit()" [disabled]="selectButton()">
-                    <mat-icon>done_outline</mat-icon>
-                    <span>Confirmar</span>
+                    <mat-icon>done</mat-icon>
                 </button>
             </div>
         </div>

@@ -56,7 +56,7 @@
                     </div>
                     <div class="col max-size-image-col">
                         <mat-card class="mat-elevation-z0 outline p-0">
-                            <img class="img-fluid mx-auto d-block" src="assets/img-test.jpg">
+                            <img class="img-fluid mx-auto d-block" [src]="data.img">
                         </mat-card>
                     </div>
                 </div>
@@ -66,33 +66,19 @@
                             <mat-card-header>
                                 <mat-card-title>Medio de Pago</mat-card-title>
                             </mat-card-header>
-                            <div class="row">
+                            <div class="row mt-4">
                                 <div class="col">   
                                     <button mat-flat-button color="accent" (click)="cashPayment()" class="w-100">Efectivo</button>
                                 </div>
                                 <div class="col">
-                                    <button mat-button color="accent" (click)="creditCard()" class="w-100">
+                                    <button mat-flat-button color="accent" (click)="creditCard()" class="w-100">
                                         <mat-icon>credit_card</mat-icon>
                                         <span>Tarjeta de Credito</span>
                                     </button>
                                 </div>
                             </div>
-                        </mat-card> 
-                        <div class="row mt-3">
-                            <div class="col-6">
-                                <mat-form-field appearance="outline"class="w-100">
-                                    <mat-label>Total</mat-label>
-                                    <input matInput placeholder="Total" readonly formControlName="total">
-                                </mat-form-field>
-                            </div>
-                            <div class="col-6">
-                                <mat-form-field appearance="outline" class="w-100">
-                                    <mat-label>Total con descuento</mat-label>
-                                    <input matInput placeholder="Total con descuento" readonly formControlName="discountTotal">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row"  *ngIf="this.isCredit">
+                        </mat-card>
+                        <div class="row mt-4"  *ngIf="this.isCredit">
                             <div class="col">
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-label>Cuotas</mat-label>
@@ -103,6 +89,26 @@
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-label>Valor de la cuota</mat-label>
                                     <input matInput placeholder="Valor" readonly formControlName="feeValue">
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="outline"class="w-100">
+                                    <mat-label>Total</mat-label>
+                                    <input matInput placeholder="Total" readonly formControlName="total">
+                                </mat-form-field>
+                            </div>
+                        </div> 
+                        <div class="row mt-4"  *ngIf="this.isCash">
+                            <div class="col">
+                                <mat-form-field appearance="outline"class="w-100">
+                                    <mat-label>Precio de Venta</mat-label>
+                                    <input matInput readonly formControlName="total">
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="outline"class="w-100">
+                                    <mat-label>Total con descuento</mat-label>
+                                    <input matInput readonly formControlName="discountTotal">
                                 </mat-form-field>
                             </div>
                         </div> 
