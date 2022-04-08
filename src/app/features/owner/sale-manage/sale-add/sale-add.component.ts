@@ -1,8 +1,8 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IDataFee, IProduct, ISale, Payment, Store } from 'src/app/core/entities';
+import { IDataFee, IDiscount, IProduct, ISale, Payment, Store } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 import { SaleService } from 'src/app/shared/services/sale/sale.service';
@@ -14,13 +14,19 @@ import { OptionCreditCardComponent } from '../option-credit-card/option-credit-c
 	styleUrls: ['./sale-add.component.scss']
 })
 export class SaleAddComponent implements OnInit {
+	public nameDiscount: FormControl = new FormControl('');
+    public rateDiscount: FormControl = new FormControl('');
 	public sizeControl: FormControl = new FormControl('');
 	public stockControl: FormControl = new FormControl('');
+	public discountTotal: FormControl = new FormControl('');
 	public saleForm: FormGroup;	
 	public dataFee: IDataFee;
 	public isCash: boolean;
 	public isCredit: boolean;
-
+	public totalDiscount: any;
+	public showTotal:any;
+	public discount:IDiscount;
+ 
 	constructor(
 		private productService: ProductService,
 		public dialogRef: MatDialogRef<SaleAddComponent>,
@@ -32,6 +38,7 @@ export class SaleAddComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.initForm();
+		
 	}
 
 	public initForm(): void {
@@ -46,7 +53,81 @@ export class SaleAddComponent implements OnInit {
 			'feeNumber': new FormControl(''),
 			'total': new FormControl(''),
 			'feeValue': new FormControl(''),
+			'nameDiscount': this.nameDiscount,
+			'rateDiscount': this.rateDiscount,
+			'discountTotal': this.discountTotal,
 		})		
+	}
+
+	public handleSizeChange(size: string): void {	
+		this.stockOfSize(size);
+		/*this.totalDiscount = this.data.salePrice
+		if(this.discount != null)
+		{
+			let harcodeDiscount = this.discount.rate;	
+			this.totalDiscount = this.discountCalculator(harcodeDiscount);
+		}	
+		if(size)
+		{
+			this.stockOfSize(size);
+		}	
+		this.saleForm.get('total')?.setValue(this.data.salePrice);
+		this.saleForm.get('discountTotal')?.setValue(this.totalDiscount);*/
+	}
+
+	public handleSelected(discount:IDiscount): void{
+		this.discount = discount;
+		/*this.handleSizeChange();*/
+	}
+
+	private discountCalculator(discount: number): number {
+		return 	this.data.salePrice-((this.data.salePrice * discount)/ 100);
+		/*if(this.isCash == true)
+		{
+			console.log('efectivo descuento')
+			return 	this.data.salePrice-((this.data.salePrice * discount)/ 100);		
+		}
+		else if(this.isCredit == true)
+		{
+			console.log('tarjeta descuento')
+			return 	this.dataFee.total-((this.dataFee.total * discount)/ 100);	
+		}
+		return 0*/
+	}
+
+	public creditCard(): void {
+		let creditData: number = this.data.listPrice;
+		if(this.discount)
+		{
+			creditData = this.data.listPrice-((this.data.listPrice * this.discount.rate)/ 100);
+		}
+		const dialogRef = this.dialog.open(OptionCreditCardComponent, {
+			width: '700px',
+			data: creditData,
+			autoFocus: false,
+		});
+		dialogRef.afterClosed().subscribe(result =>{
+			if (result) {
+				this.isCredit = true;
+				this.isCash = false;
+				this.dataFee = result.data;
+				this.saleForm.get('feeNumber')?.setValue(this.dataFee.feeNumber);
+				this.saleForm.get('total')?.setValue(this.data.listPrice);
+				this.saleForm.get('feeValue')?.setValue(this.dataFee.feeValue);
+			}
+			else
+				this.isCredit = false;		
+		})
+	}
+
+	public cashPayment(): void {
+		if(this.discount)
+		{
+			this.saleForm.get('discountTotal')?.setValue(this.data.salePrice-((this.data.salePrice * this.discount.rate)/ 100));
+		}
+		this.isCredit = false;
+		this.isCash = true;
+		this.saleForm.get('total')?.setValue(this.data.salePrice);
 	}
 
 	public stockOfSize(size: string): void {	
@@ -56,7 +137,8 @@ export class SaleAddComponent implements OnInit {
 		if(productFound) 
 			this.saleForm.get('stock')?.setValue(productFound.stock);
 		else	
-			this.saleForm.get('stock')?.setValue('0');		
+			this.saleForm.get('stock')?.setValue('0');	
+
 	}
 
 	public sale(): void {
@@ -96,36 +178,12 @@ export class SaleAddComponent implements OnInit {
 	}
 	
 	public saleProductValid(): boolean {
-		return this.saleForm.get('stock')?.value == 0 ? true : false; 
+		return (this.saleForm.get('stock')?.value == 0 || !this.discount)  ? true : false; 
 	}
 
-	public creditCard(): void {
-		const dialogRef = this.dialog.open(OptionCreditCardComponent, {
-			width: '700px',
-			data: this.data.listPrice,
-			autoFocus: false,
-		});
-		dialogRef.afterClosed().subscribe(result =>{
-			if (result) {
-				this.isCredit = true;
-				this.isCash = false;
-				this.dataFee = result.data;
-				this.saleForm.get('feeNumber')?.setValue(this.dataFee.feeNumber);
-				this.saleForm.get('total')?.setValue(this.dataFee.total);
-				this.saleForm.get('feeValue')?.setValue(this.dataFee.feeValue);
-			}
-			else
-				this.isCredit = false;		
-		})
-	}
-
-	public cashPayment(): void {
-		this.isCredit = false;
-		this.isCash = true;	
-	}
-
-	public validateSaleButton(): boolean{
+	public validateSaleButton(): boolean {
 		return (this.isCash || this.isCredit) ? false : true;	
 	}
+
 }
 
