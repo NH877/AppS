@@ -284,6 +284,17 @@ export class ProductAddComponent implements OnInit {
 					duration: 3000,
 					panelClass: ['green-snackbar']
 				});
+				this.productService.getById(product.id).get().subscribe(element => {
+					product.firebaseId = element.docs[0].id;
+					this.productService.modify(product)
+						.then()
+						.catch(error => {
+							this.snackBar.open("Contactar con soporte", "Cerrar", {
+								duration: 3000,
+								panelClass: ['blue-snackbar']
+							})
+						});
+				})
 			})
 			.catch(error => {
 				this.snackBar.open("Error al intentar agregar el producto", "Cerrar", {
