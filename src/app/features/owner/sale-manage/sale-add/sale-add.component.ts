@@ -45,6 +45,7 @@ export class SaleAddComponent implements OnInit {
 			'stock': this.stockControl,
 			'feeNumber': new FormControl(''),
 			'total': new FormControl(''),
+			'size': new FormControl(''),
 			'feeValue': new FormControl(''),
 			'discountTotal': this.discountTotal,
 		})		
@@ -99,6 +100,7 @@ export class SaleAddComponent implements OnInit {
 	}
 
 	public stockOfSize(size: string): void {	
+		this.saleForm.get('size')?.setValue(size);
 
 		let productFound = this.data.stockSize.find(x => x.size == size);
 		
@@ -110,7 +112,7 @@ export class SaleAddComponent implements OnInit {
 	}
 
 	public sale(): void {
-
+		console.log("size", this.saleForm.get('size')?.value )
 		this.data.stockSize.find(x => x.size == this.saleForm.get('size')?.value ? x.stock-- : null);
 		
 		let sale: ISale = {
