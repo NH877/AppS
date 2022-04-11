@@ -478,6 +478,5 @@ export class ProductAddComponent implements OnInit {
 	}
 
 	public handleDiscountReceived(discount: IDiscount): void {
-		console.log(discount);
 	}
 }

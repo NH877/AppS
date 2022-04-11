@@ -57,7 +57,6 @@ export class SaleHistoryComponent implements OnInit {
 	public deleteHistory(sale : ISale): void {
 		
         this.saleService.getById(sale.id).get().subscribe(element => {
-			console.log(element.docs[0])
             sale.firebaseId = element.docs[0].id
 
             this.saleService.delete(sale)

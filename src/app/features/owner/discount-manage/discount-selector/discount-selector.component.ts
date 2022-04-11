@@ -20,7 +20,6 @@ export class DiscountSelectorComponent implements OnInit {
     }
 
     private getDiscountList(): void {
-        console.log("Calling the DB regarding discounts");
         this.dcService.getAll().valueChanges().subscribe(dc => {
             this.discounts = dc as IDiscount[];
         })
