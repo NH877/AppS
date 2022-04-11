@@ -155,5 +155,9 @@ export class SaleAddComponent implements OnInit {
 		return (this.isCash || this.isCredit) ? false : true;	
 	}
 
+	public cancelSaleAdd(): void {
+		this.dialogRef.close();
+	}
+
 }
 
