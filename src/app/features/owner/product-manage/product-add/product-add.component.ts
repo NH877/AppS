@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { IDiscount, IProduct, Size, StockSize } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { ProductService } from 'src/app/shared/services/product/product.service';
+import { DiscountSelectorComponent } from '../../discount-manage/discount-selector/discount-selector.component';
 
 @Component({
 	selector: 'app-product-data',
@@ -12,7 +13,7 @@ import { ProductService } from 'src/app/shared/services/product/product.service'
 	styleUrls: ['./product-add.component.scss']
 })
 export class ProductAddComponent implements OnInit {
-
+	@ViewChild('child') discountChild: DiscountSelectorComponent;
 	public productForm: FormGroup;
 	private stockSizeList: StockSize[] = [];
 	public nameControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(25), Validators.minLength(4)]);
@@ -486,8 +487,10 @@ export class ProductAddComponent implements OnInit {
 
 	public resetForm(): void {
 		this.productForm.reset();
+		this.discountChild.reset();
 	}
 
 	public handleDiscountReceived(discount: IDiscount): void {
+
 	}
 }
