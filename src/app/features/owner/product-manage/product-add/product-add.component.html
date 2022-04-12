@@ -25,8 +25,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <mat-form-field class="w-100" appearance="outline">
-                                            <mat-label>Precio</mat-label>
-                                            <input matInput type="number" placeholder="Precio" formControlName="cost" min="0">
+                                            <mat-label>Costo</mat-label>
+                                            <input matInput type="number" placeholder="Costo" formControlName="cost" min="0">
                                             <mat-error *ngIf="costControl.hasError('min') && !costControl.hasError('required')">
                                                 No se pueden usar numeros negativos.
                                             </mat-error>
@@ -36,8 +36,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <mat-form-field class="w-100" appearance="outline">
-                                            <mat-label>Precio de Lista</mat-label>
-                                            <input matInput type="number" placeholder="Precio de Lista"
+                                            <mat-label>Precio de lista</mat-label>
+                                            <input matInput type="number" placeholder="Precio de lista"
                                                 formControlName="listPrice" min="0">
                                             <mat-error
                                                 *ngIf="listPriceControl.hasError('min') && !listPriceControl.hasError('required')">
