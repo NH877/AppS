@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IDiscount } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
@@ -16,7 +17,9 @@ export class DiscountAddComponent implements OnInit {
     public nameControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(25), Validators.minLength(4)]);
     public rateControl: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
 
-    constructor(private dcService: DiscountService,private snackBar: MatSnackBar) { }
+    constructor(private dcService: DiscountService,
+		private snackBar: MatSnackBar,
+		public dialogRef: MatDialogRef<DiscountAddComponent>,) { }
 
     ngOnInit(): void {
         this.initForm();
@@ -50,5 +53,12 @@ export class DiscountAddComponent implements OnInit {
 				panelClass: ['red-snackbar']
 			});
 		})
+		.finally(() => {
+			this.dialogRef.close();
+		})
+	}
+
+	public cancelDiscount(): void {
+		this.dialogRef.close();
 	}
 }
