@@ -10,7 +10,7 @@ import { DiscountService } from 'src/app/shared/services/discount/discount.servi
 export class DiscountSelectorComponent implements OnInit {
 
     public discounts: IDiscount[];
-    public selectedDiscount: IDiscount;
+    public selectedDiscount: IDiscount ;
     @Output() newItemEvent = new EventEmitter<IDiscount>();
 
     constructor(private dcService: DiscountService) { }
@@ -27,5 +27,9 @@ export class DiscountSelectorComponent implements OnInit {
 
     public changedSelected() {
         this.newItemEvent.emit(this.selectedDiscount);
+    }
+
+    public reset(){
+        this.selectedDiscount = {} as IDiscount
     }
 }
