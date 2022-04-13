@@ -29,6 +29,7 @@ export class ProductAddComponent implements OnInit {
 	private file: File;
 	public imageURL: string;
 	public loading: boolean = false;
+	public discountSelected: IDiscount;
 
 
 	public originalProduct: IProduct;
@@ -249,6 +250,7 @@ export class ProductAddComponent implements OnInit {
 							img: element,
 							firebaseTimestamp: Date.now(),
 							disabled: false,
+							discount: this.discountSelected,
 						}
 						this.addProductToFirebase(product);
 					})
@@ -271,6 +273,7 @@ export class ProductAddComponent implements OnInit {
 				img: "assets/img-test.jpg",
 				firebaseTimestamp: Date.now(),
 				disabled: false,
+				discount: this.discountSelected,
 			}
 			this.addProductToFirebase(product);
 		}
@@ -325,7 +328,13 @@ export class ProductAddComponent implements OnInit {
 
 			if (this.imageURL != this.originalProduct.img)
 				return false;
-
+		
+			if (this.discountSelected)
+			{
+				if(this.discountSelected.id != this.originalProduct.discount?.id)
+					return false;
+			}
+				
 			for (let i = 0; i < this.originalProduct.stockSize.length; i++) {
 				switch (this.originalProduct.stockSize[i].size) {
 					case 'XS':
@@ -377,6 +386,7 @@ export class ProductAddComponent implements OnInit {
 								salePrice: this.productForm.get('salePrice')?.value,
 								listPrice: this.productForm.get('listPrice')?.value,
 								stockSize: this.stockSizeList,
+								discount: this.discountSelected,
 								img: file,
 								firebaseTimestamp: Date.now(),
 								firebaseId: element.docs[0].id,
@@ -401,6 +411,7 @@ export class ProductAddComponent implements OnInit {
 					salePrice: this.productForm.get('salePrice')?.value,
 					listPrice: this.productForm.get('listPrice')?.value,
 					stockSize: this.stockSizeList,
+					discount: this.discountSelected,
 					img: this.imageURL,
 					firebaseTimestamp: Date.now(),
 					firebaseId: element.docs[0].id,
@@ -491,6 +502,6 @@ export class ProductAddComponent implements OnInit {
 	}
 
 	public handleDiscountReceived(discount: IDiscount): void {
-
+		this.discountSelected = discount;
 	}
 }
