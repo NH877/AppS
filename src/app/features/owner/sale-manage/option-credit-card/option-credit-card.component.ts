@@ -9,12 +9,14 @@ import { IDataFee } from 'src/app/core/entities';
 })
 export class OptionCreditCardComponent implements OnInit {
 
+    public fee1: number; 
     public fee3: number; 
     public fee6: number; 
     public fee9: number; 
     public fee12: number;
     public fee18: number; 
 
+    public total1: number; 
     public total3: number; 
     public total6: number; 
     public total9: number; 
@@ -33,12 +35,14 @@ export class OptionCreditCardComponent implements OnInit {
     }
 
     public feeInit(): void {
+        this.fee1= +(this.data / 1).toFixed(2);
         this.fee3= +(this.data / 3).toFixed(2);
         this.fee6 = +((this.data + ((this.data * 9) / 100)) / 6).toFixed(2);
         this.fee9 = +((this.data + ((this.data * 30) / 100)) / 9).toFixed(2);
         this.fee12 = +(this.data / 12).toFixed(2);
         this.fee18 = +((this.data + ((this.data * 10) / 100)) / 18).toFixed(2);
 
+        this.total1 = +(this.fee1).toFixed();
         this.total3 = +(this.fee3 * 3).toFixed();
         this.total6 = +(this.fee6 * 6).toFixed();
         this.total9 = +(this.fee9 * 9).toFixed();
@@ -49,6 +53,14 @@ export class OptionCreditCardComponent implements OnInit {
     public selectTotal(feeNumber: string): void {
         switch(feeNumber)
         {
+            case '1':
+                this.datafee = {
+                    feeNumber: 1,
+                    total: this.total1,
+                    feeValue: this.fee1,
+                    rate: 0
+                };
+                break;
             case '3':
                 this.datafee = {
                     feeNumber: 3,
