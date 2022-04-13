@@ -23,6 +23,11 @@ export class OptionCreditCardComponent implements OnInit {
     public total12: number; 
     public total18: number; 
 
+     
+    public charge6: number;    
+    public charge9: number;       
+    public charge18: number;    
+
     public datafee: IDataFee;
 
     constructor(
@@ -47,7 +52,11 @@ export class OptionCreditCardComponent implements OnInit {
         this.total6 = +(this.fee6 * 6).toFixed();
         this.total9 = +(this.fee9 * 9).toFixed();
         this.total12 = +(this.fee12 * 12).toFixed();
-        this.total18 = +(this.fee18 * 18).toFixed();       
+        this.total18 = +(this.fee18 * 18).toFixed();    
+        
+        this.charge6 =  this.total6 - this.data 
+        this.charge9 =  this.total9 - this.data 
+        this.charge18 = this.total18 - this.data 
     }
 
     public selectTotal(feeNumber: string): void {
@@ -58,7 +67,8 @@ export class OptionCreditCardComponent implements OnInit {
                     feeNumber: 1,
                     total: this.total1,
                     feeValue: this.fee1,
-                    rate: 0
+                    rate: 0,
+                    charge: 0,
                 };
                 break;
             case '3':
@@ -66,7 +76,8 @@ export class OptionCreditCardComponent implements OnInit {
                     feeNumber: 3,
                     total: this.total3,
                     feeValue: this.fee3,
-                    rate: 0
+                    rate: 0,
+                    charge: 0,
                 };
                 break;
             case '6':
@@ -74,7 +85,8 @@ export class OptionCreditCardComponent implements OnInit {
                     feeNumber: 6,
                     total: this.total6,
                     feeValue: this.fee6,
-                    rate: 9
+                    rate: 9,
+                    charge: this.charge6,
                 };
                 break;
             case '9':
@@ -82,7 +94,8 @@ export class OptionCreditCardComponent implements OnInit {
                     feeNumber: 9,
                     total: this.total9,
                     feeValue: this.fee9,
-                    rate: 30
+                    rate: 30,
+                    charge: this.charge9,
                 };
                 break;
             case '12':
@@ -90,7 +103,8 @@ export class OptionCreditCardComponent implements OnInit {
                     feeNumber: 12,
                     total: this.total12,
                     feeValue: this.fee12,
-                    rate: 0
+                    rate: 0,
+                    charge: 0,
                 };
                 break;
             case '18':
@@ -98,7 +112,8 @@ export class OptionCreditCardComponent implements OnInit {
                     feeNumber: 18,
                     total: this.total18,
                     feeValue: this.fee18,
-                    rate: 10
+                    rate: 10,
+                    charge: this.charge18,
                 };           
                 break;
         }       

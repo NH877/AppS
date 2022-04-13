@@ -19,6 +19,7 @@ export class SaleAddComponent implements OnInit {
 	public sizeControl: FormControl = new FormControl('');
 	public stockControl: FormControl = new FormControl('');
 	public discountTotal: FormControl = new FormControl('');
+	public chargeCredit: FormControl = new FormControl('');
 	public saleForm: FormGroup;	
 	public dataFee: IDataFee;
 	public isCash: boolean;
@@ -48,6 +49,7 @@ export class SaleAddComponent implements OnInit {
 			'size': new FormControl(''),
 			'feeValue': new FormControl(''),
 			'discountTotal': this.discountTotal,
+			'chargeCredit': this.chargeCredit,
 		})		
 	}
 
@@ -84,6 +86,7 @@ export class SaleAddComponent implements OnInit {
 				this.saleForm.get('feeNumber')?.setValue(this.dataFee.feeNumber);
 				this.saleForm.get('total')?.setValue(this.dataFee.total);
 				this.saleForm.get('feeValue')?.setValue(this.dataFee.feeValue);
+				this.saleForm.get('chargeCredit')?.setValue(this.dataFee.charge);
 			}
 			else
 				this.isCredit = false;		

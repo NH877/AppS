@@ -46,6 +46,7 @@ export interface IDataFee {
     total: number;
     feeValue: number;
     rate: number;
+    charge: number;
 }
 /*----------------------------------------------- enums ----------------------------------------------------*/
 
