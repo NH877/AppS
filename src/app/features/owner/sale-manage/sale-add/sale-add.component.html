@@ -98,6 +98,16 @@
                                 </mat-form-field>
                             </div>
                         </div> 
+                        <div class="row" *ngIf="this.isCredit">
+                            <div class="col-4"></div>
+                            <div class="col-4"></div>
+                            <div class="col-4">
+                                <mat-form-field appearance="outline"class="w-100">
+                                    <mat-label>Recargo por interes</mat-label>
+                                    <input matInput placeholder="Recargo por interes" readonly formControlName="chargeCredit">
+                                </mat-form-field>
+                            </div>
+                        </div>
                         <div class="row mt-4"  *ngIf="this.isCash">
                             <div class="col">
                                 <mat-form-field appearance="outline"class="w-100">
