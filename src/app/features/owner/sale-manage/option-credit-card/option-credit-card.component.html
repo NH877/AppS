@@ -21,6 +21,11 @@
             <div class="col-1"> 
                 <div class="row mt-3">
                     <div class="col">
+                        <mat-radio-button color="warn" (click)="selectTotal('1')"></mat-radio-button>
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
                         <mat-radio-button color="warn" (click)="selectTotal('3')"></mat-radio-button>
                     </div>
                 </div>
@@ -47,6 +52,11 @@
             </div>
 
             <div class="col-2">
+                <div class="row mt-3">
+                    <div class="col">
+                        1
+                    </div>
+                </div>
                 <div class="row mt-3">
                     <div class="col">
                         3
@@ -82,6 +92,11 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col">
+                        Sin Interes
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col">
                        9%
                     </div>
                 </div>
@@ -103,6 +118,11 @@
             </div>
 
             <div class="col-3">
+                <div class="row mt-3">
+                    <div class="col">
+                        {{fee1}}
+                    </div>
+                </div>
                 <div class="row mt-3">
                     <div class="col">
                         {{fee3}}
@@ -133,6 +153,11 @@
             <div class="col-3">
                 <div class="row mt-3">
                     <div class="col">
+                        {{total1}}
+                    </div>
+                </div>    
+                <div class="row mt-3">
+                    <div class="col">
                         {{total3}}
                     </div>
                 </div>
@@ -157,10 +182,9 @@
                     </div>
                 </div>
             </div>
-
-            <mat-divider class="mt-4"></mat-divider>
-
         </div>
+
+        <mat-divider class="mt-4"></mat-divider>
         <div class="row mt-3">
             <div class="col d-flex justify-content-end">
                 <button mat-icon-button class="greenButton" (click)="submit()" [disabled]="selectButton()">
