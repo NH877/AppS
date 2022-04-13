@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IDiscount } from 'src/app/core/entities';
 import { DiscountService } from 'src/app/shared/services/discount/discount.service';
@@ -17,7 +18,9 @@ export class DiscountModifyComponent implements OnInit {
 
     public discount: IDiscount;
 
-    constructor(private dcService: DiscountService, private snackBar: MatSnackBar) { }
+    constructor(private dcService: DiscountService,
+        private snackBar: MatSnackBar,
+        public dialogRef: MatDialogRef<DiscountModifyComponent>) { }
 
     ngOnInit(): void {
         this.initForm();
@@ -50,6 +53,24 @@ export class DiscountModifyComponent implements OnInit {
                         panelClass: ['red-snackbar']
                     });
                 })
+                .finally(() => {
+                    this.dialogRef.close();
+                })
         })
     }
+
+    public cancelDiscount(): void {
+		this.dialogRef.close();
+	}
+
+    public validateModifyButton(): boolean {
+		if (this.discountForm.valid) {
+			if (this.discountForm.get('name')?.value != this.discount.name)
+				return false;
+
+            if (this.discountForm.get('rate')?.value != this.discount.rate)
+                return false;
+		}
+		return true;
+	}
 }
