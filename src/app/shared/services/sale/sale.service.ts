@@ -15,7 +15,7 @@ export class SaleService {
 	}
 
 	public getAll(): AngularFirestoreCollection<unknown> {
-		return this.db.collection('sale', ref => ref.orderBy('firebaseTimestamp', 'asc'));
+		return this.db.collection('sale', ref => ref.orderBy('firebaseTimestamp', 'desc'));
 	}
 
 	public delete(sale: any): Promise<void> {
