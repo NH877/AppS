@@ -29,6 +29,7 @@ export class ProductAddComponent implements OnInit {
 	private file: File;
 	public imageURL: string;
 	public loading: boolean = false;
+	public discountSelected: IDiscount;
 
 
 	public originalProduct: IProduct;
@@ -249,6 +250,7 @@ export class ProductAddComponent implements OnInit {
 							img: element,
 							firebaseTimestamp: Date.now(),
 							disabled: false,
+							discount: this.discountSelected,
 						}
 						this.addProductToFirebase(product);
 					})
@@ -271,6 +273,7 @@ export class ProductAddComponent implements OnInit {
 				img: "assets/img-test.jpg",
 				firebaseTimestamp: Date.now(),
 				disabled: false,
+				discount: this.discountSelected,
 			}
 			this.addProductToFirebase(product);
 		}
@@ -491,6 +494,6 @@ export class ProductAddComponent implements OnInit {
 	}
 
 	public handleDiscountReceived(discount: IDiscount): void {
-
+		this.discountSelected = discount;
 	}
 }
