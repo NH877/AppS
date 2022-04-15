@@ -116,7 +116,7 @@ export class SaleAddComponent implements OnInit {
 	}
 
 	public sale(): void {
-		console.log("size", this.saleForm.get('size')?.value )
+		
 		this.data.stockSize.find(x => x.size == this.saleForm.get('size')?.value ? x.stock-- : null);
 		
 		let sale: ISale = {
@@ -130,7 +130,7 @@ export class SaleAddComponent implements OnInit {
 			payment: this.isCash ? Payment.Cash : Payment.Credit_Card,
 			date: this.dateToday	
 		}
-		console.log(this.dateToday)
+		
 		this.productService.modify(this.data)
 			.then(() => {
 				this.saleService.add(sale)
