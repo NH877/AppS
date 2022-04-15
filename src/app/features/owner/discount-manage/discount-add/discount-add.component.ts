@@ -15,7 +15,7 @@ export class DiscountAddComponent implements OnInit {
 
     public discountForm: FormGroup;
     public nameControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(25), Validators.minLength(4)]);
-    public rateControl: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
+    public rateControl: FormControl = new FormControl(null, [Validators.required, Validators.min(0), Validators.max(99)]);
 
     constructor(private dcService: DiscountService,
 		private snackBar: MatSnackBar,
