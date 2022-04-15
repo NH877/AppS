@@ -28,6 +28,7 @@ export interface ISale extends IFirebaseObject {
     rate: number;
     totalPriceSale: number;
     payment: Payment;
+    date: Date;
 }
 export interface IDiscount extends IFirebaseObject {
     id: string;

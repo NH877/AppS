@@ -25,8 +25,9 @@ export class SaleAddComponent implements OnInit {
 	public isCash: boolean;
 	public isCredit: boolean;
 	public totalDiscount: any;
-	public discount:IDiscount;
- 
+	public discount: IDiscount;
+	public dateToday =  new Date()
+
 	constructor(
 		private productService: ProductService,
 		public dialogRef: MatDialogRef<SaleAddComponent>,
@@ -115,7 +116,7 @@ export class SaleAddComponent implements OnInit {
 	}
 
 	public sale(): void {
-		console.log("size", this.saleForm.get('size')?.value )
+		
 		this.data.stockSize.find(x => x.size == this.saleForm.get('size')?.value ? x.stock-- : null);
 		
 		let sale: ISale = {
@@ -127,8 +128,9 @@ export class SaleAddComponent implements OnInit {
 			rate: this.isCredit ? this.dataFee.rate : 0,
 			totalPriceSale: this.isCredit ? this.dataFee.total : this.data.salePrice,
 			payment: this.isCash ? Payment.Cash : Payment.Credit_Card,
+			date: this.dateToday	
 		}
-
+		
 		this.productService.modify(this.data)
 			.then(() => {
 				this.saleService.add(sale)
