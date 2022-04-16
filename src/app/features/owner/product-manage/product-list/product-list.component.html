@@ -70,69 +70,56 @@
                                         <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length" >
                                             <div class="example-element-detail" 
                                                 [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
-                                                <div>
-                                                    <div class="row">
+                                                <!-- <div> -->
+                                                    <div class="row ta-c mt-4">
                                                         <div class="col-2">
                                                             <img src='{{element.img}}' class='imgRedonda' />
-                                                        </div>    
-                                                        <div class="col-1">
-                                                            <img src='assets/size-xs.png' class='img-sizes'
-                                                                (click)="stockOfSize('XS', element)" />
+                                                        </div>  
+                                                        <div class="col-1 mt-3">
+                                                            <h4>XS ({{stockXS}})</h4>
                                                         </div>
-                                                        <div class="col-1">
-                                                            <img src='assets/size-s.png' class='img-sizes'
-                                                                (click)="stockOfSize('S', element)" />
+                                                        <div class="col-1 mt-3">
+                                                            <h4>S ({{stockS}})</h4>
                                                         </div>
-                                                        <div class="col-1">
-                                                            <img src='assets/size-m.png' class='img-sizes'
-                                                                (click)="stockOfSize('M', element)" />
+                                                        <div class="col-1 mt-3">
+                                                            <h4>M ({{stockM}})</h4>
                                                         </div>
-                                                        <div class="col-1">
-                                                            <img src='assets/size-l.png' class='img-sizes'
-                                                                (click)="stockOfSize('L', element)" />
+                                                        <div class="col-1 mt-3">
+                                                            <h4>L ({{stockL}})</h4>
                                                         </div>
-                                                        <div class="col-1">
-                                                            <img src='assets/size-xl.png' class='img-sizes'
-                                                                (click)="stockOfSize('XL', element)" />
+                                                        <div class="col-1 mt-3">
+                                                            <h4>XL ({{stockXL}})</h4>
                                                         </div>
-                                                        <div class="col-1">
-                                                            <img src='assets/size-xxl.png' class='img-sizes'
-                                                                (click)="stockOfSize('XXL', element)" />
+                                                        <div class="col-1 mt-3">
+                                                            <h4>XXL ({{stockXXL}})</h4>
+                                                        </div>  
+                                                        <div class="col-4">
+                                                            <app-discount-selector></app-discount-selector> <!-- Connect this -->
                                                         </div>
-                                                    <!-- <div class="col">
-                                                            <mat-form-field appearance="outline" fxFlex="20"
-                                                                style="margin-top: 18px; pointer-events: none;">
-                                                                <mat-label>Stock</mat-label>
-                                                                <input matInput placeholder="Stock segun talle" value="{{stock}}"
-                                                                    readonly #input>
-                                                                <mat-icon matSuffix>inventory</mat-icon>
-                                                            </mat-form-field>
-                                                        </div> -->
-                                                        <div class="col-4"></div>
                                                     </div>
-                                                    <div class="row ta-c">
+                                                   <!-- <div class="row ta-c">
                                                         <div class="col-2"></div>
                                                         <div class="col-1">
-                                                            <p>{{stockXS}}</p>
+                                                            <h4>XS ({{stockXS}})</h4>
                                                         </div>
                                                         <div class="col-1">
-                                                            <p>{{stockS}}</p>
+                                                            <h4>S ({{stockS}})</h4>
                                                         </div>
                                                         <div class="col-1">
-                                                            <p>{{stockM}}</p>
+                                                            <h4>M ({{stockM}})</h4>
                                                         </div>
                                                         <div class="col-1">
-                                                            <p>{{stockL}}</p>
+                                                            <h4>L ({{stockL}})</h4>
                                                         </div>
                                                         <div class="col-1">
-                                                            <p>{{stockXL}}</p>
+                                                            <h4>XL ({{stockXL}})</h4>
                                                         </div>
                                                         <div class="col-1">
-                                                            <p>{{stockXXL}}</p>
+                                                            <h4>XXL ({{stockXXL}})</h4>
                                                         </div>
                                                         <div class="col-4"></div>
-                                                    </div>
-                                                </div>    
+                                                    </div> 
+                                                </div>    -->
                                             </div>
                                         </td>
                                     </ng-container>
