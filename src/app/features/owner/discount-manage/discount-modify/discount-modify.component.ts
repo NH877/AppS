@@ -18,10 +18,11 @@ export class DiscountModifyComponent implements OnInit {
     public rateControl: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
 
     public selectedProducts: IProduct[] = [];
+    public oldProducts: any = null;
     public discount: IDiscount;
     public isLoading: boolean;
 
-    constructor(private dcService: DiscountService, private snackBar: MatSnackBar, private pService: ProductService,@Inject(MAT_DIALOG_DATA) public data: IDiscount ) { }
+    constructor(private dcService: DiscountService, private snackBar: MatSnackBar, private pService: ProductService, @Inject(MAT_DIALOG_DATA) public data: IDiscount) { }
 
     ngOnInit(): void {
         this.isLoading = true;
@@ -43,7 +44,7 @@ export class DiscountModifyComponent implements OnInit {
         this.pService.getAll().valueChanges().subscribe(products => {
             products.forEach(pr => {
                 let product = pr as IProduct;
-                if(product.discount.length){
+                if (product.discount.length) {
                     product.discount.forEach(dc => {
                         let discount = dc as IDiscount
                         if (discount.id == this.discount.id)
@@ -51,8 +52,20 @@ export class DiscountModifyComponent implements OnInit {
                     })
                 }
             });
-			this.isLoading = false;
-		})
+            if (this.oldProducts == null) {
+                this.saveOldProducts();
+            }
+            this.isLoading = false;
+        })
+    }
+
+    public saveOldProducts() {
+        this.oldProducts = [] as IProduct[]
+        this.selectedProducts.forEach(element => {
+            if (!this.oldProducts.includes(element)) {
+                this.oldProducts.push(element)
+            }
+        });
     }
 
     public modifyDiscount(): void {
@@ -66,7 +79,7 @@ export class DiscountModifyComponent implements OnInit {
                         duration: 3000,
                         panelClass: ['green-snackbar']
                     });
-                    this.addNewDiscountToProducts(this.discount)
+                    this.manageDiscountsInProducts(this.discount)
                 })
                 .catch(() => {
                     this.snackBar.open("Error al intentar modificar el descuento", "Cerrar", {
@@ -77,24 +90,24 @@ export class DiscountModifyComponent implements OnInit {
         })
     }
 
-    public addNewDiscountToProducts(discount: IDiscount): void {
+    public manageDiscountsInProducts(discount: IDiscount): void {
+        console.log(this.selectedProducts)
+        console.log(this.oldProducts)
+        this.oldProducts.forEach((p:IProduct) => {
+            if(this.selectedProducts.includes(p)){
+                console.log(p)
+                console.log("NO LA TIENE")
+            }
+        })
+
+
+
         let failEdits = 0;
-        this.selectedProducts.forEach(product => {
-            product.discount.push(discount);
-            console.log(discount)
-            this.pService.modify(product).catch(error => {
-                failEdits++;
-            })
-                .finally(() => {
-                    if (failEdits > 0) {
-                        let message = "Error al intentar asignar el descuento en " + failEdits + " productos"
-                        this.snackBar.open(message, "Cerrar", {
-                            duration: 100000,
-                            panelClass: ['red-snackbar']
-                        });
-                    }
-                })
-        });
+        
+    }
+
+    public removeDiscountToProduct() {
+
     }
 
     public handleResponce(selectedProducts: IProduct[]) {
