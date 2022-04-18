@@ -29,3 +29,10 @@ tr.example-element-row:not(.example-expanded-row):active {
 	border-radius: 15px;
 	margin-bottom: 15px;
 }
+
+
+table {
+	.example-element-row:hover {
+		background-color: rgba(43, 43, 43, 0.685);
+	}
+}
