@@ -34,7 +34,6 @@ import { MatListModule } from '@angular/material/list';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
-
 // Components
 import { ProductAddComponent } from './features/owner/product-manage/product-add/product-add.component';
 import { HomeComponent } from './features/owner/home/home.component';

@@ -13,7 +13,6 @@ import { ProductModifyComponent } from '../product-modify/product-modify.compone
 import { ProductScanComponent } from '../product-scan/product-scan.component';
 
 
-
 @Component({
 	selector: 'app-product-list',
 	templateUrl: './product-list.component.html',
