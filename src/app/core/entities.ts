@@ -1,3 +1,5 @@
+import { convertUpdateArguments } from "@angular/compiler/src/compiler_util/expression_converter";
+
 export interface IFirebaseObject {
     firebaseId?: string;
     firebaseTimestamp?: number;
@@ -21,11 +23,12 @@ export interface IProduct extends IFirebaseObject {
 export interface ISale extends IFirebaseObject {
     id: string;
     product: IProduct;
-    discount: string;
+    discount: number;
     local: Store;   
-    rate: string;
+    rate: number;
     totalPriceSale: number;
     payment: Payment;
+    date: Date;
 }
 export interface IDiscount extends IFirebaseObject {
     id: string;
@@ -39,6 +42,13 @@ export interface StockSize {
     stock: number;
 }
 
+export interface IDataFee {
+    feeNumber: number;
+    total: number;
+    feeValue: number;
+    rate: number;
+    charge: number;
+}
 /*----------------------------------------------- enums ----------------------------------------------------*/
 
 export enum Store {
@@ -58,6 +68,6 @@ export enum Size {
 }
 
 export enum Payment{
-    Efective,
-    Credit_Card    
+    Cash = 'Efectivo',
+    Credit_Card = 'Tarjeta de Credito'
 }

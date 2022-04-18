@@ -1,10 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { IDiscount, IProduct, Size, StockSize } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { ProductService } from 'src/app/shared/services/product/product.service';
+import { DiscountSelectorComponent } from '../../discount-manage/discount-selector/discount-selector.component';
 
 @Component({
 	selector: 'app-product-data',
@@ -12,7 +13,7 @@ import { ProductService } from 'src/app/shared/services/product/product.service'
 	styleUrls: ['./product-add.component.scss']
 })
 export class ProductAddComponent implements OnInit {
-
+	@ViewChild('child') discountChild: DiscountSelectorComponent;
 	public productForm: FormGroup;
 	private stockSizeList: StockSize[] = [];
 	public nameControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(25), Validators.minLength(4)]);
@@ -29,6 +30,7 @@ export class ProductAddComponent implements OnInit {
 	public imageURL: string;
 	public loading: boolean = false;
 	public loadedDiscountsOfProduct: IDiscount[] = [];
+	public discountSelected: IDiscount;
 
 	public originalProduct: IProduct;
 	@Input() productDataForModify: IProduct;
@@ -249,7 +251,7 @@ export class ProductAddComponent implements OnInit {
 							img: element,
 							firebaseTimestamp: Date.now(),
 							disabled: false,
-							discount: []
+							discount: this.discountSelected,
 						}
 						this.addProductToFirebase(product);
 					})
@@ -272,7 +274,7 @@ export class ProductAddComponent implements OnInit {
 				img: "assets/img-test.jpg",
 				firebaseTimestamp: Date.now(),
 				disabled: false,
-				discount: []
+				discount: this.discountSelected,
 			}
 			this.addProductToFirebase(product);
 		}
@@ -287,6 +289,17 @@ export class ProductAddComponent implements OnInit {
 					duration: 3000,
 					panelClass: ['green-snackbar']
 				});
+				this.productService.getById(product.id).get().subscribe(element => {
+					product.firebaseId = element.docs[0].id;
+					this.productService.modify(product)
+						.then()
+						.catch(error => {
+							this.snackBar.open("Contactar con soporte", "Cerrar", {
+								duration: 3000,
+								panelClass: ['blue-snackbar']
+							})
+						});
+				})
 			})
 			.catch(error => {
 				this.snackBar.open("Error al intentar agregar el producto", "Cerrar", {
@@ -316,7 +329,13 @@ export class ProductAddComponent implements OnInit {
 
 			if (this.imageURL != this.originalProduct.img)
 				return false;
-
+		
+			if (this.discountSelected)
+			{
+				if(this.discountSelected.id != this.originalProduct.discount?.id)
+					return false;
+			}
+				
 			for (let i = 0; i < this.originalProduct.stockSize.length; i++) {
 				switch (this.originalProduct.stockSize[i].size) {
 					case 'XS':
@@ -368,6 +387,7 @@ export class ProductAddComponent implements OnInit {
 								salePrice: this.productForm.get('salePrice')?.value,
 								listPrice: this.productForm.get('listPrice')?.value,
 								stockSize: this.stockSizeList,
+								discount: this.discountSelected,
 								img: file,
 								firebaseTimestamp: Date.now(),
 								firebaseId: element.docs[0].id,
@@ -393,6 +413,7 @@ export class ProductAddComponent implements OnInit {
 					salePrice: this.productForm.get('salePrice')?.value,
 					listPrice: this.productForm.get('listPrice')?.value,
 					stockSize: this.stockSizeList,
+					discount: this.discountSelected,
 					img: this.imageURL,
 					firebaseTimestamp: Date.now(),
 					firebaseId: element.docs[0].id,
@@ -481,8 +502,10 @@ export class ProductAddComponent implements OnInit {
 
 	public resetForm(): void {
 		this.productForm.reset();
+		this.discountChild.reset();
 	}
 
-	public handleDiscountReceived(discount: IDiscount[]): void {
+	public handleDiscountReceived(discount: IDiscount): void {
+		this.discountSelected = discount;
 	}
 }

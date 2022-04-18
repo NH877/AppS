@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IDiscount, IProduct } from 'src/app/core/entities';
 import { DiscountService } from 'src/app/shared/services/discount/discount.service';
@@ -22,7 +23,8 @@ export class DiscountModifyComponent implements OnInit {
     public discount: IDiscount;
     public isLoading: boolean;
 
-    constructor(private dcService: DiscountService, private snackBar: MatSnackBar, private pService: ProductService, @Inject(MAT_DIALOG_DATA) public data: IDiscount) { }
+    constructor(private dcService: DiscountService, private snackBar: MatSnackBar, private pService: ProductService, @Inject(MAT_DIALOG_DATA) public data: IDiscount, public dialogRef: MatDialogRef<DiscountModifyComponent>) { }
+
 
     ngOnInit(): void {
         this.isLoading = true;
@@ -87,9 +89,12 @@ export class DiscountModifyComponent implements OnInit {
                         panelClass: ['red-snackbar']
                     });
                 })
+                .finally(() => {
+                    this.dialogRef.close();
+                })
         })
     }
-
+  
     public manageDiscountsInProducts(discount: IDiscount): void {
         console.log(this.selectedProducts)
         console.log(this.oldProducts)
@@ -99,8 +104,6 @@ export class DiscountModifyComponent implements OnInit {
                 console.log("NO LA TIENE")
             }
         })
-
-
 
         let failEdits = 0;
         
@@ -113,4 +116,20 @@ export class DiscountModifyComponent implements OnInit {
     public handleResponce(selectedProducts: IProduct[]) {
         this.selectedProducts = selectedProducts;
     }
+
+    public cancelDiscount(): void {
+	  	this.dialogRef.close();
+	  }
+
+    public validateModifyButton(): boolean {
+		if (this.discountForm.valid) {
+			if (this.discountForm.get('name')?.value != this.discount.name)
+				return false;
+
+            if (this.discountForm.get('rate')?.value != this.discount.rate)
+                return false;
+		}
+		return true;
+	}
+  
 }

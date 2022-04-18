@@ -41,4 +41,8 @@ export class DiscountSelectorComponent implements OnInit {
     compareCategoryObjects(object1: any, object2: any) {
         return object1 && object2 && object1.id == object2.id;
     }
+
+    public reset(){
+        this.selectedDiscount = {} as IDiscount
+    }
 }

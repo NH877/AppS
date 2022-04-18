@@ -1,58 +1,84 @@
-<div class="row">
-    <div class="col">
-        <mat-card>
-            <mat-card-header>
-                <h3>Historial de ventas</h3>
-            </mat-card-header>
-            <mat-divider></mat-divider>
-            <mat-card-content>
-                <div class="row">
-                    <div class="col">
-                        <mat-form-field appearance="outline">
-                            <mat-label>Filtro</mat-label>
-                            <input matInput (keyup)="applyFilter($event)" placeholder="Filtración" #input>
-                            <mat-icon matSuffix>search</mat-icon>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col">
-                        <table mat-table [dataSource]="saleDataSource.data" class="w-100" matSort>
+<div class="d-none d-sm-block">
+    <div class="container" >
+        <div class="row">
+            <div class="col">
+                <mat-card>
+                    <mat-card-header>
+                        <h3>Historial de ventas</h3>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <div class="row">
+                            <div class="col">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Filtro</mat-label>
+                                    <input matInput (keyup)="applyFilter($event)" placeholder="Filtración" #input>
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <table mat-table [dataSource]="saleDataSource.data" class="w-100" matSort>
 
-                            <ng-container matColumnDef="name">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
-                                <td mat-cell *matCellDef="let sale"> {{sale.product.name}} </td>
-                            </ng-container>
+                                    <ng-container matColumnDef="name">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Nombre </th>
+                                        <td mat-cell *matCellDef="let sale"> {{sale.product.name}} </td>
+                                    </ng-container>
 
-                            <ng-container matColumnDef="cost">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Costo </th>
-                                <td mat-cell *matCellDef="let sale"> $ {{sale.product.cost}} </td>
-                            </ng-container>
+                                    <ng-container matColumnDef="cost">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Costo </th>
+                                        <td mat-cell *matCellDef="let sale"> $ {{sale.product.cost}} </td>
+                                    </ng-container>
 
-                            <ng-container matColumnDef="listPrice">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio de lista </th>
-                                <td mat-cell *matCellDef="let sale"> $ {{sale.product.listPrice}} </td>
-                            </ng-container>
+                                    <ng-container matColumnDef="payment">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Forma de Pago </th>
+                                        <td mat-cell *matCellDef="let sale"> {{sale.payment}} </td>
+                                    </ng-container>
 
-                            <ng-container matColumnDef="salePrice">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio de venta </th>
-                                <td mat-cell *matCellDef="let sale"> $ {{sale.product.salePrice}} </td>
-                            </ng-container>
+                                    <ng-container matColumnDef="discount">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descuento </th>
+                                        <td mat-cell *matCellDef="let sale"> 
+                                            <p style="margin-top: 10px;" *ngIf="sale.discount != 0" > % {{sale.discount}} </p>
+                                            <p style="margin-top: 10px;" *ngIf="sale.discount == 0" > Sin Descuento</p>
+                                        </td>                                   
+                                    </ng-container>
 
-                            <ng-container matColumnDef="local">
-                                <th mat-header-cell *matHeaderCellDef mat-sort-header> Local </th>
-                                <td mat-cell *matCellDef="let sale"> {{sale.local}} </td>
-                            </ng-container>
+                                    <ng-container matColumnDef="rate">
+                                        <th mat-header-cell  *matHeaderCellDef mat-sort-header> Interes </th>
+                                        <td mat-cell *matCellDef="let sale"> 
+                                            <p style="margin-top: 10px;" *ngIf="sale.rate != 0" > % {{sale.rate}} </p>
+                                            <p style="margin-top: 10px;" *ngIf="sale.rate == 0" > Sin Interes</p>
+                                        </td>
+                                    </ng-container>
 
-                            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-                            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                                    <ng-container matColumnDef="salePrice">
+                                        <th mat-header-cell *matHeaderCellDef mat-sort-header> Precio de venta </th>
+                                        <td mat-cell *matCellDef="let sale"> $ {{sale.totalPriceSale}} </td>
+                                    </ng-container>
 
-                        </table>
-                        <mat-paginator class="w-100" [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
-                        </mat-paginator>
-                    </div>
-                </div>
-            </mat-card-content>
-        </mat-card>
+                                    <ng-container matColumnDef="action">
+                                        <th mat-header-cell *matHeaderCellDef> Acciones </th>
+                                        <td mat-cell *matCellDef="let product">
+
+                                            <button mat-icon-button color="warn" (click)="deleteHistory(product)">
+                                                <mat-icon>delete_forever</mat-icon>
+                                            </button>
+
+                                        </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                                </table>
+                                <mat-paginator class="w-100" [length]="100" [pageSize]="5" [pageSizeOptions]="[5, 10, 25, 100]">
+                                </mat-paginator>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
     </div>
 </div>

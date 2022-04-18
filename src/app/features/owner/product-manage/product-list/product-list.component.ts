@@ -11,7 +11,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { SaleAddComponent } from '../../sale-manage/sale-add/sale-add.component';
 import { ProductModifyComponent } from '../product-modify/product-modify.component';
 import { ProductScanComponent } from '../product-scan/product-scan.component';
-import { OptionCreditCardComponent } from '../../sale-manage/option-credit-card/option-credit-card.component';
+
 
 
 @Component({
@@ -38,7 +38,12 @@ export class ProductListComponent implements OnInit {
 	public emptyList: boolean = true;
 	public loading: boolean = true;
 
-	public stock: number=0;
+	public stockXS: number=0;
+	public stockS: number=0;
+	public stockM: number=0;
+	public stockL: number=0;
+	public stockXL: number=0;
+	public stockXXL: number=0;
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
@@ -62,20 +67,30 @@ export class ProductListComponent implements OnInit {
 		})
 	}
 
-	public stockOfSize(size: string, product: IProduct): void {
+	public resetStock(product: IProduct): void{
+		this.stockXS= this.stockOfSize('XS', product);
+		this.stockS= this.stockOfSize('S', product);
+		this.stockM= this.stockOfSize('M', product);
+		this.stockL= this.stockOfSize('L', product);
+		this.stockXL= this.stockOfSize('XL', product);
+		this.stockXXL= this.stockOfSize('XXL', product);
+	}
+
+	public stockOfSize(size: string, product: IProduct): number {
 
 		let productFound = product.stockSize.find(x => x.size == size);
 
 		if(productFound) 
-			this.stock= productFound.stock;
+			return productFound.stock;
 		else	
-			this.stock=0;
+			return 0;
 
 	}
 
 	public modify(product: any): void {
 		this.dialog.open(ProductModifyComponent, {
 			width: 'auto',
+			height: '99%',
 			data: product as IProduct,
 			autoFocus: false,
 		});
@@ -120,7 +135,7 @@ export class ProductListComponent implements OnInit {
 	}
 
 	public scanProduct(){const dialogRef = this.dialog.open(ProductScanComponent, {
-		width: '900px',  /* ESTO DEFINE LO ANCHO QUE VA SER EL MAT-DIALOG*/ 
+		width: '900px',   
 		autoFocus: false,
 	});
 
@@ -136,12 +151,4 @@ export class ProductListComponent implements OnInit {
 		
 	}
 
-	public creditCard(): void{
-		const dialogRef = this.dialog.open(OptionCreditCardComponent, {
-			width: '700px',  /* ESTO DEFINE LO ANCHO QUE VA SER EL MAT-DIALOG*/ 
-			data: 10000 as number,
-			autoFocus: false,
-		});
-	}
-	
 }

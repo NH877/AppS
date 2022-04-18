@@ -1,11 +1,12 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject, Input, OnInit, } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IProduct, ISale, Payment, StockSize, Store } from 'src/app/core/entities';
+import { IDataFee, IDiscount, IProduct, ISale, Payment, Store } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 import { SaleService } from 'src/app/shared/services/sale/sale.service';
+import { OptionCreditCardComponent } from '../option-credit-card/option-credit-card.component';
 
 @Component({
 	selector: 'app-sale-add',
@@ -13,71 +14,125 @@ import { SaleService } from 'src/app/shared/services/sale/sale.service';
 	styleUrls: ['./sale-add.component.scss']
 })
 export class SaleAddComponent implements OnInit {
-
-	public saleForm: FormGroup;
-	public productSelected: IProduct;
-	public stockSize: StockSize;	
+	public nameDiscount: FormControl = new FormControl('');
+    public rateDiscount: FormControl = new FormControl('');
+	public sizeControl: FormControl = new FormControl('');
+	public stockControl: FormControl = new FormControl('');
+	public discountTotal: FormControl = new FormControl('');
+	public chargeCredit: FormControl = new FormControl('');
+	public saleForm: FormGroup;	
+	public dataFee: IDataFee;
+	public isCash: boolean;
+	public isCredit: boolean;
+	public totalDiscount: any;
+	public discount: IDiscount;
+	public dateToday =  new Date()
 
 	constructor(
 		private productService: ProductService,
 		public dialogRef: MatDialogRef<SaleAddComponent>,
 		public saleService: SaleService,
 		private snackBar: MatSnackBar,
+		public dialog: MatDialog,
     	@Inject(MAT_DIALOG_DATA) public data: IProduct,
 		) { }
-
 
 	ngOnInit(): void {
 		this.initForm();
 	}
 
-	public initForm(): void{
+	public initForm(): void {
 		this.saleForm = new FormGroup({
 			'name': new FormControl(this.data.name),
-			'cost': new FormControl(this.data.cost),
-			'salePrice': new FormControl(this.data.salePrice),
-			'listPrice': new FormControl(this.data.listPrice),
-			'stock': new FormControl(null),
-			'id': new FormControl(this.data.id),
-			'size': new FormControl(null),
-			
-			
+			'stock': this.stockControl,
+			'feeNumber': new FormControl(''),
+			'total': new FormControl(''),
+			'size': new FormControl(''),
+			'feeValue': new FormControl(''),
+			'discountTotal': this.discountTotal,
+			'chargeCredit': this.chargeCredit,
 		})		
 	}
 
-	
+	public handleSizeChange(size: string): void {	
+		this.stockOfSize(size);
+	}
 
-	public stockOfSize(size: string): void {
+	public handleSelected(discount: IDiscount): void {
+		this.discount ? this.resetDiscount(discount) : this.discount = discount;
+	}
 
+	private resetDiscount(discount: IDiscount): void {
+		this.discount = discount;
+		this.isCash = false;
+		this.isCredit = false;
+	}
+
+	public creditCard(): void {
+		let creditData: number = this.data.listPrice;
+		if(this.discount)
+			creditData = this.data.listPrice-((this.data.listPrice * this.discount.rate)/ 100);
+
+		const dialogRef = this.dialog.open(OptionCreditCardComponent, {
+			width: '700px',
+			data: creditData,
+			autoFocus: false,
+		});
+
+		dialogRef.afterClosed().subscribe(result =>{
+			if (result) {
+				this.isCredit = true;
+				this.isCash = false;
+				this.dataFee = result.data;
+				this.saleForm.get('feeNumber')?.setValue(this.dataFee.feeNumber);
+				this.saleForm.get('total')?.setValue(this.dataFee.total);
+				this.saleForm.get('feeValue')?.setValue(this.dataFee.feeValue);
+				this.saleForm.get('chargeCredit')?.setValue(this.dataFee.charge);
+			}
+			else
+				this.isCredit = false;		
+		})
+	}
+
+	public cashPayment(): void {
+		if(this.discount)
+			this.saleForm.get('discountTotal')?.setValue(this.data.salePrice-((this.data.salePrice * this.discount.rate)/ 100));
+
+		this.isCredit = false;
+		this.isCash = true;
+		this.saleForm.get('total')?.setValue(this.data.salePrice);
+	}
+
+	public stockOfSize(size: string): void {	
 		this.saleForm.get('size')?.setValue(size);
 
-		let productFound = this.productSelected.stockSize.find(x => x.size == size);
-
+		let productFound = this.data.stockSize.find(x => x.size == size);
+		
 		if(productFound) 
 			this.saleForm.get('stock')?.setValue(productFound.stock);
 		else	
-			this.saleForm.get('stock')?.setValue('0');
+			this.saleForm.get('stock')?.setValue('0');	
 
 	}
 
 	public sale(): void {
-
-		this.productSelected.stockSize.find(x => x.size == this.saleForm.get('size')?.value ? x.stock-- : null);
-
+		
+		this.data.stockSize.find(x => x.size == this.saleForm.get('size')?.value ? x.stock-- : null);
+		
 		let sale: ISale = {
 			id: CoreHelper.generateIdDate(),
-			product: this.productSelected,
+			product: this.data,
 			local: Store.STORE_A,
 			firebaseTimestamp: Date.now(),
-			discount: '',
-			rate: '',
-			totalPriceSale: 0,
-			payment:Payment.Efective
+			discount: 0,
+			rate: this.isCredit ? this.dataFee.rate : 0,
+			totalPriceSale: this.isCredit ? this.dataFee.total : this.data.salePrice,
+			payment: this.isCash ? Payment.Cash : Payment.Credit_Card,
+			date: this.dateToday	
 		}
-
-		this.productService.modify(this.productSelected)
+		
+		this.productService.modify(this.data)
 			.then(() => {
-
 				this.saleService.add(sale)
 				.then(() => {
 					this.snackBar.open("Se realizo la venta con con exito", "Cerrar", {
@@ -98,7 +153,16 @@ export class SaleAddComponent implements OnInit {
 	}
 	
 	public saleProductValid(): boolean {
-		return this.saleForm.get('stock')?.value == 0 ? true : false; 
+		return (this.saleForm.get('stock')?.value == 0 || !this.discount)  ? true : false; 
 	}
+
+	public validateSaleButton(): boolean {
+		return (this.isCash || this.isCredit) ? false : true;	
+	}
+
+	public cancelSaleAdd(): void {
+		this.dialogRef.close();
+	}
+
 }
 

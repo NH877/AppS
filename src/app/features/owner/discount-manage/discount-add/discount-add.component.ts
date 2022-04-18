@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { IDiscount, IProduct } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
@@ -15,10 +16,10 @@ export class DiscountAddComponent implements OnInit {
 
 	public discountForm: FormGroup;
 	public nameControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(25), Validators.minLength(4)]);
-	public rateControl: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
+	public rateControl: FormControl = new FormControl(null, [Validators.required, Validators.min(0), Validators.max(99)]);
 	public selectedProducts: IProduct[];
 
-	constructor(private dcService: DiscountService, private snackBar: MatSnackBar, private pService: ProductService) { }
+	constructor(private dcService: DiscountService, private snackBar: MatSnackBar, private pService: ProductService, public dialogRef: MatDialogRef<DiscountAddComponent>) { }
 
 	ngOnInit(): void {
 		this.initForm();
@@ -54,6 +55,10 @@ export class DiscountAddComponent implements OnInit {
 				});
 			})
 	}
+	  
+  public cancelDiscount(): void {
+		  this.dialogRef.close();
+  }
 
 	public addNewDiscountToProducts(discount: IDiscount): void {
 		let failEdits = 0;
@@ -76,5 +81,28 @@ export class DiscountAddComponent implements OnInit {
 
 	public handleResponce(selectedProducts: IProduct[]) {
 		this.selectedProducts = selectedProducts;
+    
+            name: this.discountForm.get('name')?.value,
+            rate: this.discountForm.get('rate')?.value,
+            firebaseTimestamp: Date.now()
+        }
+
+		this.dcService.add(product)
+		.then(() => {
+			this.snackBar.open("Descuento agregado", "Cerrar", {
+				duration: 3000,
+				panelClass: ['green-snackbar']
+			});
+		})
+		.catch(() => {
+			this.snackBar.open("Error al intentar agregar el descuento", "Cerrar", {
+				duration: 3000,
+				panelClass: ['red-snackbar']
+			});
+		})
+		.finally(() => {
+			this.dialogRef.close();
+		})
 	}
+
 }

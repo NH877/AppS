@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { IDataFee } from 'src/app/core/entities';
 
 @Component({
     selector: 'app-option-credit-card',
@@ -6,29 +8,126 @@ import { Component, OnInit } from '@angular/core';
     styleUrls: ['./option-credit-card.component.scss']
 })
 export class OptionCreditCardComponent implements OnInit {
-    public selectedItem: any
-    public price = 10000;
-    public total = 0;
-    
-    public fee3: any = (this.price / 3).toFixed(2);
-    public fee6: any = ((this.price + ((this.price * 9) / 100)) / 6).toFixed(2);
-    public fee9: any = ((this.price + ((this.price * 30) / 100)) / 9).toFixed(2);
-    public fee12: any = (this.price / 12).toFixed(2);
-    public fee18: any = ((this.price + ((this.price * 10) / 100)) / 18).toFixed(2);
 
-    public total3: any = (this.fee3 * 3).toFixed();
-    public total6: any = (this.fee6 * 6).toFixed();
-    public total9: any = (this.fee9 * 9).toFixed();
-    public total12: any = (this.fee12 * 12).toFixed();
-    public total18: any = (this.fee18 * 18).toFixed();
+    public fee1: number; 
+    public fee3: number; 
+    public fee6: number; 
+    public fee9: number; 
+    public fee12: number;
+    public fee18: number; 
 
-    constructor() { }
+    public total1: number; 
+    public total3: number; 
+    public total6: number; 
+    public total9: number; 
+    public total12: number; 
+    public total18: number; 
+
+     
+    public charge6: number;    
+    public charge9: number;       
+    public charge18: number;    
+
+    public datafee: IDataFee;
+
+    constructor(
+        public dialogRef: MatDialogRef<OptionCreditCardComponent>,
+        @Inject(MAT_DIALOG_DATA) public data: number
+    ) { }
 
     ngOnInit(): void {
+        this.feeInit();
     }
 
-    public test(variable: number) {
-        this.total = (variable * this.price / 100) + this.price
+    public feeInit(): void {
+        this.fee1= +(this.data / 1).toFixed(2);
+        this.fee3= +(this.data / 3).toFixed(2);
+        this.fee6 = +((this.data + ((this.data * 9) / 100)) / 6).toFixed(2);
+        this.fee9 = +((this.data + ((this.data * 30) / 100)) / 9).toFixed(2);
+        this.fee12 = +(this.data / 12).toFixed(2);
+        this.fee18 = +((this.data + ((this.data * 10) / 100)) / 18).toFixed(2);
+
+        this.total1 = +(this.fee1).toFixed();
+        this.total3 = +(this.fee3 * 3).toFixed();
+        this.total6 = +(this.fee6 * 6).toFixed();
+        this.total9 = +(this.fee9 * 9).toFixed();
+        this.total12 = +(this.fee12 * 12).toFixed();
+        this.total18 = +(this.fee18 * 18).toFixed();    
+        
+        this.charge6 =  this.total6 - this.data 
+        this.charge9 =  this.total9 - this.data 
+        this.charge18 = this.total18 - this.data 
     }
 
+    public selectTotal(feeNumber: string): void {
+        switch(feeNumber)
+        {
+            case '1':
+                this.datafee = {
+                    feeNumber: 1,
+                    total: this.total1,
+                    feeValue: this.fee1,
+                    rate: 0,
+                    charge: 0,
+                };
+                break;
+            case '3':
+                this.datafee = {
+                    feeNumber: 3,
+                    total: this.total3,
+                    feeValue: this.fee3,
+                    rate: 0,
+                    charge: 0,
+                };
+                break;
+            case '6':
+                this.datafee = {
+                    feeNumber: 6,
+                    total: this.total6,
+                    feeValue: this.fee6,
+                    rate: 9,
+                    charge: this.charge6,
+                };
+                break;
+            case '9':
+                this.datafee = {
+                    feeNumber: 9,
+                    total: this.total9,
+                    feeValue: this.fee9,
+                    rate: 30,
+                    charge: this.charge9,
+                };
+                break;
+            case '12':
+                this.datafee = {
+                    feeNumber: 12,
+                    total: this.total12,
+                    feeValue: this.fee12,
+                    rate: 0,
+                    charge: 0,
+                };
+                break;
+            case '18':
+                this.datafee = {
+                    feeNumber: 18,
+                    total: this.total18,
+                    feeValue: this.fee18,
+                    rate: 10,
+                    charge: this.charge18,
+                };           
+                break;
+        }       
+    }
+    
+    public submit(): void {
+        this.dialogRef.close({data:this.datafee});
+    }
+
+    public selectButton(): boolean{
+       if(this.datafee == null)
+       {
+            return true
+       }  
+       return false
+    }
 }
