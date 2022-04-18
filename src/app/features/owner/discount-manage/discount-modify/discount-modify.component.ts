@@ -111,7 +111,6 @@ export class DiscountModifyComponent implements OnInit {
         {
             if(!this.selectedProductsOriginals.find(productOriginal => productOriginal.id == product.id))
             {
-                //add discount to product
                 this.addDiscountToProduct(product, discount);
             }
         }
@@ -120,7 +119,6 @@ export class DiscountModifyComponent implements OnInit {
         {
             if(!this.selectedProducts.find(product => product.id == productOriginal.id))
             {
-                //delete discount to product
                 this.removeDiscountToProduct(productOriginal, discount);
             }
         }
