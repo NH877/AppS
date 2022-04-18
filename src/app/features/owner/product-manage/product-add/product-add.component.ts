@@ -30,7 +30,7 @@ export class ProductAddComponent implements OnInit {
 	public imageURL: string;
 	public loading: boolean = false;
 	public loadedDiscountsOfProduct: IDiscount[] = [];
-	public discountSelected: IDiscount;
+	public discountSelected: IDiscount[];
 
 	public originalProduct: IProduct;
 	@Input() productDataForModify: IProduct;
@@ -332,7 +332,7 @@ export class ProductAddComponent implements OnInit {
 		
 			if (this.discountSelected)
 			{
-				if(this.discountSelected.id != this.originalProduct.discount?.id)
+				if(this.discountSelected != this.originalProduct.discount)
 					return false;
 			}
 				
@@ -392,7 +392,6 @@ export class ProductAddComponent implements OnInit {
 								firebaseTimestamp: Date.now(),
 								firebaseId: element.docs[0].id,
 								disabled: false,
-								discount: []
 							}
 							this.modifyProductToFirebase(product);
 						})
@@ -418,7 +417,6 @@ export class ProductAddComponent implements OnInit {
 					firebaseTimestamp: Date.now(),
 					firebaseId: element.docs[0].id,
 					disabled: false,
-					discount: []
 				}
 				this.modifyProductToFirebase(product);
 			}
@@ -505,7 +503,7 @@ export class ProductAddComponent implements OnInit {
 		this.discountChild.reset();
 	}
 
-	public handleDiscountReceived(discount: IDiscount): void {
+	public handleDiscountReceived(discount: IDiscount[]): void {
 		this.discountSelected = discount;
 	}
 }

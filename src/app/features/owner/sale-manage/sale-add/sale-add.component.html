@@ -50,7 +50,7 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <app-discount-selector (newItemEvent)="handleSelected($event)"></app-discount-selector>
+                                <app-discount-selector [loadedDiscounts]="loadedDiscountsOfProduct" (newItemEvent)="handleSelected($event)"></app-discount-selector>
                             </div>
                         </div> 
                     </div>

@@ -82,12 +82,14 @@ export class DiscountAddComponent implements OnInit {
 	public handleResponce(selectedProducts: IProduct[]) {
 		this.selectedProducts = selectedProducts;
     
+		let dicount: IDiscount = {
+			id: CoreHelper.generateIdDate(),
             name: this.discountForm.get('name')?.value,
             rate: this.discountForm.get('rate')?.value,
             firebaseTimestamp: Date.now()
         }
 
-		this.dcService.add(product)
+		this.dcService.add(dicount)
 		.then(() => {
 			this.snackBar.open("Descuento agregado", "Cerrar", {
 				duration: 3000,
@@ -104,5 +106,4 @@ export class DiscountAddComponent implements OnInit {
 			this.dialogRef.close();
 		})
 	}
-
 }

@@ -43,6 +43,6 @@ export class DiscountSelectorComponent implements OnInit {
     }
 
     public reset(){
-        this.selectedDiscount = {} as IDiscount
+        this.discountForm.reset();
     }
 }

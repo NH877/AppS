@@ -27,6 +27,7 @@ export class SaleAddComponent implements OnInit {
 	public totalDiscount: any;
 	public discount: IDiscount;
 	public dateToday =  new Date()
+	public loadedDiscountsOfProduct: IDiscount[] = [];
 
 	constructor(
 		private productService: ProductService,
@@ -39,6 +40,7 @@ export class SaleAddComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.initForm();
+		this.loadedDiscountsOfProduct = this.data.discount;
 	}
 
 	public initForm(): void {
@@ -58,8 +60,8 @@ export class SaleAddComponent implements OnInit {
 		this.stockOfSize(size);
 	}
 
-	public handleSelected(discount: IDiscount): void {
-		this.discount ? this.resetDiscount(discount) : this.discount = discount;
+	public handleSelected(discount: IDiscount[]): void {
+		//this.discount ? this.resetDiscount(discount) : this.discount = discount;
 	}
 
 	private resetDiscount(discount: IDiscount): void {
