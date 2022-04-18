@@ -28,7 +28,7 @@ export class ProductAddComponent implements OnInit {
 	private file: File;
 	public imageURL: string;
 	public loading: boolean = false;
-
+	public loadedDiscountsOfProduct: IDiscount[] = [];
 
 	public originalProduct: IProduct;
 	@Input() productDataForModify: IProduct;
@@ -71,6 +71,7 @@ export class ProductAddComponent implements OnInit {
 
 		this.originalProduct = this.productDataForModify;
 		this.imageURL = this.originalProduct.img;
+		this.loadedDiscountsOfProduct = this.productDataForModify.discount;
 
 		if (this.productDataForModify.name)
 			this.productForm.get('name')?.setValue(this.productDataForModify.name);
@@ -482,7 +483,6 @@ export class ProductAddComponent implements OnInit {
 		this.productForm.reset();
 	}
 
-	public handleDiscountReceived(discount: IDiscount): void {
-		console.log(discount);
+	public handleDiscountReceived(discount: IDiscount[]): void {
 	}
 }

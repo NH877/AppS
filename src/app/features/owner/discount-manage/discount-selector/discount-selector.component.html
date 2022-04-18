@@ -1,8 +1,8 @@
-<mat-form-field appearance="outline" class="w-100">
+<mat-form-field appearance="outline" class="w-100" [formGroup]="discountForm">
     <mat-label>Descuentos aplicables</mat-label>
-    <mat-select [(ngModel)]="selectedDiscount" (selectionChange)="changedSelected()">
-        <mat-option *ngFor="let dc of discounts" [value]="dc" >
-            {{dc.rate}}% - {{dc.name}}
+    <mat-select formControlName="discount" [compareWith]="compareCategoryObjects" (selectionChange)="changedSelected()" multiple>
+        <mat-option *ngFor="let discount of discounts" [value]="discount" >
+            {{discount.rate}}% - {{discount.name}}
         </mat-option>
     </mat-select>
 </mat-form-field>

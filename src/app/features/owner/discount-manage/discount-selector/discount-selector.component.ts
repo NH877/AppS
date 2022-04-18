@@ -1,4 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { IDiscount } from 'src/app/core/entities';
 import { DiscountService } from 'src/app/shared/services/discount/discount.service';
 
@@ -10,23 +11,34 @@ import { DiscountService } from 'src/app/shared/services/discount/discount.servi
 export class DiscountSelectorComponent implements OnInit {
 
     public discounts: IDiscount[];
-    public selectedDiscount: IDiscount;
-    @Output() newItemEvent = new EventEmitter<IDiscount>();
+    public discountForm: FormGroup;
+
+    @Input() loadedDiscounts: IDiscount[];
+    @Output() newItemEvent = new EventEmitter<IDiscount[]>();
 
     constructor(private dcService: DiscountService) { }
 
     ngOnInit(): void {
+
+        this.discountForm = new FormGroup({
+			'discount': new FormControl(this.loadedDiscounts, [Validators.required])
+		})
+
         this.getDiscountList();
     }
 
     private getDiscountList(): void {
-        console.log("Calling the DB regarding discounts");
         this.dcService.getAll().valueChanges().subscribe(dc => {
             this.discounts = dc as IDiscount[];
         })
     }
 
     public changedSelected() {
-        this.newItemEvent.emit(this.selectedDiscount);
+        console.log(this.discountForm.get('discount')?.value)
+        this.newItemEvent.emit(this.discountForm.get('discount')?.value);
+    }
+
+    compareCategoryObjects(object1: any, object2: any) {
+        return object1 && object2 && object1.id == object2.id;
     }
 }
