@@ -4,8 +4,9 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { IDiscount } from 'src/app/core/entities';
+import { IDiscount, IProduct } from 'src/app/core/entities';
 import { DiscountService } from 'src/app/shared/services/discount/discount.service';
+import { ProductService } from 'src/app/shared/services/product/product.service';
 import { DiscountAddComponent } from '../discount-add/discount-add.component';
 import { DiscountModifyComponent } from '../discount-modify/discount-modify.component';
 
@@ -18,13 +19,20 @@ export class DiscountListComponent implements OnInit {
     public dcDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
     public displayedColumns: string[] = ['name', 'rate', 'action'];
 
+    private products: IProduct[] = [];
+
     @ViewChild(MatPaginator) paginator: MatPaginator;
     @ViewChild(MatSort) sort: MatSort;
 
-    constructor(private dcService: DiscountService, public dialog: MatDialog, private snackBar: MatSnackBar) { }
+    constructor(
+        private dcService: DiscountService, 
+        public dialog: MatDialog, 
+        private snackBar: MatSnackBar,
+        public pService: ProductService
+        ) { }
 
     ngOnInit(): void {
-        this.getDiscountList()
+        this.getDiscountList();
     }
 
     private getDiscountList(): void {
@@ -38,8 +46,11 @@ export class DiscountListComponent implements OnInit {
     public delete(discount: IDiscount): void {
         this.dcService.getById(discount.id).get().subscribe(element => {
             discount.firebaseId = element.docs[0].id
-            this.dcService.delete(discount)
+            this.dcService.delete(discount) 
                 .then(() => {
+
+                    this.removeDiscountToProduct(discount)
+
                     this.snackBar.open("Descuento eliminado", "Cerrar", {
                         duration: 3000,
                         panelClass: ['green-snackbar']
@@ -51,6 +62,36 @@ export class DiscountListComponent implements OnInit {
                         panelClass: ['red-snackbar']
                     });
                 })
+        })
+    }
+    
+    private removeDiscountToProduct(discountForDelete: IDiscount): void {
+
+        this.pService.getAll_sync().then(responce => {
+
+            let allProducts = responce as IProduct[];
+
+            for(let product of allProducts) 
+            {
+                if(product.discount.find(discount => discount.id == discountForDelete.id))
+                    this.products.push(product);
+            }
+            
+            for(let productWithDiscount of this.products)
+            {
+                var i = productWithDiscount.discount.indexOf(discountForDelete);
+                productWithDiscount.discount.splice( i, 1 );
+
+                this.pService.modify(productWithDiscount)
+                .then()
+                .catch(error => {
+                    this.snackBar.open("Error al intentar sacar el descuento del producto", "Cerrar", {
+                        duration: 3000,
+                        panelClass: ['red-snackbar']
+                    });
+                });
+            }
+          
         })
     }
 
