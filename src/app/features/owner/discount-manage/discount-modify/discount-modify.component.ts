@@ -19,6 +19,7 @@ export class DiscountModifyComponent implements OnInit {
     public rateControl: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
 
     public selectedProducts: IProduct[] = [];
+    public selectedProductsOriginals: IProduct[] = [];
     public oldProducts: any = null;
     public discount: IDiscount;
     public isLoading: boolean;
@@ -50,7 +51,10 @@ export class DiscountModifyComponent implements OnInit {
                     product.discount.forEach(dc => {
                         let discount = dc as IDiscount
                         if (discount.id == this.discount.id)
+                        {
                             this.selectedProducts.push(product);
+                            this.selectedProductsOriginals.push(product);
+                        }
                     })
                 }
             });
@@ -128,6 +132,19 @@ export class DiscountModifyComponent implements OnInit {
 
             if (this.discountForm.get('rate')?.value != this.discount.rate)
                 return false;
+
+            if(this.selectedProductsOriginals.length != this.selectedProducts.length)
+                return false;
+            else 
+            {
+                this.selectedProductsOriginals.sort();
+                this.selectedProducts.sort();
+                for(let i=0; i<this.selectedProductsOriginals.length; i++)
+                {
+                    if(this.selectedProductsOriginals[i].id != this.selectedProducts[i].id)
+                        return false;
+                }
+            }
 		}
 		return true;
 	}
