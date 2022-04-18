@@ -24,7 +24,13 @@ export class DiscountModifyComponent implements OnInit {
     public discount: IDiscount;
     public isLoading: boolean;
 
-    constructor(private dcService: DiscountService, private snackBar: MatSnackBar, private pService: ProductService, @Inject(MAT_DIALOG_DATA) public data: IDiscount, public dialogRef: MatDialogRef<DiscountModifyComponent>) { }
+    constructor(
+        private dcService: DiscountService, 
+        private snackBar: MatSnackBar, 
+        private pService: ProductService, 
+        @Inject(MAT_DIALOG_DATA) public data: IDiscount, 
+        public dialogRef: MatDialogRef<DiscountModifyComponent>
+        ) { }
 
 
     ngOnInit(): void {
@@ -100,21 +106,54 @@ export class DiscountModifyComponent implements OnInit {
     }
   
     public manageDiscountsInProducts(discount: IDiscount): void {
-        console.log(this.selectedProducts)
-        console.log(this.oldProducts)
-        this.oldProducts.forEach((p:IProduct) => {
-            if(this.selectedProducts.includes(p)){
-                console.log(p)
-                console.log("NO LA TIENE")
-            }
-        })
-
-        let failEdits = 0;
         
+        for(let product of this.selectedProducts)
+        {
+            if(!this.selectedProductsOriginals.find(productOriginal => productOriginal.id == product.id))
+            {
+                //add discount to product
+                this.addDiscountToProduct(product, discount);
+            }
+        }
+
+        for(let productOriginal of this.selectedProductsOriginals)
+        {
+            if(!this.selectedProducts.find(product => product.id == productOriginal.id))
+            {
+                //delete discount to product
+                this.removeDiscountToProduct(productOriginal, discount);
+            }
+        }
     }
 
-    public removeDiscountToProduct() {
+    public addDiscountToProduct(product: IProduct, discount: IDiscount): void{
 
+        product.discount.push(discount);
+
+        this.pService.modify(product)
+            .then()
+            .catch(error => {
+                this.snackBar.open("Error al intentar agregar el descuento al producto", "Cerrar", {
+                    duration: 3000,
+                    panelClass: ['red-snackbar']
+                });
+            });
+        
+
+    }
+
+    public removeDiscountToProduct(product: IProduct, discount: IDiscount) {
+        var i = product.discount.indexOf(discount);
+        product.discount.splice( i, 1 );
+
+        this.pService.modify(product)
+            .then()
+            .catch(error => {
+                this.snackBar.open("Error al intentar sacar el descuento del producto", "Cerrar", {
+                    duration: 3000,
+                    panelClass: ['red-snackbar']
+                });
+            });
     }
 
     public handleResponce(selectedProducts: IProduct[]) {
