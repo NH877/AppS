@@ -104,8 +104,8 @@ export class ProductListComponent implements OnInit {
 	}
 
 	public addSale(): void {
-		const dialogRef = this.dialog.open(SaleAddComponent, {
-			width: '900px',  /* ESTO DEFINE LO ANCHO QUE VA SER EL MAT-DIALOG*/ 
+		this.dialog.open(SaleAddComponent, {
+			width: '900px',
 			autoFocus: false,
 		});
 	}
@@ -133,10 +133,11 @@ export class ProductListComponent implements OnInit {
 		
 	}
 
-	public scanProduct(){const dialogRef = this.dialog.open(ProductScanComponent, {
-		width: '900px',   
-		autoFocus: false,
-	});
+	public scanProduct(){
+		this.dialog.open(ProductScanComponent, {
+			width: '900px',   
+			autoFocus: false,
+		});
 
 	}
 

@@ -96,14 +96,14 @@ export class DiscountListComponent implements OnInit {
     }
 
     public addDiscount(): void {
-        const dialogRef = this.dialog.open(DiscountAddComponent, {
+        this.dialog.open(DiscountAddComponent, {
             width: '900px',
             autoFocus: false,
         });
     }
 
     public modifyDiscount(discount: IDiscount): void {
-        const dialogRef = this.dialog.open(DiscountModifyComponent, {
+        this.dialog.open(DiscountModifyComponent, {
             width: '900px',
             data: discount,
             autoFocus: false,
