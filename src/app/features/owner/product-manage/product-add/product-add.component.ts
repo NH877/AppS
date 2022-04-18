@@ -29,8 +29,8 @@ export class ProductAddComponent implements OnInit {
 	private file: File;
 	public imageURL: string;
 	public loading: boolean = false;
+	public loadedDiscountsOfProduct: IDiscount[] = [];
 	public discountSelected: IDiscount;
-
 
 	public originalProduct: IProduct;
 	@Input() productDataForModify: IProduct;
@@ -73,6 +73,7 @@ export class ProductAddComponent implements OnInit {
 
 		this.originalProduct = this.productDataForModify;
 		this.imageURL = this.originalProduct.img;
+		this.loadedDiscountsOfProduct = this.productDataForModify.discount;
 
 		if (this.productDataForModify.name)
 			this.productForm.get('name')?.setValue(this.productDataForModify.name);
@@ -391,6 +392,7 @@ export class ProductAddComponent implements OnInit {
 								firebaseTimestamp: Date.now(),
 								firebaseId: element.docs[0].id,
 								disabled: false,
+								discount: []
 							}
 							this.modifyProductToFirebase(product);
 						})
@@ -416,6 +418,7 @@ export class ProductAddComponent implements OnInit {
 					firebaseTimestamp: Date.now(),
 					firebaseId: element.docs[0].id,
 					disabled: false,
+					discount: []
 				}
 				this.modifyProductToFirebase(product);
 			}
@@ -457,6 +460,7 @@ export class ProductAddComponent implements OnInit {
 				firebaseTimestamp: Date.now(),
 				firebaseId: element.docs[0].id,
 				disabled: false,
+				discount: []
 			}
 
 			this.productService.delete(product)

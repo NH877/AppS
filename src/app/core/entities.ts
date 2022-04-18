@@ -17,7 +17,7 @@ export interface IProduct extends IFirebaseObject {
     stockSize: StockSize[];
     img: string;
     disabled: boolean;
-    discount?: IDiscount;
+    discount: IDiscount[];
 }
 
 export interface ISale extends IFirebaseObject {

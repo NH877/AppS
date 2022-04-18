@@ -42,6 +42,7 @@ export class ProductService {
     }
 
     public modify(product: IProduct): Promise<void> {
+        console.log(product);
         return this.db.collection('product').doc(product.firebaseId).update(CoreHelper.convertToObject(product));
     }
 

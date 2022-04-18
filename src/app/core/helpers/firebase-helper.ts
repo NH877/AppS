@@ -15,7 +15,7 @@ export class FirebaseHelper {
         for(let queryObj of query.docs)
         {
             let firebaseObj = queryObj.data();
-            firebaseObj.id = queryObj.id;
+            firebaseObj.firebaseId = queryObj.id;
             firebaseObjects.push(firebaseObj);
         }
         return firebaseObjects;

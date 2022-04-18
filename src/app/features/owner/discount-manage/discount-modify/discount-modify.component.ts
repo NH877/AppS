@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IDiscount } from 'src/app/core/entities';
+import { IDiscount, IProduct } from 'src/app/core/entities';
 import { DiscountService } from 'src/app/shared/services/discount/discount.service';
+import { ProductService } from 'src/app/shared/services/product/product.service';
 
 @Component({
     selector: 'app-discount-modify',
@@ -16,23 +18,56 @@ export class DiscountModifyComponent implements OnInit {
     public nameControl: FormControl = new FormControl('', [Validators.required, Validators.maxLength(25), Validators.minLength(4)]);
     public rateControl: FormControl = new FormControl(null, [Validators.required, Validators.min(0)]);
 
+    public selectedProducts: IProduct[] = [];
+    public oldProducts: any = null;
     public discount: IDiscount;
+    public isLoading: boolean;
 
-    constructor(private dcService: DiscountService,
-        private snackBar: MatSnackBar,
-        public dialogRef: MatDialogRef<DiscountModifyComponent>) { }
+    constructor(private dcService: DiscountService, private snackBar: MatSnackBar, private pService: ProductService, @Inject(MAT_DIALOG_DATA) public data: IDiscount, public dialogRef: MatDialogRef<DiscountModifyComponent>) { }
+
 
     ngOnInit(): void {
+        this.isLoading = true;
+        this.discount = this.data;
         this.initForm();
     }
 
     public initForm(): void {
+        this.nameControl.setValue(this.discount.name);
+        this.rateControl.setValue(this.discount.rate);
         this.discountForm = new FormGroup({
             'name': this.nameControl,
             'rate': this.rateControl,
         })
-        this.discountForm.controls['name'].setValue(this.discount.name);       
-        this.discountForm.controls['rate'].setValue(this.discount.rate);
+        this.getListProduct();
+    }
+
+    private getListProduct(): void {
+        this.pService.getAll().valueChanges().subscribe(products => {
+            products.forEach(pr => {
+                let product = pr as IProduct;
+                if (product.discount.length) {
+                    product.discount.forEach(dc => {
+                        let discount = dc as IDiscount
+                        if (discount.id == this.discount.id)
+                            this.selectedProducts.push(product);
+                    })
+                }
+            });
+            if (this.oldProducts == null) {
+                this.saveOldProducts();
+            }
+            this.isLoading = false;
+        })
+    }
+
+    public saveOldProducts() {
+        this.oldProducts = [] as IProduct[]
+        this.selectedProducts.forEach(element => {
+            if (!this.oldProducts.includes(element)) {
+                this.oldProducts.push(element)
+            }
+        });
     }
 
     public modifyDiscount(): void {
@@ -46,6 +81,7 @@ export class DiscountModifyComponent implements OnInit {
                         duration: 3000,
                         panelClass: ['green-snackbar']
                     });
+                    this.manageDiscountsInProducts(this.discount)
                 })
                 .catch(() => {
                     this.snackBar.open("Error al intentar modificar el descuento", "Cerrar", {
@@ -58,10 +94,32 @@ export class DiscountModifyComponent implements OnInit {
                 })
         })
     }
+  
+    public manageDiscountsInProducts(discount: IDiscount): void {
+        console.log(this.selectedProducts)
+        console.log(this.oldProducts)
+        this.oldProducts.forEach((p:IProduct) => {
+            if(this.selectedProducts.includes(p)){
+                console.log(p)
+                console.log("NO LA TIENE")
+            }
+        })
+
+        let failEdits = 0;
+        
+    }
+
+    public removeDiscountToProduct() {
+
+    }
+
+    public handleResponce(selectedProducts: IProduct[]) {
+        this.selectedProducts = selectedProducts;
+    }
 
     public cancelDiscount(): void {
-		this.dialogRef.close();
-	}
+	  	this.dialogRef.close();
+	  }
 
     public validateModifyButton(): boolean {
 		if (this.discountForm.valid) {
@@ -73,4 +131,5 @@ export class DiscountModifyComponent implements OnInit {
 		}
 		return true;
 	}
+  
 }

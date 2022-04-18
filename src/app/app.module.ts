@@ -31,6 +31,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatListModule } from '@angular/material/list';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 // Components
@@ -49,6 +51,7 @@ import { DiscountListComponent } from './features/owner/discount-manage/discount
 import { DiscountAddComponent } from './features/owner/discount-manage/discount-add/discount-add.component';
 import { DiscountModifyComponent } from './features/owner/discount-manage/discount-modify/discount-modify.component';
 import { DiscountSelectorComponent } from './features/owner/discount-manage/discount-selector/discount-selector.component';
+import { ProductMultiSelectorComponent } from './features/owner/product-manage/product-multi-selector/product-multi-selector.component';
 
 
 @NgModule({
@@ -68,7 +71,8 @@ import { DiscountSelectorComponent } from './features/owner/discount-manage/disc
 		DiscountListComponent,
 		DiscountAddComponent,
 		DiscountModifyComponent,
-  DiscountSelectorComponent,
+		DiscountSelectorComponent,
+		ProductMultiSelectorComponent,
 	],
 	imports: [
 		BrowserModule,
@@ -96,7 +100,8 @@ import { DiscountSelectorComponent } from './features/owner/discount-manage/disc
 		MatSelectModule,
 		MatRadioModule,
 		FormsModule,
-		MatListModule
+		MatListModule,
+		MatCheckboxModule
 	],
 	providers: [],
 	bootstrap: [AppComponent]

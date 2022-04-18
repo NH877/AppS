@@ -38,7 +38,6 @@ export class DiscountListComponent implements OnInit {
     public delete(discount: IDiscount): void {
         this.dcService.getById(discount.id).get().subscribe(element => {
             discount.firebaseId = element.docs[0].id
-
             this.dcService.delete(discount)
                 .then(() => {
                     this.snackBar.open("Descuento eliminado", "Cerrar", {
@@ -65,9 +64,9 @@ export class DiscountListComponent implements OnInit {
     public modifyDiscount(discount: IDiscount): void {
         const dialogRef = this.dialog.open(DiscountModifyComponent, {
             width: '900px',
+            data: discount,
             autoFocus: false,
         });
-        dialogRef.componentInstance.discount = discount;
     }
 
     public applyFilter(event: Event): void {
