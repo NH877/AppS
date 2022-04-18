@@ -50,7 +50,14 @@
                         </div>
                         <div class="row">
                             <div class="col">
-                                <app-discount-selector [loadedDiscounts]="loadedDiscountsOfProduct" (newItemEvent)="handleSelected($event)"></app-discount-selector>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Descuentos aplicables</mat-label>
+                                    <mat-select formControlName="discount" multiple (selectionChange)="changedSelected()">
+                                        <mat-option *ngFor="let discount of data.discount" [value]="discount" >
+                                            {{discount.rate}}% - {{discount.name}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
                             </div>
                         </div> 
                     </div>
@@ -78,7 +85,27 @@
                                 </div>
                             </div>
                         </mat-card>
-                        <div class="row mt-4"  *ngIf="this.isCredit">
+                        <div class="row mt-4" *ngIf="this.isCredit">
+                            <div class="col">
+                                <mat-form-field appearance="outline"class="w-100">
+                                    <mat-label>Precio de Lista</mat-label>
+                                    <input matInput readonly formControlName="priceList">
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="outline"class="w-100">
+                                    <mat-label>Total con descuento</mat-label>
+                                    <input matInput readonly formControlName="discountTotal">
+                                </mat-form-field>
+                            </div>
+                            <div class="col">
+                                <mat-form-field appearance="outline"class="w-100">
+                                    <mat-label>Recargo por interes</mat-label>
+                                    <input matInput placeholder="Recargo por interes" readonly formControlName="chargeCredit">
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row"  *ngIf="this.isCredit">
                             <div class="col">
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-label>Cuotas</mat-label>
@@ -98,16 +125,6 @@
                                 </mat-form-field>
                             </div>
                         </div> 
-                        <div class="row" *ngIf="this.isCredit">
-                            <div class="col-4"></div>
-                            <div class="col-4"></div>
-                            <div class="col-4">
-                                <mat-form-field appearance="outline"class="w-100">
-                                    <mat-label>Recargo por interes</mat-label>
-                                    <input matInput placeholder="Recargo por interes" readonly formControlName="chargeCredit">
-                                </mat-form-field>
-                            </div>
-                        </div>
                         <div class="row mt-4"  *ngIf="this.isCash">
                             <div class="col">
                                 <mat-form-field appearance="outline"class="w-100">

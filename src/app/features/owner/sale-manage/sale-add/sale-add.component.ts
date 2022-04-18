@@ -25,7 +25,6 @@ export class SaleAddComponent implements OnInit {
 	public isCash: boolean;
 	public isCredit: boolean;
 	public totalDiscount: any;
-	public discount: IDiscount;
 	public dateToday =  new Date()
 	public loadedDiscountsOfProduct: IDiscount[] = [];
 
@@ -51,8 +50,10 @@ export class SaleAddComponent implements OnInit {
 			'total': new FormControl(''),
 			'size': new FormControl(''),
 			'feeValue': new FormControl(''),
+			'discount': new FormControl(''),
 			'discountTotal': this.discountTotal,
 			'chargeCredit': this.chargeCredit,
+			'priceList': new FormControl(this.data.listPrice),
 		})		
 	}
 
@@ -60,20 +61,20 @@ export class SaleAddComponent implements OnInit {
 		this.stockOfSize(size);
 	}
 
-	public handleSelected(discount: IDiscount[]): void {
-		//this.discount ? this.resetDiscount(discount) : this.discount = discount;
-	}
-
-	private resetDiscount(discount: IDiscount): void {
-		this.discount = discount;
+	public changedSelected(): void {
 		this.isCash = false;
 		this.isCredit = false;
 	}
 
 	public creditCard(): void {
-		let creditData: number = this.data.listPrice;
-		if(this.discount)
-			creditData = this.data.listPrice-((this.data.listPrice * this.discount.rate)/ 100);
+
+		let discount: number = 0;
+
+		for(let ds of this.saleForm.get('discount')?.value)
+			discount += +ds.rate;
+
+		let creditData = this.data.listPrice-((this.data.listPrice * discount)/ 100);
+		this.saleForm.get('discountTotal')?.setValue(creditData);
 
 		const dialogRef = this.dialog.open(OptionCreditCardComponent, {
 			width: '700px',
@@ -97,8 +98,12 @@ export class SaleAddComponent implements OnInit {
 	}
 
 	public cashPayment(): void {
-		if(this.discount)
-			this.saleForm.get('discountTotal')?.setValue(this.data.salePrice-((this.data.salePrice * this.discount.rate)/ 100));
+		let discount: number = 0;
+
+		for(let ds of this.saleForm.get('discount')?.value)
+			discount += +ds.rate;
+
+		this.saleForm.get('discountTotal')?.setValue(this.data.salePrice-((this.data.salePrice * discount)/ 100));
 
 		this.isCredit = false;
 		this.isCash = true;
@@ -155,7 +160,7 @@ export class SaleAddComponent implements OnInit {
 	}
 	
 	public saleProductValid(): boolean {
-		return (this.saleForm.get('stock')?.value == 0 || !this.discount)  ? true : false; 
+		return (this.saleForm.get('stock')?.value == 0 || !this.saleForm.get('discount')?.value) ? true : false; 
 	}
 
 	public validateSaleButton(): boolean {

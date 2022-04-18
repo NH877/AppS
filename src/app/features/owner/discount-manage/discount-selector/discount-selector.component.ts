@@ -34,7 +34,6 @@ export class DiscountSelectorComponent implements OnInit {
     }
 
     public changedSelected() {
-        console.log(this.discountForm.get('discount')?.value)
         this.newItemEvent.emit(this.discountForm.get('discount')?.value);
     }
 
