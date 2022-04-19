@@ -2,7 +2,7 @@ import { Component, Inject, Input, OnInit, } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { IDataFee, IDiscount, IProduct, ISale, Payment, Store } from 'src/app/core/entities';
+import { IDataFee, IDiscount, IProduct, ISale, Payment } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 import { SaleService } from 'src/app/shared/services/sale/sale.service';
@@ -129,13 +129,15 @@ export class SaleAddComponent implements OnInit {
 		let sale: ISale = {
 			id: CoreHelper.generateIdDate(),
 			product: this.data,
-			local: Store.STORE_A,
+			nameOfProfuct: this.data.name,
 			firebaseTimestamp: Date.now(),
-			discount: 0,
+			discount: this.saleForm.get('discount')?.value,
 			rate: this.isCredit ? this.dataFee.rate : 0,
 			totalPriceSale: this.isCredit ? this.dataFee.total : this.data.salePrice,
 			payment: this.isCash ? Payment.Cash : Payment.Credit_Card,
-			date: this.dateToday	
+			date: this.dateToday,
+			dataFee: this.isCredit ? this.dataFee: undefined,
+			size: this.saleForm.get('size')?.value,
 		}
 		
 		this.productService.modify(this.data)

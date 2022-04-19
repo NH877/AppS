@@ -51,6 +51,7 @@ import { DiscountAddComponent } from './features/owner/discount-manage/discount-
 import { DiscountModifyComponent } from './features/owner/discount-manage/discount-modify/discount-modify.component';
 import { DiscountSelectorComponent } from './features/owner/discount-manage/discount-selector/discount-selector.component';
 import { ProductMultiSelectorComponent } from './features/owner/product-manage/product-multi-selector/product-multi-selector.component';
+import { DateFormtPipe } from './shared/pipes/date-formt.pipe';
 
 
 @NgModule({
@@ -72,6 +73,7 @@ import { ProductMultiSelectorComponent } from './features/owner/product-manage/p
 		DiscountModifyComponent,
 		DiscountSelectorComponent,
 		ProductMultiSelectorComponent,
+  DateFormtPipe,
 	],
 	imports: [
 		BrowserModule,

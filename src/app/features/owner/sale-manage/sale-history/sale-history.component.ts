@@ -7,17 +7,26 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ISale } from 'src/app/core/entities';
 import { SaleService } from 'src/app/shared/services/sale/sale.service';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 
 
 @Component({
 	selector: 'app-sale-history',
 	templateUrl: './sale-history.component.html',
-	styleUrls: ['./sale-history.component.scss']
+	styleUrls: ['./sale-history.component.scss'],
+	animations: [
+    	trigger('detailExpand', [
+      	state('collapsed', style({height: '0px', minHeight: '0'})),
+      	state('expanded', style({height: '*'})),
+      	transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    	]),
+	],
 })
 export class SaleHistoryComponent implements OnInit {
 
 	public saleDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-	public displayedColumns: string[] = ['name', 'cost', 'payment', 'discount', 'rate', 'salePrice', 'action'];
+	public displayedColumns: string[] = ['date' , 'nameOfProfuct', 'size', 'payment', 'totalPriceSale', 'action'];
+	public expandedElement: ISale | null;
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
@@ -30,10 +39,10 @@ export class SaleHistoryComponent implements OnInit {
 	) { }
 
 	ngOnInit(): void {
-		this.getSaleList ()
+		this.getSaleList()
 	}
 
-	private getSaleList (): void {
+	private getSaleList(): void {
 		this.saleService.getAll().valueChanges().subscribe(sales => {
 			this.saleDataSource.data = sales;
 			this.saleDataSource.paginator = this.paginator;
