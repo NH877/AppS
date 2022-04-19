@@ -29,6 +29,8 @@ export class ProductListComponent implements OnInit {
 
 	public productDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 	public displayedColumns: string[] = ['name', 'cost', 'listPrice', 'salePrice', 'action'];
+	public displayedColumnsMobile: string[] = ['name'];
+
 	public expandedElement: IProduct | null;
   
 	public productForModify: IProduct;

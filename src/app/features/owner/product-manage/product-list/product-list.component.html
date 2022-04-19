@@ -116,3 +116,119 @@
         </div>
     </div>
 </div>
+
+<div class="d-xl-none">
+    <div class="container" >
+        <div class="row">
+            <div class="col mb-4">
+                <mat-card>
+                    <mat-card-header>
+                        <h3>Lista de Productos</h3>
+                    </mat-card-header>
+                    <mat-divider></mat-divider>
+                    <mat-card-content>
+                        <div class="row mt-4">
+                            <div class="col">
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Filtro</mat-label>
+                                    <input matInput (keyup)="applyFilter($event)" placeholder="Filtración" #input>
+                                    <mat-icon matSuffix>search</mat-icon>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col mt-2">
+                                <button mat-button color="accent" (click)="scanProduct()" class="w-100">
+                                    <mat-icon>document_scanner</mat-icon>
+                                    <span>Escanear codigo</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col">
+                                <table mat-table [dataSource]="productDataSource" class="w-100" matSort multiTemplateDataRows>
+
+                                    <ng-container matColumnDef="name">
+                                        <th mat-header-cell *matHeaderCellDef> Nombre </th>
+                                        <td mat-cell *matCellDef="let product" (click)="resetStock(product)"> {{product.name}} </td>
+                                    </ng-container>
+
+                                    <ng-container matColumnDef="expandedDetail">
+                                        <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumnsMobile.length" >
+                                            <div class="example-element-detail" 
+                                                [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+                                                <div class="row ta-c mt-4">
+                                                    <div class="col">
+                                                        <img src='{{element.img}}' class='imgRedonda' />
+                                                    </div>  
+                                                </div>
+                                                <div class="row ta-c mt-4">
+                                                    <div class="col">
+                                                        <h4>XS ({{stockXS}})</h4>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h4>S ({{stockS}})</h4>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h4>M ({{stockM}})</h4>
+                                                    </div>
+                                                </div>
+                                                <div class="row ta-c mt-4">
+                                                    <div class="col">
+                                                        <h4>L ({{stockL}})</h4>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h4>XL ({{stockXL}})</h4>
+                                                    </div>
+                                                    <div class="col">
+                                                        <h4>XXL ({{stockXXL}})</h4>
+                                                    </div>  
+                                                </div>
+                                                <div class="row ta-c mt-4 mb-4">
+                                                    <div class="col">
+                                                        <mat-list>
+                                                            <mat-list-item> Costo ${{element.cost}}</mat-list-item>
+                                                            <mat-list-item> Precio de venta ${{element.salePrice}}</mat-list-item>
+                                                            <mat-list-item> Precio de lista ${{element.listPrice}}</mat-list-item>
+                                                        </mat-list>
+                                                    </div>
+                                                </div>
+                                                <div class="row ta-c mt-4 mb-4">
+                                                    <div class="col">
+                                                        <button mat-icon-button class="greenButton" (click)="sell(element)">
+                                                            <mat-icon>point_of_sale</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col">
+                                                        <button mat-icon-button color="accent" (click)="modify(element)">
+                                                            <mat-icon>edit</mat-icon>
+                                                        </button>
+                                                    </div>
+                                                    <div class="col">
+                                                        <button mat-icon-button color="warn" (click)="delete(element)">
+                                                            <mat-icon>delete_forever</mat-icon>
+                                                        </button>
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </ng-container>
+
+                                    <tr mat-header-row *matHeaderRowDef="displayedColumnsMobile"></tr>
+                                    <tr mat-row *matRowDef="let element; columns: displayedColumnsMobile;"
+                                        [class.example-expanded-row]="expandedElement === element"
+                                        (click)="expandedElement = expandedElement === element ? null : element"
+                                        class="example-element-row"></tr>
+                                    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
+                                    </tr>
+
+                                </table>
+                                <mat-paginator class="w-100" [length]="100" [pageSize]="25" [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
