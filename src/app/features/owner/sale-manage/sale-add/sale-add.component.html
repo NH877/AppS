@@ -1,70 +1,241 @@
-<div class="row">
-    <div class="col">
-        <mat-card [formGroup]="saleForm">
-            <mat-card-header>
-                <mat-card-title>Venta de Producto</mat-card-title>
-            </mat-card-header>
-            <mat-card-content>
-                <div class="row">
+<div class="d-none d-sm-block">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <mat-card [formGroup]="saleForm">
+                    <mat-card-header>
+                        <mat-card-title>Venta de Producto</mat-card-title>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <div class="row">
+                            <div class="col">
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field class="w-100" appearance="outline">
+                                            <mat-label>Nombre</mat-label>
+                                            <input matInput placeholder="Nombre" readonly formControlName="name">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Seleccionar un talle</mat-label>
+                                            <mat-select [formControl]="sizeControl" (selectionChange)="handleSizeChange($event.value)">
+                                                <mat-option value="XS">
+                                                    XS
+                                                </mat-option>
+                                                <mat-option value="S">
+                                                    S
+                                                </mat-option>
+                                                <mat-option value="M">
+                                                    M
+                                                </mat-option>
+                                                <mat-option value="L">
+                                                    L
+                                                </mat-option>
+                                                <mat-option value="XL">
+                                                    XL
+                                                </mat-option>
+                                                <mat-option value="XXL">
+                                                    XXL
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col">
+                                        <mat-form-field appearance="outline">
+                                            <mat-label>Stock</mat-label>
+                                            <input matInput placeholder="Stock" readonly formControlName="stock">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Descuentos aplicables</mat-label>
+                                            <mat-select formControlName="discount" multiple (selectionChange)="changedSelected()">
+                                                <mat-option *ngFor="let discount of data.discount" [value]="discount" >
+                                                    {{discount.rate}}% - {{discount.name}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+                            </div>
+                            <div class="col max-size-image-col">
+                                <mat-card class="mat-elevation-z0 outline p-0">
+                                    <img class="img-fluid mx-auto d-block" [src]="data.img">
+                                </mat-card>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <mat-card *ngIf="!saleProductValid()">
+                                    <mat-card-header>
+                                        <mat-card-title>Medio de Pago</mat-card-title>
+                                    </mat-card-header>
+                                    <div class="row mt-4">
+                                        <div class="col">   
+                                            <button mat-flat-button color="accent" (click)="cashPayment()" class="w-100">Efectivo</button>
+                                        </div>
+                                        <div class="col">
+                                            <button mat-flat-button color="accent" (click)="creditCard()" class="w-100">
+                                                <mat-icon>credit_card</mat-icon>
+                                                <span>Tarjeta de Credito</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </mat-card>
+                                <div class="row mt-4" *ngIf="this.isCredit">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline"class="w-100">
+                                            <mat-label>Precio de Lista</mat-label>
+                                            <input matInput readonly formControlName="priceList">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col">
+                                        <mat-form-field appearance="outline"class="w-100">
+                                            <mat-label>Total con descuento</mat-label>
+                                            <input matInput readonly formControlName="discountTotal">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col">
+                                        <mat-form-field appearance="outline"class="w-100">
+                                            <mat-label>Recargo por interes</mat-label>
+                                            <input matInput placeholder="Recargo por interes" readonly formControlName="chargeCredit">
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+                                <div class="row" *ngIf="this.isCredit">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Cuotas</mat-label>
+                                            <input matInput placeholder="Cuotas" readonly formControlName="feeNumber">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col">
+                                        <mat-form-field appearance="outline" class="w-100">
+                                            <mat-label>Valor por cuota</mat-label>
+                                            <input matInput placeholder="Valor por cuota" readonly formControlName="feeValue">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col">
+                                        <mat-form-field appearance="outline"class="w-100">
+                                            <mat-label>Total</mat-label>
+                                            <input matInput placeholder="Total" readonly formControlName="total">
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+                                <div class="row mt-4"  *ngIf="this.isCash">
+                                    <div class="col">
+                                        <mat-form-field appearance="outline"class="w-100">
+                                            <mat-label>Precio de Venta</mat-label>
+                                            <input matInput readonly formControlName="total">
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col">
+                                        <mat-form-field appearance="outline"class="w-100">
+                                            <mat-label>Total con descuento</mat-label>
+                                            <input matInput readonly formControlName="discountTotal">
+                                        </mat-form-field>
+                                    </div>
+                                </div> 
+                            </div>
+                        </div>
+                    </mat-card-content>
+                    <mat-card-actions>
+                        <div class="row">
+                            <div class="col" align="start">
+                                <button mat-button (click)="cancelSaleAdd()">
+                                    <mat-icon>clear</mat-icon>
+                                    <span>Cancelar</span>
+                                </button>
+                            </div>
+                            <div class="col" align="end">
+                                <button mat-button (click)="sale()" [disabled]="validateSaleButton()">
+                                    <mat-icon>monetization_on</mat-icon>
+                                    <span>Vender</span>
+                                </button>
+                            </div>
+                        </div>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="d-xl-none">
+    <div class="container" [formGroup]="saleForm" style="max-height: 500px;">
+        <div class="row">
+            <div class="col">
+                <div class="row ta-c">
                     <div class="col">
-                        <div class="row">
-                            <div class="col">
-                                <mat-form-field class="w-100" appearance="outline">
-                                    <mat-label>Nombre</mat-label>
-                                    <input matInput placeholder="Nombre" readonly formControlName="name">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Seleccionar un talle</mat-label>
-                                    <mat-select [formControl]="sizeControl" (selectionChange)="handleSizeChange($event.value)">
-                                        <mat-option value="XS">
-                                            XS
-                                        </mat-option>
-                                        <mat-option value="S">
-                                            S
-                                        </mat-option>
-                                        <mat-option value="M">
-                                            M
-                                        </mat-option>
-                                        <mat-option value="L">
-                                            L
-                                        </mat-option>
-                                        <mat-option value="XL">
-                                            XL
-                                        </mat-option>
-                                        <mat-option value="XXL">
-                                            XXL
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                            <div class="col">
-                                <mat-form-field appearance="outline">
-                                    <mat-label>Stock</mat-label>
-                                    <input matInput placeholder="Stock" readonly formControlName="stock">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col">
-                                <mat-form-field appearance="outline" class="w-100">
-                                    <mat-label>Descuentos aplicables</mat-label>
-                                    <mat-select formControlName="discount" multiple (selectionChange)="changedSelected()">
-                                        <mat-option *ngFor="let discount of data.discount" [value]="discount" >
-                                            {{discount.rate}}% - {{discount.name}}
-                                        </mat-option>
-                                    </mat-select>
-                                </mat-form-field>
-                            </div>
-                        </div> 
+                        <h3> Venta de Producto </h3>
                     </div>
+                </div>
+                <div class="row">
                     <div class="col max-size-image-col">
                         <mat-card class="mat-elevation-z0 outline p-0">
                             <img class="img-fluid mx-auto d-block" [src]="data.img">
                         </mat-card>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col">
+                        <mat-form-field class="w-100" appearance="outline">
+                            <mat-label>Nombre</mat-label>
+                            <input matInput placeholder="Nombre" readonly formControlName="name">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Seleccionar un talle</mat-label>
+                            <mat-select [formControl]="sizeControl" (selectionChange)="handleSizeChange($event.value)">
+                                <mat-option value="XS">
+                                    XS
+                                </mat-option>
+                                <mat-option value="S">
+                                    S
+                                </mat-option>
+                                <mat-option value="M">
+                                    M
+                                </mat-option>
+                                <mat-option value="L">
+                                    L
+                                </mat-option>
+                                <mat-option value="XL">
+                                    XL
+                                </mat-option>
+                                <mat-option value="XXL">
+                                    XXL
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Stock</mat-label>
+                            <input matInput placeholder="Stock" readonly formControlName="stock">
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Descuentos aplicables</mat-label>
+                            <mat-select formControlName="discount" multiple (selectionChange)="changedSelected()">
+                                <mat-option *ngFor="let discount of data.discount" [value]="discount" >
+                                    {{discount.rate}}% - {{discount.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
                     </div>
                 </div>
                 <div class="row">
@@ -77,6 +248,8 @@
                                 <div class="col">   
                                     <button mat-flat-button color="accent" (click)="cashPayment()" class="w-100">Efectivo</button>
                                 </div>
+                            </div>
+                            <div class="row mt-2">
                                 <div class="col">
                                     <button mat-flat-button color="accent" (click)="creditCard()" class="w-100">
                                         <mat-icon>credit_card</mat-icon>
@@ -92,12 +265,16 @@
                                     <input matInput readonly formControlName="priceList">
                                 </mat-form-field>
                             </div>
+                        </div>
+                        <div class="row" *ngIf="this.isCredit">
                             <div class="col">
                                 <mat-form-field appearance="outline"class="w-100">
                                     <mat-label>Total con descuento</mat-label>
                                     <input matInput readonly formControlName="discountTotal">
                                 </mat-form-field>
                             </div>
+                        </div>
+                        <div class="row" *ngIf="this.isCredit">
                             <div class="col">
                                 <mat-form-field appearance="outline"class="w-100">
                                     <mat-label>Recargo por interes</mat-label>
@@ -105,19 +282,23 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="row"  *ngIf="this.isCredit">
+                        <div class="row" *ngIf="this.isCredit">
                             <div class="col">
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-label>Cuotas</mat-label>
                                     <input matInput placeholder="Cuotas" readonly formControlName="feeNumber">
                                 </mat-form-field>
                             </div>
+                        </div>
+                        <div class="row" *ngIf="this.isCredit">
                             <div class="col">
                                 <mat-form-field appearance="outline" class="w-100">
                                     <mat-label>Valor por cuota</mat-label>
                                     <input matInput placeholder="Valor por cuota" readonly formControlName="feeValue">
                                 </mat-form-field>
                             </div>
+                        </div>
+                        <div class="row" *ngIf="this.isCredit">
                             <div class="col">
                                 <mat-form-field appearance="outline"class="w-100">
                                     <mat-label>Total</mat-label>
@@ -125,13 +306,15 @@
                                 </mat-form-field>
                             </div>
                         </div> 
-                        <div class="row mt-4"  *ngIf="this.isCash">
+                        <div class="row mt-4" *ngIf="this.isCash">
                             <div class="col">
                                 <mat-form-field appearance="outline"class="w-100">
                                     <mat-label>Precio de Venta</mat-label>
                                     <input matInput readonly formControlName="total">
                                 </mat-form-field>
                             </div>
+                        </div>
+                        <div class="row" *ngIf="this.isCash">
                             <div class="col">
                                 <mat-form-field appearance="outline"class="w-100">
                                     <mat-label>Total con descuento</mat-label>
@@ -141,23 +324,19 @@
                         </div> 
                     </div>
                 </div>
-            </mat-card-content>
-            <mat-card-actions>
-                <div class="row">
-                    <div class="col" aling="end">
-                        <button mat-button (click)="cancelSaleAdd()">
+                <div class="row mb-4 mt-4">
+                    <div class="col" align="start">
+                        <button mat-icon-button color="warn" (click)="cancelSaleAdd()">
                             <mat-icon>clear</mat-icon>
-                            <span>Cancelar</span>
                         </button>
                     </div>
                     <div class="col" align="end">
-                        <button mat-button (click)="sale()" [disabled]="validateSaleButton()">
-                            <mat-icon>monetization_on</mat-icon>
-                            <span>Vender</span>
+                        <button mat-icon-button (click)="sale()" [disabled]="validateSaleButton()">
+                            <mat-icon class="greenButton">monetization_on</mat-icon>
                         </button>
                     </div>
                 </div>
-            </mat-card-actions>
-        </mat-card>
+            </div>
+        </div>
     </div>
 </div>
