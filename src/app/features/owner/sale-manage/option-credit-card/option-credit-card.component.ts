@@ -33,7 +33,7 @@ export class OptionCreditCardComponent implements OnInit {
     constructor(
         public dialogRef: MatDialogRef<OptionCreditCardComponent>,
         @Inject(MAT_DIALOG_DATA) public data: number
-    ) { }
+    ) {dialogRef.disableClose = true;}
 
     ngOnInit(): void {
         this.feeInit();
