@@ -21,6 +21,7 @@ export class SaleAddComponent implements OnInit {
 	public discountTotal: FormControl = new FormControl('');
 	public chargeCredit: FormControl = new FormControl('');
 	public saleForm: FormGroup;	
+	public disableSale: boolean;
 	public dataFee: IDataFee;
 	public isCash: boolean;
 	public isCredit: boolean;
@@ -123,7 +124,7 @@ export class SaleAddComponent implements OnInit {
 	}
 
 	public sale(): void {
-		
+		this.disableSale = true;
 		this.data.stockSize.find(x => x.size == this.saleForm.get('size')?.value ? x.stock-- : null);
 		
 		let sale: ISale = {
@@ -161,12 +162,16 @@ export class SaleAddComponent implements OnInit {
 			});
 	}
 	
+	
 	public saleProductValid(): boolean {
 		return (this.saleForm.get('stock')?.value == 0 || !this.saleForm.get('discount')?.value) ? true : false; 
 	}
 
 	public validateSaleButton(): boolean {
-		return (this.isCash || this.isCredit) ? false : true;	
+		if(this.disableSale)
+			return true;
+		else
+			return (this.isCash || this.isCredit) ? false : true;
 	}
 
 	public cancelSaleAdd(): void {
