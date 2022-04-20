@@ -426,7 +426,6 @@ export class ProductAddComponent implements OnInit {
 	private modifyProductToFirebase(product: IProduct): void {
 		this.productService.modify(product)
 			.then(() => {
-				this.loading = false;
 				this.snackBar.open("Producto modificado", "Cerrar", {
 					duration: 3000,
 					panelClass: ['blue-snackbar']

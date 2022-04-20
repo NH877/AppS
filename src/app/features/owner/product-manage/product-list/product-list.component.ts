@@ -91,7 +91,6 @@ export class ProductListComponent implements OnInit {
 	public modify(product: any): void {
 		this.dialog.open(ProductModifyComponent, {
 			width: 'auto',
-			height: '99%',
 			data: product as IProduct,
 			autoFocus: false,
 		});
