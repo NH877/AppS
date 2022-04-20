@@ -59,6 +59,9 @@ export class DiscountAddComponent implements OnInit {
 					panelClass: ['red-snackbar']
 				});
 			})
+			.finally(() => {
+				this.dialogRef.close();
+			});
 	}
 	  
 	public cancelDiscount(): void {
