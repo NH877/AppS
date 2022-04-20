@@ -123,7 +123,11 @@ export class OptionCreditCardComponent implements OnInit {
         this.dialogRef.close({data:this.datafee});
     }
 
-    public selectButton(): boolean{
+    public cancel(): void {
+        this.dialogRef.close();
+    }
+
+    public selectButton(): boolean {
        if(this.datafee == null)
        {
             return true

@@ -188,6 +188,11 @@
 
                 <mat-divider class="mt-4"></mat-divider>
                 <div class="row mt-3">
+                    <div class="col d-flex">
+                        <button mat-icon-button class="redButton" (click)="cancel()">
+                            <mat-icon>clear</mat-icon>
+                        </button>
+                    </div>
                     <div class="col d-flex justify-content-end">
                         <button mat-icon-button class="greenButton" (click)="submit()" [disabled]="selectButton()">
                             <mat-icon>done</mat-icon>
