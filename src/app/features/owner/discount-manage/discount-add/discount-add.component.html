@@ -29,13 +29,13 @@
     <mat-card-actions>
         <div class="row">
             <div class="col">
-                <button mat-button color="danger" class="w-100" (click)="addDiscount()" [disabled]="!discountForm.valid">
-                    <mat-icon>file_upload</mat-icon>
+                <button mat-button  color="warn" class="w-100" (click)="cancelDiscount()">
+                    <mat-icon>close</mat-icon>
                 </button>
             </div>
             <div class="col">
-                <button mat-button color="warn" class="w-100" (click)="cancelDiscount()">
-                    <mat-icon>close</mat-icon>
+                <button mat-button class="w-100 greenButton" (click)="addDiscount()" [disabled]="!discountForm.valid">
+                    <mat-icon>done</mat-icon>
                 </button>
             </div>
         </div>
