@@ -133,11 +133,11 @@
                                 <div class="row mt-4"  *ngIf="this.isCash">
                                     <div class="col">
                                         <mat-form-field appearance="outline"class="w-100">
-                                            <mat-label>Precio de Venta</mat-label>
+                                            <mat-label>Total (Precio de Venta)</mat-label>
                                             <input matInput readonly formControlName="total">
                                         </mat-form-field>
                                     </div>
-                                    <div class="col">
+                                    <div class="col" *ngIf="this.discountCash">
                                         <mat-form-field appearance="outline"class="w-100">
                                             <mat-label>Total con descuento</mat-label>
                                             <input matInput readonly formControlName="discountTotal">
@@ -320,7 +320,7 @@
                                 </mat-form-field>
                             </div>
                         </div>
-                        <div class="row" *ngIf="this.isCash">
+                        <div class="row" *ngIf="this.discountCash">
                             <div class="col">
                                 <mat-form-field appearance="outline"class="w-100">
                                     <mat-label>Total con descuento</mat-label>
