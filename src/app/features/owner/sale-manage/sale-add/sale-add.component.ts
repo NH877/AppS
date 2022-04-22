@@ -28,6 +28,7 @@ export class SaleAddComponent implements OnInit {
 	public totalDiscount: any;
 	public dateToday =  new Date()
 	public loadedDiscountsOfProduct: IDiscount[] = [];
+	public discountCash: number;
 
 	constructor(
 		private productService: ProductService,
@@ -99,12 +100,12 @@ export class SaleAddComponent implements OnInit {
 	}
 
 	public cashPayment(): void {
-		let discount: number = 0;
+		this.discountCash = 0;
 
 		for(let ds of this.saleForm.get('discount')?.value)
-			discount += +ds.rate;
+			this.discountCash += +ds.rate;
 
-		this.saleForm.get('discountTotal')?.setValue(this.data.salePrice-((this.data.salePrice * discount)/ 100));
+		this.saleForm.get('discountTotal')?.setValue(this.data.salePrice-((this.data.salePrice * this.discountCash)/ 100));
 
 		this.isCredit = false;
 		this.isCash = true;
