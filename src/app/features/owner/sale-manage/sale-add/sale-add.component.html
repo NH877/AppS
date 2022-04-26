@@ -90,59 +90,46 @@
                                         </div>
                                     </div>
                                 </mat-card>
-                                <div class="row mt-4" *ngIf="this.isCredit">
-                                    <div class="col">
-                                        <mat-form-field appearance="outline"class="w-100">
-                                            <mat-label>Precio de Lista</mat-label>
-                                            <input matInput readonly formControlName="priceList">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col">
-                                        <mat-form-field appearance="outline"class="w-100">
-                                            <mat-label>Total con descuento</mat-label>
-                                            <input matInput readonly formControlName="discountTotal">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col">
-                                        <mat-form-field appearance="outline"class="w-100">
-                                            <mat-label>Recargo por interes</mat-label>
-                                            <input matInput placeholder="Recargo por interes" readonly formControlName="chargeCredit">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                                <div class="row" *ngIf="this.isCredit">
-                                    <div class="col">
-                                        <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>Cuotas</mat-label>
-                                            <input matInput placeholder="Cuotas" readonly formControlName="feeNumber">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col">
-                                        <mat-form-field appearance="outline" class="w-100">
-                                            <mat-label>Valor por cuota</mat-label>
-                                            <input matInput placeholder="Valor por cuota" readonly formControlName="feeValue">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col">
-                                        <mat-form-field appearance="outline"class="w-100">
-                                            <mat-label>Total</mat-label>
-                                            <input matInput placeholder="Total" readonly formControlName="total">
-                                        </mat-form-field>
-                                    </div>
-                                </div> 
+                                  
+                                <mat-list *ngIf="this.isCredit">
+                                    <mat-list-item role="listitem">Precio de Lista
+                                        <div mat-line>$ {{data.listPrice}}</div>
+                                    </mat-list-item>
+
+                                    <mat-list-item role="listitem" *ngIf="chargeCredit.value != 0">Recargo por Interes
+                                        <div mat-line>$ {{chargeCredit.value}}</div>
+                                    </mat-list-item>
+
+                                    <mat-list-item role="listitem" *ngIf="feeNumber.value != 1">Cuotas
+                                        <div mat-line>{{feeNumber.value}} X ${{feeValue.value}} </div>
+                                    </mat-list-item>
+
+                                    <mat-list-item role="listitem" *ngIf="discountTotal.value != data.listPrice">Total con Descuento
+                                        <div mat-line>${{discountTotal.value}}</div>
+                                    </mat-list-item>
+
+                                    <mat-divider></mat-divider>
+
+                                    <mat-list-item role="listitem">Total (Precio de Venta)
+                                        <div mat-line>${{total.value}}</div>
+                                    </mat-list-item>                                
+                                </mat-list>
+ 
                                 <div class="row mt-4"  *ngIf="this.isCash">
-                                    <div class="col">
-                                        <mat-form-field appearance="outline"class="w-100">
-                                            <mat-label>Total (Precio de Venta)</mat-label>
-                                            <input matInput readonly formControlName="total">
-                                        </mat-form-field>
-                                    </div>
-                                    <div class="col" *ngIf="this.discountCash">
-                                        <mat-form-field appearance="outline"class="w-100">
-                                            <mat-label>Total con descuento</mat-label>
-                                            <input matInput readonly formControlName="discountTotal">
-                                        </mat-form-field>
-                                    </div>
+                                    <mat-list>
+
+                                        <mat-list-item role="listitem">Total 
+                                            <div mat-line>${{total.value}}</div>
+                                        </mat-list-item> 
+                                        
+                                        <mat-divider *ngIf="this.discountCash"></mat-divider>
+
+                                        <mat-list-item role="listitem" *ngIf="this.discountCash">Total con Descuento (Precio de Venta)
+                                            <div mat-line>${{discountTotal.value}}</div>
+                                        </mat-list-item>
+                                        
+                                    </mat-list>
+                        
                                 </div> 
                             </div>
                         </div>
@@ -264,70 +251,48 @@
                                 </div>
                             </div>
                         </mat-card>
-                        <div class="row mt-4" *ngIf="this.isCredit">
-                            <div class="col">
-                                <mat-form-field appearance="outline"class="w-100">
-                                    <mat-label>Precio de Lista</mat-label>
-                                    <input matInput readonly formControlName="priceList">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row" *ngIf="this.isCredit">
-                            <div class="col">
-                                <mat-form-field appearance="outline"class="w-100">
-                                    <mat-label>Total con descuento</mat-label>
-                                    <input matInput readonly formControlName="discountTotal">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row" *ngIf="this.isCredit">
-                            <div class="col">
-                                <mat-form-field appearance="outline"class="w-100">
-                                    <mat-label>Recargo por interes</mat-label>
-                                    <input matInput placeholder="Recargo por interes" readonly formControlName="chargeCredit">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row" *ngIf="this.isCredit">
-                            <div class="col">
-                                <mat-form-field appearance="outline" class="w-100">
-                                    <mat-label>Cuotas</mat-label>
-                                    <input matInput placeholder="Cuotas" readonly formControlName="feeNumber">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row" *ngIf="this.isCredit">
-                            <div class="col">
-                                <mat-form-field appearance="outline" class="w-100">
-                                    <mat-label>Valor por cuota</mat-label>
-                                    <input matInput placeholder="Valor por cuota" readonly formControlName="feeValue">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row" *ngIf="this.isCredit">
-                            <div class="col">
-                                <mat-form-field appearance="outline"class="w-100">
-                                    <mat-label>Total</mat-label>
-                                    <input matInput placeholder="Total" readonly formControlName="total">
-                                </mat-form-field>
-                            </div>
+                        
+                        <mat-list *ngIf="this.isCredit">
+                            <mat-list-item role="listitem">Precio de Lista
+                                <div mat-line>$ {{data.listPrice}}</div>
+                            </mat-list-item>
+
+                            <mat-list-item role="listitem" *ngIf="chargeCredit.value != 0">Recargo por Interes
+                                <div mat-line>$ {{chargeCredit.value}}</div>
+                            </mat-list-item>
+
+                            <mat-list-item role="listitem" *ngIf="feeNumber.value != 1">Cuotas
+                                <div mat-line>{{feeNumber.value}} X ${{feeValue.value}} </div>
+                            </mat-list-item>
+
+                            <mat-list-item role="listitem" *ngIf="discountTotal.value != data.listPrice">Total con Descuento
+                                <div mat-line>${{discountTotal.value}}</div>
+                            </mat-list-item>
+
+                            <mat-divider></mat-divider>
+
+                            <mat-list-item role="listitem">Total 
+                                <div mat-line>${{total.value}}</div>
+                            </mat-list-item>                                
+                        </mat-list>
+
+                        <div class="row mt-4"  *ngIf="this.isCash">
+                            <mat-list>
+
+                                <mat-list-item role="listitem">Total 
+                                    <div mat-line>${{total.value}}</div>
+                                </mat-list-item> 
+                                
+                                <mat-divider *ngIf="this.discountCash"></mat-divider>
+
+                                <mat-list-item role="listitem" *ngIf="this.discountCash">Total con Descuento
+                                    <div mat-line>${{discountTotal.value}}</div>
+                                </mat-list-item>
+                                
+                            </mat-list>
+                
                         </div> 
-                        <div class="row mt-4" *ngIf="this.isCash">
-                            <div class="col">
-                                <mat-form-field appearance="outline"class="w-100">
-                                    <mat-label>Precio de Venta</mat-label>
-                                    <input matInput readonly formControlName="total">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <div class="row" *ngIf="this.discountCash">
-                            <div class="col">
-                                <mat-form-field appearance="outline"class="w-100">
-                                    <mat-label>Total con descuento</mat-label>
-                                    <input matInput readonly formControlName="discountTotal">
-                                </mat-form-field>
-                            </div>
-                        </div> 
+                        
                     </div>
                 </div>
                 <div class="row mb-4 mt-4">
