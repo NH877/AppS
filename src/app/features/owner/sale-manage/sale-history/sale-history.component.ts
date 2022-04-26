@@ -27,6 +27,8 @@ export class SaleHistoryComponent implements OnInit {
 	public saleDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 	public displayedColumns: string[] = ['date' , 'nameOfProfuct', 'size', 'payment', 'totalPriceSale', 'action'];
 	public expandedElement: ISale | null;
+	public expandedDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
+	public expandedColumns: string[] = ['discount' , 'rate' , 'feeNumber' , 'feeValue' , 'cost' , 'salePrice' , 'earnings'];
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
@@ -40,6 +42,25 @@ export class SaleHistoryComponent implements OnInit {
 
 	ngOnInit(): void {
 		this.getSaleList()
+	}
+
+	public test(element: any): boolean {
+		
+		this.expandedElement = this.expandedElement === element ? null : element;
+			
+			let test: any[] = [
+				{
+					discount: element.discount[0].rate + '%', 
+					rate: element.rate ? element.rate + '%' : 'Sin Interes',
+					feeNumber: element.dataFee ? element.dataFee.feeNumber: '---',
+					feeValue: element.dataFee ? element.dataFee.feeValue + '$': '---',
+					cost: element.product.cost,
+					salePrice: element.product.salePrice,
+					earnings: element.product.salePrice - element.product.cost
+				}
+			]
+			this.expandedDataSource.data = test; 
+		return true;	
 	}
 
 	private getSaleList(): void {

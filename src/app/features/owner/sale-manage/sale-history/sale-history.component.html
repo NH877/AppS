@@ -58,33 +58,50 @@
                                     </ng-container>
 
                                     <ng-container matColumnDef="expandedDetail">
-                                        <td mat-cell *matCellDef="let sale" [attr.colspan]="displayedColumns.length" >
+                                        <td mat-cell *matCellDef="let sale" [attr.colspan]="displayedColumns.length" class="p0">
                                             <div class="example-element-detail" 
                                                 [@detailExpand]="sale == expandedElement ? 'expanded' : 'collapsed'">
-                                                <div class="row mt-4 mb-4">
-                                                    <div class="col">
-                                                        <img src='{{sale.product.img}}' class='imgRedonda' />
-                                                    </div>
-                                                    <div class="col">
-                                                        <mat-list>
-                                                            <mat-list-item *ngFor="let dis of sale.discount"> Descuento del %{{dis.rate}} </mat-list-item>
-                                                            <mat-list-item> Interes del %{{sale.rate}} </mat-list-item>
-                                                        </mat-list>
-                                                    </div>
-                                                    <div class="col" *ngIf="sale.dataFee">
-                                                        <mat-list>
-                                                            <mat-list-item> Cantidad de cuotas {{sale.dataFee.feeNumber}}</mat-list-item>
-                                                            <mat-list-item> Precio por cuota ${{sale.dataFee.feeValue}}</mat-list-item>
-                                                        </mat-list>
-                                                    </div>
-                                                    <div class="col">
-                                                        <mat-list>
-                                                            <mat-list-item> Costo ${{sale.product.cost}} </mat-list-item>
-                                                            <mat-list-item> Precio de venta ${{sale.totalPriceSale}} </mat-list-item>
-                                                            <mat-list-item> Ganancia ${{sale.totalPriceSale - sale.product.cost}} </mat-list-item>
-                                                        </mat-list>
-                                                    </div>
-                                                </div>
+                                                <table mat-table [dataSource]="expandedDataSource" class="mat-elevation-z8">
+                                                    <ng-container matColumnDef="discount">
+                                                        <th mat-header-cell *matHeaderCellDef>Descuento</th>
+                                                        <td mat-cell *matCellDef="let element">{{element.discount}}</td>
+                                                    </ng-container>
+
+                                                    <ng-container matColumnDef="rate">
+                                                        <th mat-header-cell *matHeaderCellDef>Interes</th>
+                                                        <td mat-cell *matCellDef="let element">{{element.rate}}</td>
+                                                    </ng-container>
+
+                                                    <ng-container matColumnDef="feeNumber">
+                                                        <th mat-header-cell *matHeaderCellDef>Cantidad de cuotas</th>
+                                                        <td mat-cell *matCellDef="let element">{{element.feeNumber}}</td>
+                                                    </ng-container>
+
+                                                    <ng-container matColumnDef="feeValue">
+                                                        <th mat-header-cell *matHeaderCellDef>Percio por cuota</th>
+                                                        <td mat-cell *matCellDef="let element">{{element.feeValue}}</td>
+                                                    </ng-container>
+
+                                                    <ng-container matColumnDef="cost">
+                                                        <th mat-header-cell *matHeaderCellDef>Costo</th>
+                                                        <td mat-cell *matCellDef="let element">${{element.cost}}</td>
+                                                    </ng-container>
+
+                                                    <ng-container matColumnDef="salePrice">
+                                                        <th mat-header-cell *matHeaderCellDef>Precio de venta</th>
+                                                        <td mat-cell *matCellDef="let element">${{element.salePrice}}</td>
+                                                    </ng-container>
+
+                                                    <ng-container matColumnDef="earnings">
+                                                        <th mat-header-cell *matHeaderCellDef>Ganancia</th>
+                                                        <td mat-cell *matCellDef="let element">${{element.earnings}}</td>
+                                                    </ng-container>
+
+                                                     <tr mat-header-row *matHeaderRowDef="expandedColumns"></tr>
+                                                     <tr mat-row *matRowDef="let element; columns: expandedColumns;"
+                                                     [class.example-expanded-row]="expandedElement === element" 
+                                                     class="example-element-row"></tr>
+                                                </table>
                                             </div>
                                         </td>
                                     </ng-container>
@@ -92,7 +109,7 @@
                                     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                                     <tr mat-row *matRowDef="let element; columns: displayedColumns;"
                                         [class.example-expanded-row]="expandedElement === element"
-                                        (click)="expandedElement = expandedElement === element ? null : element"
+                                        (click)="test(element)"
                                         class="example-element-row"></tr>
                                     <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row">
                                     </tr>
@@ -103,6 +120,17 @@
                         </div>
                     </mat-card-content>
                 </mat-card>
+
+                <table mat-table [dataSource]="expandedDataSource" class="mat-elevation-z8">
+                    <ng-container matColumnDef="discount">
+                        <th mat-header-cell *matHeaderCellDef> Descuento </th>
+                        <td mat-cell *matCellDef="let element">% </td>
+                    </ng-container>
+                    <ng-container matColumnDef="rate">
+                        <th mat-header-cell *matHeaderCellDef> Descuento </th>
+                        <td mat-cell *matCellDef="let element">% </td>
+                    </ng-container>
+                </table>
             </div>
         </div>
     </div>
