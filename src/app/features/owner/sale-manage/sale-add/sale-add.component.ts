@@ -1,4 +1,4 @@
-import { Component, Inject, Input, OnInit, } from '@angular/core';
+import { Component, Inject, OnInit, } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -20,6 +20,9 @@ export class SaleAddComponent implements OnInit {
 	public stockControl: FormControl = new FormControl('');
 	public discountTotal: FormControl = new FormControl('');
 	public chargeCredit: FormControl = new FormControl('');
+	public feeNumber: FormControl = new FormControl('');
+	public total: FormControl = new FormControl('');
+	public feeValue: FormControl = new FormControl('');
 	public saleForm: FormGroup;	
 	public disableSale: boolean;
 	public dataFee: IDataFee;
@@ -48,10 +51,10 @@ export class SaleAddComponent implements OnInit {
 		this.saleForm = new FormGroup({
 			'name': new FormControl(this.data.name),
 			'stock': this.stockControl,
-			'feeNumber': new FormControl(''),
-			'total': new FormControl(''),
+			'feeNumber': this.feeNumber,
+			'total': this.total,
 			'size': new FormControl(''),
-			'feeValue': new FormControl(''),
+			'feeValue': this.feeValue,
 			'discount': new FormControl(''),
 			'discountTotal': this.discountTotal,
 			'chargeCredit': this.chargeCredit,
@@ -163,7 +166,7 @@ export class SaleAddComponent implements OnInit {
 			});
 	}
 	
-	
+
 	public saleProductValid(): boolean {
 		return (this.saleForm.get('stock')?.value == 0 || !this.saleForm.get('discount')?.value) ? true : false; 
 	}
@@ -179,5 +182,6 @@ export class SaleAddComponent implements OnInit {
 		this.dialogRef.close();
 	}
 
+	
 }
 
