@@ -28,7 +28,7 @@ export class SaleHistoryComponent implements OnInit {
 	public displayedColumns: string[] = ['date' , 'nameOfProfuct', 'size', 'payment', 'totalPriceSale', 'action'];
 	public expandedElement: ISale | null;
 	public expandedDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-	public expandedColumns: string[] = ['discount' , 'rate' , 'feeNumber' , 'feeValue' , 'cost' , 'salePrice' , 'earnings'];
+	public expandedColumns: string[] = ['discount' , 'rate' , 'feeNumber' , 'feeValue' , 'cost' , 'totalPriceSale' , 'earnings'];
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
@@ -55,8 +55,8 @@ export class SaleHistoryComponent implements OnInit {
 					feeNumber: element.dataFee ? element.dataFee.feeNumber: '---',
 					feeValue: element.dataFee ? element.dataFee.feeValue + '$': '---',
 					cost: element.product.cost,
-					salePrice: element.product.salePrice,
-					earnings: element.product.salePrice - element.product.cost
+					totalPriceSale: element.totalPriceSale,
+					earnings: element.totalPriceSale - element.product.cost
 				}
 			]
 			this.expandedDataSource.data = test; 
