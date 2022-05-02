@@ -462,7 +462,8 @@ export class ProductAddComponent implements OnInit {
 
 			this.productService.delete(product)
 				.then(() => {
-					this.deleteFile("img-" + this.productDataForDelete.id);
+					if(product.img)
+						this.deleteFile("img-" + this.productDataForDelete.id);
 					this.loading = false;
 					this.snackBar.open("Producto Eliminado", "Cerrar", {
 						duration: 3000,
@@ -482,6 +483,7 @@ export class ProductAddComponent implements OnInit {
 	}
 
 	public deleteFile(path: string): void {
+		console.log('Yama mas kpito')
 		this.productService.deleteFileStorage(path);
 	}
 
