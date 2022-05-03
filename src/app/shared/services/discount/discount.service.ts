@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
 import { IDiscount } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
+import { FirebaseHelper } from 'src/app/core/helpers/firebase-helper';
 
 @Injectable({
     providedIn: 'root'
@@ -21,6 +22,10 @@ export class DiscountService {
     public getById(id: string): AngularFirestoreCollection<unknown> {
         return this.db.collection('discount', ref => ref.where('id','==',id));
 	}
+
+    public getByRate(rate: string) {
+        return FirebaseHelper.mapSingleObjectToPromise(this.db.collection('discount', ref => ref.where('rate','==',rate)).get());
+    }
 
     public delete(dc: any): Promise<void> {
         return this.db.collection('discount').doc(dc.firebaseId).delete();
