@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, } from '@angular/core';
+import { Component, createNgModuleRef, Inject, OnInit, } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -83,7 +83,7 @@ export class SaleAddComponent implements OnInit {
 
 		const dialogRef = this.dialog.open(OptionCreditCardComponent, {
 			width: '700px',
-			data: creditData,
+			data: {creditData : creditData, test:this.dataFee},
 			autoFocus: false,
 		});
 
