@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { IDiscount, IProduct, Size, StockSize } from 'src/app/core/entities';
 import { CoreHelper } from 'src/app/core/helpers/core-helper';
+import { DiscountService } from 'src/app/shared/services/discount/discount.service';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 import { DiscountSelectorComponent } from '../../discount-manage/discount-selector/discount-selector.component';
 
@@ -30,7 +31,7 @@ export class ProductAddComponent implements OnInit {
 	public imageURL: string;
 	public loading: boolean = false;
 	public loadedDiscountsOfProduct: IDiscount[] = [];
-	public discountSelected: IDiscount[];
+	public discountSelected: IDiscount[] = [];
 
 	public originalProduct: IProduct;
 	@Input() productDataForModify: IProduct;
@@ -40,7 +41,8 @@ export class ProductAddComponent implements OnInit {
 	constructor(
 		private productService: ProductService,
 		private router: Router,
-		private snackBar: MatSnackBar
+		private snackBar: MatSnackBar,
+		private discountService: DiscountService,
 	) { }
 
 	ngOnInit(): void {
@@ -227,7 +229,7 @@ export class ProductAddComponent implements OnInit {
 		this.stockSizeList.push(newStockSizeXXL);
 	}
 
-	public addProduct(): void {
+	public async addProduct(): Promise<void> {
 		this.loading = true;
 		this.pushStockSizeList();
 
@@ -235,6 +237,12 @@ export class ProductAddComponent implements OnInit {
 
 		let name: string = "img-" + idProduct;
 		this.productForm.get('img')?.setValue(name);
+		
+		if(this.discountSelected.find(discount => discount.rate == 0) == undefined)
+		{
+			let discount = await this.discountService.getByRate('0');
+			this.discountSelected.push(discount);
+		}
 
 		if (this.file) {
 			this.productService.addFileStorage(this.file, name)
@@ -462,7 +470,8 @@ export class ProductAddComponent implements OnInit {
 
 			this.productService.delete(product)
 				.then(() => {
-					this.deleteFile("img-" + this.productDataForDelete.id);
+					if(product.img)
+						this.deleteFile("img-" + this.productDataForDelete.id);
 					this.loading = false;
 					this.snackBar.open("Producto Eliminado", "Cerrar", {
 						duration: 3000,
@@ -482,6 +491,7 @@ export class ProductAddComponent implements OnInit {
 	}
 
 	public deleteFile(path: string): void {
+		console.log('Yama mas kpito')
 		this.productService.deleteFileStorage(path);
 	}
 

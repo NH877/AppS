@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ISale } from 'src/app/core/entities';
 import { SaleService } from 'src/app/shared/services/sale/sale.service';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { elementEventFullName } from '@angular/compiler/src/view_compiler/view_compiler';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class SaleHistoryComponent implements OnInit {
 	public displayedColumns: string[] = ['date' , 'nameOfProfuct', 'size', 'payment', 'totalPriceSale', 'action'];
 	public expandedElement: ISale | null;
 	public expandedDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
-	public expandedColumns: string[] = ['discount' , 'rate' , 'feeNumber' , 'feeValue' , 'cost' , 'salePrice' , 'earnings'];
+	public expandedColumns: string[] = ['discount' , 'discountsName' ,'rate' , 'feeNumber' , 'feeValue' , 'cost' , 'totalPriceSale' , 'earnings'];
 
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
@@ -44,19 +45,42 @@ export class SaleHistoryComponent implements OnInit {
 		this.getSaleList()
 	}
 
+	public getDiscountsRate(element: any): number {
+		let discounts=0;
+		for(let discount of element.discount){
+			discounts += +discount.rate;
+		}
+		if(discounts>100)
+			discounts=100;
+		return discounts;
+	}
+
+	public getDiscountsName(element: any): string {
+		let discountsName='';
+		for(let discount of element.discount){
+			if(discountsName == '')
+				discountsName += discount.name;
+			else
+				discountsName += ', ' + discount.name; 
+		}
+		return discountsName;
+	}
+
 	public test(element: any): boolean {
+		
 		
 		this.expandedElement = this.expandedElement === element ? null : element;
 			
 			let test: any[] = [
 				{
-					discount: element.discount[0].rate + '%', 
+					discount: this.getDiscountsRate(element) + '%',
+					discountsName: this.getDiscountsName(element),
 					rate: element.rate ? element.rate + '%' : 'Sin Interes',
 					feeNumber: element.dataFee ? element.dataFee.feeNumber: '---',
 					feeValue: element.dataFee ? element.dataFee.feeValue + '$': '---',
 					cost: element.product.cost,
-					salePrice: element.product.salePrice,
-					earnings: element.product.salePrice - element.product.cost
+					totalPriceSale: element.totalPriceSale,
+					earnings: element.totalPriceSale - element.product.cost
 				}
 			]
 			this.expandedDataSource.data = test; 

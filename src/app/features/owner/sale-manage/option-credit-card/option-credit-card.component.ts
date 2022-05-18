@@ -7,8 +7,22 @@ import { IDataFee } from 'src/app/core/entities';
     templateUrl: './option-credit-card.component.html',
     styleUrls: ['./option-credit-card.component.scss']
 })
+
 export class OptionCreditCardComponent implements OnInit {
 
+    public displayedColumns: string[] = ['feeNumber', 'rate', 'feeValue', 'total', 'button'];
+
+    public feeOptions: IFee[] = [
+        { feeNumber: 1, rate: 0 },
+        { feeNumber: 3, rate: 0 },
+        { feeNumber: 6, rate: 9 },
+        { feeNumber: 9, rate: 30 },
+        { feeNumber: 12, rate: 0 },
+        { feeNumber: 18, rate: 10 }
+    ]
+
+    public creditOptions: IDataFee[] = [];
+  
     public fee1: number;
     public fee3: number;
     public fee6: number;
@@ -37,6 +51,7 @@ export class OptionCreditCardComponent implements OnInit {
     ) { dialogRef.disableClose = true; }
 
     ngOnInit(): void {
+        this.datafee = this.data.test
         this.feeInit();
         if (this.data.dataFee) {
             switch (this.data.dataFee.feeNumber) {
@@ -69,6 +84,22 @@ export class OptionCreditCardComponent implements OnInit {
     }
 
     public feeInit(): void {
+        this.feeOptions.forEach(element => {
+            let row: IDataFee = {
+                feeNumber: 0,
+                total: 0,
+                feeValue: 0,
+                rate: 0,
+                charge: 0
+            };
+            row.feeNumber = element.feeNumber;
+            row.rate = element.rate;
+            row.feeValue = +((this.data.creditData + ((this.data.creditData * row.rate) / 100)) / row.feeNumber).toFixed(2);
+            row.total = +(row.feeValue * row.feeNumber).toFixed();
+            row.charge = row.total - this.data.creditData;
+            this.creditOptions.push(row);
+        })
+
         this.fee1 = +(this.data.creditData / 1).toFixed(2);
         this.fee3 = +(this.data.creditData / 3).toFixed(2);
         this.fee6 = +((this.data.creditData + ((this.data.creditData * 9) / 100)) / 6).toFixed(2);
@@ -90,6 +121,15 @@ export class OptionCreditCardComponent implements OnInit {
 
     public selectTotal(feeNumber: string | number): void {
         switch (feeNumber.toString()) {
+
+    }
+
+    public test(object: IDataFee) {
+        this.datafee = object
+    }
+
+    public selectTotal(feeNumber: string): void {
+        switch (feeNumber) {
             case '1':
                 this.datafee = {
                     feeNumber: 1,
@@ -161,4 +201,18 @@ export class OptionCreditCardComponent implements OnInit {
         }
         return false
     }
+
+    public checked(option: IDataFee): boolean {
+        if(this.datafee){
+            if (this.datafee.feeNumber == option.feeNumber) {
+                return true
+            }
+        }
+        return false
+    }
+
 }
+interface IFee {
+    feeNumber: number,
+    rate: number,
+} 
