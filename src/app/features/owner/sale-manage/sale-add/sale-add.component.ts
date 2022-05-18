@@ -89,8 +89,7 @@ export class SaleAddComponent implements OnInit {
 
 		const dialogRef = this.dialog.open(OptionCreditCardComponent, {
 			width: '700px',
-			data: sendData,
-			//data: {creditData : creditData, test:this.dataFee},
+			data: {creditData : creditData, savedValue:this.dataFee},
 			autoFocus: false,
 		});
 

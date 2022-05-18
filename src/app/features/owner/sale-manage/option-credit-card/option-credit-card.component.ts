@@ -51,7 +51,7 @@ export class OptionCreditCardComponent implements OnInit {
     ) { dialogRef.disableClose = true; }
 
     ngOnInit(): void {
-        this.datafee = this.data.test
+        this.datafee = this.data.savedValue;
         this.feeInit();
         if (this.data.dataFee) {
             switch (this.data.dataFee.feeNumber) {
@@ -119,17 +119,12 @@ export class OptionCreditCardComponent implements OnInit {
         this.charge18 = this.total18 - this.data.creditData
     }
 
-    public selectTotal(feeNumber: string | number): void {
-        switch (feeNumber.toString()) {
-
-    }
-
-    public test(object: IDataFee) {
+    public saveObject(object: IDataFee) {
         this.datafee = object
     }
 
-    public selectTotal(feeNumber: string): void {
-        switch (feeNumber) {
+    public selectTotal(feeNumber: string | number): void {
+        switch (feeNumber.toString()) {
             case '1':
                 this.datafee = {
                     feeNumber: 1,
