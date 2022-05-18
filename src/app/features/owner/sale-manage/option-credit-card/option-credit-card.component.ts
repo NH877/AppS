@@ -21,8 +21,8 @@ export class OptionCreditCardComponent implements OnInit {
         { feeNumber: 18, rate: 10 }
     ]
 
-    public creditOptions: IDataFee[] = []
-
+    public creditOptions: IDataFee[] = [];
+  
     public fee1: number;
     public fee3: number;
     public fee6: number;
@@ -37,21 +37,50 @@ export class OptionCreditCardComponent implements OnInit {
     public total12: number;
     public total18: number;
 
-
     public charge6: number;
     public charge9: number;
     public charge18: number;
+
+    public checkList: boolean[] = [false, false, false, false, false, false]
 
     public datafee: IDataFee;
 
     constructor(
         public dialogRef: MatDialogRef<OptionCreditCardComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: any
+        @Inject(MAT_DIALOG_DATA) public data: any,
     ) { dialogRef.disableClose = true; }
 
     ngOnInit(): void {
         this.datafee = this.data.test
         this.feeInit();
+        if (this.data.dataFee) {
+            switch (this.data.dataFee.feeNumber) {
+                case 1:
+                    this.checkList[0] = true;
+                    this.selectTotal(this.data.dataFee.feeNumber);
+                    break;
+                case 3:
+                    this.checkList[1] = true;
+                    this.selectTotal(this.data.dataFee.feeNumber);
+                    break;
+                case 6:
+                    this.checkList[2] = true;
+                    this.selectTotal(this.data.dataFee.feeNumber)
+                    break;
+                case 9:
+                    this.checkList[3] = true;
+                    this.selectTotal(this.data.dataFee.feeNumber)
+                    break;
+                case 12:
+                    this.checkList[4] = true;
+                    this.selectTotal(this.data.dataFee.feeNumber)
+                    break;
+                case 18:
+                    this.checkList[5] = true;
+                    this.selectTotal(this.data.dataFee.feeNumber)
+                    break;
+            }
+        }
     }
 
     public feeInit(): void {
@@ -88,6 +117,11 @@ export class OptionCreditCardComponent implements OnInit {
         this.charge6 = this.total6 - this.data.creditData
         this.charge9 = this.total9 - this.data.creditData
         this.charge18 = this.total18 - this.data.creditData
+    }
+
+    public selectTotal(feeNumber: string | number): void {
+        switch (feeNumber.toString()) {
+
     }
 
     public test(object: IDataFee) {

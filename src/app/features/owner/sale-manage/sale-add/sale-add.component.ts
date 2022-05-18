@@ -79,11 +79,18 @@ export class SaleAddComponent implements OnInit {
 			discount += +ds.rate;
 
 		let creditData = this.data.listPrice-((this.data.listPrice * discount)/ 100);
+		
+		let sendData = {
+			creditData: creditData, 
+			dataFee: this.dataFee ? this.dataFee : null
+		}
+		
 		this.saleForm.get('discountTotal')?.setValue(creditData);
 
 		const dialogRef = this.dialog.open(OptionCreditCardComponent, {
 			width: '700px',
-			data: {creditData : creditData, test:this.dataFee},
+			data: sendData,
+			//data: {creditData : creditData, test:this.dataFee},
 			autoFocus: false,
 		});
 
@@ -123,8 +130,15 @@ export class SaleAddComponent implements OnInit {
 		if(productFound) 
 			this.saleForm.get('stock')?.setValue(productFound.stock);
 		else	
-			this.saleForm.get('stock')?.setValue('0');	
-
+			this.saleForm.get('stock')?.setValue('0');
+			
+		if ((this.saleForm.get('stock')?.value == 0))
+			this.snackBar.open("No hay más stock" , "Cerrar",
+			{
+				duration: 3000,
+				panelClass: ['red-snackbar']	
+			});
+	
 	}
 
 	public sale(): void {
