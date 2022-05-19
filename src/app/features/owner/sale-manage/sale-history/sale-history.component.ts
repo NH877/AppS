@@ -31,6 +31,8 @@ export class SaleHistoryComponent implements OnInit {
 	public expandedDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
 	public expandedColumns: string[] = ['discount' , 'discountsName' ,'rate' , 'feeNumber' , 'feeValue' , 'cost' , 'totalPriceSale' , 'earnings'];
 
+	public displayedColumnsMobile: string[] = ['date', 'nameOfProfuct'];
+
 	@ViewChild(MatPaginator) paginator: MatPaginator;
 	@ViewChild(MatSort) sort: MatSort;
 
@@ -67,7 +69,6 @@ export class SaleHistoryComponent implements OnInit {
 	}
 
 	public test(element: any): boolean {
-		
 		
 		this.expandedElement = this.expandedElement === element ? null : element;
 			
