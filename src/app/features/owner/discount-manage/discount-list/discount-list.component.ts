@@ -8,16 +8,27 @@ import { IDiscount, IProduct } from 'src/app/core/entities';
 import { DiscountService } from 'src/app/shared/services/discount/discount.service';
 import { ProductService } from 'src/app/shared/services/product/product.service';
 import { DiscountAddComponent } from '../discount-add/discount-add.component';
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DiscountModifyComponent } from '../discount-modify/discount-modify.component';
 
 @Component({
     selector: 'app-discount-list',
     templateUrl: './discount-list.component.html',
-    styleUrls: ['./discount-list.component.scss']
+    styleUrls: ['./discount-list.component.scss'],
+    animations: [
+    	trigger('detailExpand', [
+      	state('collapsed', style({height: '0px', minHeight: '0'})),
+      	state('expanded', style({height: '*'})),
+      	transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
+    ]),
+    ],
 })
 export class DiscountListComponent implements OnInit {
     public dcDataSource: MatTableDataSource<any> = new MatTableDataSource<any>();
     public displayedColumns: string[] = ['name', 'rate', 'action'];
+	public displayedColumnsMobile: string[] = ['name', 'rate'];
+
+	public expandedElement: IDiscount | null;
 
     private products: IProduct[] = [];
 
@@ -103,6 +114,7 @@ export class DiscountListComponent implements OnInit {
     }
 
     public modifyDiscount(discount: IDiscount): void {
+        console.log(discount)
         this.dialog.open(DiscountModifyComponent, {
             width: '900px',
             data: discount,
